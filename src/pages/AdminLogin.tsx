@@ -2,36 +2,41 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { Lock, User, AlertCircle } from 'lucide-react';
-import { publicCssUrl } from '../utils/assets';
+import { aboutImage } from '../data/galleryImages';
+import { brandLogo } from '../data/brandAssets';
+
+const ADMIN_USERNAME = 'admin';
+const ADMIN_PASSWORD = 'admin123';
 
 export default function AdminLogin() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [logoFailed, setLogoFailed] = useState(false);
   const navigate = useNavigate();
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    try {
-      const res = await fetch('/api/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password }),
-      });
-      const data = await res.json();
-      if (res.ok) {
-        localStorage.setItem('prestige_token', data.token);
-        navigate('/admin/dashboard');
-      } else {
-        setError(data.error);
-      }
-    } catch (err) {
-      setError('Connection error');
+
+    if (username.trim() !== ADMIN_USERNAME || password !== ADMIN_PASSWORD) {
+      setError('Identifiant ou mot de passe incorrect');
+      return;
     }
+
+    localStorage.setItem('prestige_token', `local-admin-${Date.now()}`);
+    navigate('/admin/dashboard');
   };
 
   return (
-    <div className="min-h-screen bg-black flex items-center justify-center p-6 bg-cover bg-center" style={{ backgroundImage: publicCssUrl('images/regenerated_image_1778342982723.png') }}>
+    <div className="relative min-h-screen bg-black flex items-center justify-center overflow-hidden p-6">
+      <img
+        src={aboutImage.src}
+        width={aboutImage.width}
+        height={aboutImage.height}
+        className="absolute inset-0 h-full w-full object-cover opacity-30"
+        alt=""
+        aria-hidden="true"
+      />
       <div className="absolute inset-0 bg-black/80" />
       
       <motion.div
@@ -39,8 +44,22 @@ export default function AdminLogin() {
         animate={{ opacity: 1, scale: 1 }}
         className="relative z-10 w-full max-w-md bg-luxury-gray border border-gold/20 p-10 shadow-2xl backdrop-blur-xl"
       >
-        <div className="text-center mb-10">
-          <h1 className="text-3xl font-display font-bold gold-text mb-2">PRESTIGE</h1>
+        <div className="mb-10 flex flex-col items-center text-center">
+          <span className="relative mb-3 inline-flex items-center justify-center">
+            <span className="absolute inset-0 rounded-full bg-gold/20 blur-2xl opacity-70" />
+            {logoFailed ? (
+              <span className="relative text-3xl font-display font-bold gold-text">Prestige de jeux</span>
+            ) : (
+              <img
+                src={brandLogo.src}
+                width={brandLogo.width}
+                height={brandLogo.height}
+                alt={brandLogo.alt}
+                onError={() => setLogoFailed(true)}
+                className="relative h-20 w-auto object-contain drop-shadow-[0_0_25px_rgba(212,175,55,0.35)]"
+              />
+            )}
+          </span>
           <p className="text-white/40 text-xs uppercase tracking-[0.3em]">Portail Administration</p>
         </div>
 

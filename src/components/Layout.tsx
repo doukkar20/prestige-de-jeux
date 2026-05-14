@@ -6,9 +6,11 @@ import PoolCueCursor from './PoolCueCursor';
 import { motion, AnimatePresence } from 'motion/react';
 import { useLocation } from 'react-router-dom';
 import { MessageSquare } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Layout() {
   const location = useLocation();
+  const { t } = useLanguage();
 
   return (
     <div className="min-h-screen flex flex-col selection:bg-gold selection:text-black">
@@ -40,7 +42,7 @@ export default function Layout() {
       >
         <MessageSquare className="w-6 h-6" />
         <span className="absolute right-full mr-4 bg-black/80 backdrop-blur-md border border-white/10 px-4 py-2 rounded-lg text-xs whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
-          Contactez-nous
+          {t('whatsapp.btn')}
         </span>
       </a>
     </div>

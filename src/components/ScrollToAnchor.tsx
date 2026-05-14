@@ -5,18 +5,22 @@ export default function ScrollToAnchor() {
   const { pathname, hash, key } = useLocation();
 
   useEffect(() => {
-    // If not a hash link, scroll to top
     if (hash === '') {
       window.scrollTo(0, 0);
+      return;
     }
-    // Else scroll to anchor
-    else {
-      const id = hash.replace('#', '');
+
+    const id = hash.replace('#', '');
+    const scrollToElement = () => {
       const element = document.getElementById(id);
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
-    }
+    };
+
+    scrollToElement();
+    const timer = window.setTimeout(scrollToElement, 100);
+    return () => window.clearTimeout(timer);
   }, [pathname, hash, key]);
 
   return null;

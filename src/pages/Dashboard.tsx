@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   BarChart3, Calendar, CheckCircle2, ChevronRight, Clock, Crown, Download,
@@ -6,20 +6,86 @@ import {
 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { participants as seedParticipants, rewards as seedRewards, tournaments as seedTournaments } from '../data/tournaments';
-import type { Participant, Reward, Tournament } from '../types/tournament';
+import type { Participant, Reward, Tournament, TournamentStatus } from '../types/tournament';
+import { brandLogo } from '../data/brandAssets';
+
+type AdminTab = 'stats' | 'reservations' | 'tournaments' | 'menu' | 'users' | 'settings';
+type ReservationStatus = 'waiting' | 'confirmed' | 'cancelled';
+
+interface AdminReservation {
+  id: string;
+  name: string;
+  phone: string;
+  date: string;
+  time: string;
+  guests: number;
+  status: ReservationStatus;
+  message?: string;
+}
+
+const storageKeys = {
+  reservations: 'prestige_admin_reservations',
+  tournaments: 'prestige_admin_tournaments',
+  participants: 'prestige_admin_participants',
+  rewards: 'prestige_admin_rewards',
+  winner: 'prestige_admin_winner',
+};
+
+const seedReservations: AdminReservation[] = [
+  {
+    id: 'res-1',
+    name: 'Yassine Amrani',
+    phone: '+212 6 11 22 33 44',
+    date: '2026-05-18',
+    time: '20:30',
+    guests: 4,
+    status: 'waiting',
+    message: 'Table billard VIP',
+  },
+  {
+    id: 'res-2',
+    name: 'Sara El Mansouri',
+    phone: '+212 6 20 30 40 50',
+    date: '2026-05-19',
+    time: '21:00',
+    guests: 2,
+    status: 'confirmed',
+    message: 'Snooker',
+  },
+];
+
+function readStorage<T>(key: string, fallback: T): T {
+  try {
+    const value = localStorage.getItem(key);
+    return value ? JSON.parse(value) as T : fallback;
+  } catch {
+    return fallback;
+  }
+}
+
+function writeStorage<T>(key: string, value: T) {
+  localStorage.setItem(key, JSON.stringify(value));
+}
 
 export default function Dashboard() {
-  const [activeTab, setActiveTab] = useState('reservations');
-  const [stats, setStats] = useState({ reservations: 0, menuItems: 0 });
-  const [reservations, setReservations] = useState<any[]>([]);
-  const [adminTournaments, setAdminTournaments] = useState<Tournament[]>(seedTournaments);
-  const [adminParticipants, setAdminParticipants] = useState<Participant[]>(seedParticipants);
-  const [adminRewards, setAdminRewards] = useState<Reward[]>(seedRewards);
-  const [winnerId, setWinnerId] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState<AdminTab>('stats');
+  const [reservations, setReservations] = useState<AdminReservation[]>(() => readStorage(storageKeys.reservations, seedReservations));
+  const [adminTournaments, setAdminTournaments] = useState<Tournament[]>(() => readStorage(storageKeys.tournaments, seedTournaments));
+  const [adminParticipants, setAdminParticipants] = useState<Participant[]>(() => readStorage(storageKeys.participants, seedParticipants));
+  const [adminRewards, setAdminRewards] = useState<Reward[]>(() => readStorage(storageKeys.rewards, seedRewards));
+  const [winnerId, setWinnerId] = useState<string | null>(() => readStorage(storageKeys.winner, null));
   const [adminNotice, setAdminNotice] = useState('');
   const [isLoading, setIsLoading] = useState(true);
+  const [logoFailed, setLogoFailed] = useState(false);
   const navigate = useNavigate();
   const { t, isRTL } = useLanguage();
+
+  const stats = useMemo(() => ({
+    reservations: reservations.length,
+    confirmedReservations: reservations.filter((item) => item.status === 'confirmed').length,
+    clients: new Set(reservations.map((item) => item.phone)).size + adminParticipants.length,
+    menuItems: 9,
+  }), [adminParticipants.length, reservations]);
 
   useEffect(() => {
     const token = localStorage.getItem('prestige_token');
@@ -27,31 +93,14 @@ export default function Dashboard() {
       navigate('/admin');
       return;
     }
-
-    const fetchData = async () => {
-      try {
-        const [statsRes, resRes] = await Promise.all([
-          fetch('/api/admin/stats', { headers: { Authorization: `Bearer ${token}` } }),
-          fetch('/api/admin/reservations', { headers: { Authorization: `Bearer ${token}` } }),
-        ]);
-
-        if (statsRes.status === 401) {
-          localStorage.removeItem('prestige_token');
-          navigate('/admin');
-          return;
-        }
-
-        setStats(await statsRes.json());
-        setReservations(await resRes.json());
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchData();
+    setIsLoading(false);
   }, [navigate]);
+
+  useEffect(() => writeStorage(storageKeys.reservations, reservations), [reservations]);
+  useEffect(() => writeStorage(storageKeys.tournaments, adminTournaments), [adminTournaments]);
+  useEffect(() => writeStorage(storageKeys.participants, adminParticipants), [adminParticipants]);
+  useEffect(() => writeStorage(storageKeys.rewards, adminRewards), [adminRewards]);
+  useEffect(() => writeStorage(storageKeys.winner, winnerId), [winnerId]);
 
   const showNotice = (message: string) => {
     setAdminNotice(message);
@@ -61,6 +110,31 @@ export default function Dashboard() {
   const handleLogout = () => {
     localStorage.removeItem('prestige_token');
     navigate('/admin');
+  };
+
+  const addReservation = () => {
+    const next: AdminReservation = {
+      id: `res-${Date.now()}`,
+      name: 'Nouveau client',
+      phone: '+212 6 00 00 00 00',
+      date: new Date().toISOString().slice(0, 10),
+      time: '20:00',
+      guests: 2,
+      status: 'waiting',
+      message: 'Reservation ajoutee depuis le dashboard',
+    };
+    setReservations((current) => [next, ...current]);
+    showNotice('Reservation ajoutee');
+  };
+
+  const setReservationStatus = (id: string, status: ReservationStatus) => {
+    setReservations((current) => current.map((item) => item.id === id ? { ...item, status } : item));
+    showNotice(status === 'confirmed' ? 'Reservation confirmee' : 'Reservation annulee');
+  };
+
+  const deleteReservation = (id: string) => {
+    setReservations((current) => current.filter((item) => item.id !== id));
+    showNotice('Reservation supprimee');
   };
 
   const createTournament = () => {
@@ -75,7 +149,7 @@ export default function Dashboard() {
       gameType: 'Billard',
       maxParticipants: 24,
       entryFee: 120,
-      prizePool: '1 800 MAD + trophée',
+      prizePool: '1 800 MAD + trophee',
       status: 'open',
       createdAt: new Date().toISOString(),
     };
@@ -84,20 +158,26 @@ export default function Dashboard() {
   };
 
   const editTournament = (id: string) => {
+    const order: TournamentStatus[] = ['open', 'soon', 'closed'];
     setAdminTournaments((current) =>
-      current.map((item) => item.id === id ? { ...item, status: item.status === 'open' ? 'closed' : 'open' } : item)
+      current.map((item) => item.id === id ? { ...item, status: order[(order.indexOf(item.status) + 1) % order.length] } : item)
     );
+    showNotice(t('tournaments.admin.edit'));
   };
 
   const deleteTournament = (id: string) => {
     setAdminTournaments((current) => current.filter((item) => item.id !== id));
     setAdminParticipants((current) => current.filter((item) => item.tournamentId !== id));
     setAdminRewards((current) => current.filter((item) => item.tournamentId !== id));
+    showNotice(t('tournaments.admin.delete'));
   };
 
   const addParticipant = () => {
     const target = adminTournaments[0];
-    if (!target) return;
+    if (!target) {
+      showNotice('Creez un tournoi avant d ajouter un participant');
+      return;
+    }
     const participant: Participant = {
       id: `participant-${Date.now()}`,
       tournamentId: target.id,
@@ -115,16 +195,19 @@ export default function Dashboard() {
 
   const confirmParticipants = () => {
     setAdminParticipants((current) => current.map((item) => ({ ...item, status: 'confirmed' })));
+    showNotice(t('tournaments.admin.confirmParticipants'));
   };
 
   const manageRewards = () => {
     setAdminRewards((current) => current.map((item) => item.position === 1 ? { ...item, amount: item.amount + 100 } : item));
+    showNotice(t('tournaments.admin.manageRewards'));
   };
 
   const updateScores = () => {
     setAdminParticipants((current) =>
       current.map((item, index) => ({ ...item, score: item.score + Math.max(1, 3 - index), wins: item.wins + (index === 0 ? 1 : 0) }))
     );
+    showNotice(t('tournaments.admin.updateScores'));
   };
 
   const markWinner = () => {
@@ -146,52 +229,63 @@ export default function Dashboard() {
     link.download = 'prestige-tournament-participants.csv';
     link.click();
     URL.revokeObjectURL(url);
+    showNotice(t('tournaments.admin.export'));
   };
 
   const gameLabel = (gameType: string) => t(gameType === 'Snooker' ? 'tournaments.game.snooker' : 'tournaments.game.billard');
 
   const renderReservations = () => (
     <div className="bg-luxury-gray border border-white/5 rounded-2xl overflow-hidden shadow-2xl">
-      <div className="p-6 border-b border-white/5 flex justify-between items-center bg-white/[0.01]">
-        <h3 className="font-bold">Réservations Récentes</h3>
-        <button className="text-xs text-gold flex items-center space-x-1 hover:underline">
-          <span>Voir tout</span>
-          <ChevronRight className="w-3 h-3" />
+      <div className="p-6 border-b border-white/5 flex flex-col gap-4 bg-white/[0.01] sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <h3 className="font-bold">Reservations recentes</h3>
+          <p className="text-sm text-white/50">Confirmez, annulez ou supprimez les demandes.</p>
+        </div>
+        <button onClick={addReservation} className="btn-outline-gold !px-5 !py-3 text-xs">
+          <Plus className="inline h-4 w-4" /> Ajouter
         </button>
       </div>
       <div className="overflow-x-auto">
-        <table className="w-full text-left">
+        <table className="w-full min-w-[760px] text-left">
           <thead>
-            <tr className="text-xs uppercase tracking-widest text-white/30 bg-white/[0.02]">
-              <th className="p-6 font-medium">Client</th>
-              <th className="p-6 font-medium">Date & Heure</th>
-              <th className="p-6 font-medium">Convives</th>
-              <th className="p-6 font-medium">Statut</th>
-              <th className="p-6 font-medium">Actions</th>
+            <tr className="text-xs uppercase tracking-widest text-white/60 bg-white/[0.02]">
+              <th className="p-5 font-medium">Client</th>
+              <th className="p-5 font-medium">Date & Heure</th>
+              <th className="p-5 font-medium">Convives</th>
+              <th className="p-5 font-medium">Statut</th>
+              <th className="p-5 font-medium">Actions</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-white/5">
-            {reservations.map((res: any) => (
+            {reservations.map((res) => (
               <tr key={res.id} className="group hover:bg-white/[0.02] transition-colors">
-                <td className="p-6">
+                <td className="p-5">
                   <div className="font-medium">{res.name}</div>
-                  <div className="text-xs text-white/30">{res.phone}</div>
+                  <div className="text-xs text-white/50">{res.phone}</div>
+                  {res.message && <div className="mt-1 text-xs text-gold/70">{res.message}</div>}
                 </td>
-                <td className="p-6">
+                <td className="p-5">
                   <div className="text-sm">{res.date}</div>
-                  <div className="text-xs text-white/30">{res.time}</div>
+                  <div className="text-xs text-white/50">{res.time}</div>
                 </td>
-                <td className="p-6"><span className="bg-white/5 px-2 py-1 rounded-md text-xs">{res.guests} pers.</span></td>
-                <td className="p-6">
-                  <span className="inline-flex items-center space-x-1.5 text-[10px] bg-yellow-500/10 text-yellow-500 px-2 py-1 rounded-full uppercase tracking-widest font-bold">
+                <td className="p-5"><span className="bg-white/5 px-2 py-1 rounded-md text-xs">{res.guests} pers.</span></td>
+                <td className="p-5">
+                  <span className={`inline-flex items-center space-x-1.5 text-[10px] px-2 py-1 rounded-full uppercase tracking-widest font-bold ${
+                    res.status === 'confirmed'
+                      ? 'bg-green-500/10 text-green-400'
+                      : res.status === 'cancelled'
+                        ? 'bg-red-500/10 text-red-400'
+                        : 'bg-yellow-500/10 text-yellow-400'
+                  }`}>
                     <Clock className="w-3 h-3" />
-                    <span>Attente</span>
+                    <span>{res.status === 'confirmed' ? 'Confirmee' : res.status === 'cancelled' ? 'Annulee' : 'Attente'}</span>
                   </span>
                 </td>
-                <td className="p-6">
+                <td className="p-5">
                   <div className="flex space-x-3">
-                    <button className="p-2 bg-green-500/10 text-green-500 hover:bg-green-500 hover:text-white rounded-lg transition-all" title="Confirmer"><CheckCircle2 className="w-4 h-4" /></button>
-                    <button className="p-2 bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white rounded-lg transition-all" title="Annuler"><XCircle className="w-4 h-4" /></button>
+                    <button onClick={() => setReservationStatus(res.id, 'confirmed')} className="p-2 bg-green-500/10 text-green-500 hover:bg-green-500 hover:text-white rounded-lg transition-all" title="Confirmer"><CheckCircle2 className="w-4 h-4" /></button>
+                    <button onClick={() => setReservationStatus(res.id, 'cancelled')} className="p-2 bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white rounded-lg transition-all" title="Annuler"><XCircle className="w-4 h-4" /></button>
+                    <button onClick={() => deleteReservation(res.id)} className="p-2 bg-white/5 text-white/60 hover:bg-white/10 hover:text-white rounded-lg transition-all" title="Supprimer"><Trash2 className="w-4 h-4" /></button>
                   </div>
                 </td>
               </tr>
@@ -208,12 +302,12 @@ export default function Dashboard() {
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 mb-8">
           <div>
             <h3 className="text-2xl font-display font-bold gold-text">{t('tournaments.admin.title')}</h3>
-            <p className="text-white/40 text-sm">{t('tournaments.admin.subtitle')}</p>
+            <p className="text-white/60 text-sm">{t('tournaments.admin.subtitle')}</p>
           </div>
           {adminNotice && <span className="bg-green-500/10 text-green-400 px-4 py-2 text-xs rounded-full">{adminNotice}</span>}
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 mb-8">
           {[
             [createTournament, Plus, t('tournaments.admin.create')],
             [addParticipant, Users, t('tournaments.admin.addParticipant')],
@@ -237,7 +331,7 @@ export default function Dashboard() {
                 <div>
                   <p className="text-gold text-xs font-bold">{gameLabel(item.gameType)}</p>
                   <h4 className="text-xl font-bold mt-2">{isRTL ? item.titleAr : item.titleFr}</h4>
-                  <p className="text-white/40 text-sm mt-1">{isRTL ? item.dateAr : item.dateFr} · {item.time}</p>
+                  <p className="text-white/60 text-sm mt-1">{isRTL ? item.dateAr : item.dateFr} - {item.time}</p>
                 </div>
                 <span className="h-fit bg-gold/10 text-gold text-[10px] rounded-full px-3 py-1">{t(`tournaments.status.${item.status}`)}</span>
               </div>
@@ -259,7 +353,7 @@ export default function Dashboard() {
           <div className="p-6 border-b border-white/5 font-bold">{t('tournaments.sections.participants')}</div>
           <div className="overflow-x-auto">
             <table className="w-full min-w-[720px] text-left">
-              <thead className="text-xs uppercase tracking-widest text-white/30 bg-white/[0.02]">
+              <thead className="text-xs uppercase tracking-widest text-white/60 bg-white/[0.02]">
                 <tr>
                   <th className="p-5">{t('tournaments.participants.rank')}</th>
                   <th className="p-5">{t('tournaments.participants.name')}</th>
@@ -274,7 +368,7 @@ export default function Dashboard() {
                     <td className="p-5 text-gold font-bold">#{index + 1}</td>
                     <td className="p-5">
                       <div className="font-medium flex items-center gap-2">{winnerId === item.id && <Crown className="w-4 h-4 text-gold" />}{item.fullName}</div>
-                      <div className="text-xs text-white/30">{item.phone}</div>
+                      <div className="text-xs text-white/50">{item.phone}</div>
                     </td>
                     <td className="p-5">{t(`tournaments.participants.${item.status}`)}</td>
                     <td className="p-5">{item.score}</td>
@@ -301,20 +395,79 @@ export default function Dashboard() {
     </div>
   );
 
+  const renderOverview = () => (
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="bg-luxury-gray border border-white/5 rounded-2xl p-8">
+        <h3 className="text-2xl font-display font-bold gold-text mb-4">Actions rapides</h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <button onClick={() => { setActiveTab('reservations'); addReservation(); }} className="btn-outline-gold !px-5 !py-4">Ajouter reservation</button>
+          <button onClick={() => { setActiveTab('tournaments'); createTournament(); }} className="btn-outline-gold !px-5 !py-4">Creer tournoi</button>
+          <button onClick={() => { setActiveTab('tournaments'); addParticipant(); }} className="btn-outline-gold !px-5 !py-4">Ajouter participant</button>
+          <button onClick={exportParticipants} className="btn-outline-gold !px-5 !py-4">Exporter CSV</button>
+        </div>
+      </div>
+      <div className="bg-luxury-gray border border-white/5 rounded-2xl p-8">
+        <h3 className="text-2xl font-display font-bold gold-text mb-4">Etat local</h3>
+        <p className="text-white/70 leading-relaxed">
+          Le dashboard fonctionne en mode local. Les reservations, tournois, participants et recompenses sont sauvegardes dans ce navigateur.
+        </p>
+      </div>
+    </div>
+  );
+
+  const renderSimplePanel = (title: string, body: string, action: () => void, actionLabel: string) => (
+    <div className="bg-luxury-gray border border-white/5 rounded-2xl p-8">
+      <h3 className="text-2xl font-display font-bold gold-text mb-4">{title}</h3>
+      <p className="text-white/70 mb-8 max-w-2xl">{body}</p>
+      <button onClick={action} className="btn-outline-gold !px-5 !py-4">{actionLabel}</button>
+    </div>
+  );
+
+  const renderContent = () => {
+    if (activeTab === 'stats') return renderOverview();
+    if (activeTab === 'reservations') return renderReservations();
+    if (activeTab === 'tournaments') return renderTournamentAdmin();
+    if (activeTab === 'menu') return renderSimplePanel('Carte & Menu', 'Section de suivi local du menu. Le site affiche actuellement 9 elements de carte repartis en 3 categories.', () => showNotice('Menu synchronise localement'), 'Synchroniser');
+    if (activeTab === 'users') return renderSimplePanel('Clients', `${stats.clients} clients et participants sont suivis localement.`, addReservation, 'Ajouter client test');
+    return renderSimplePanel('Configuration', 'Parametres locaux du dashboard admin.', () => {
+      Object.values(storageKeys).forEach((key) => localStorage.removeItem(key));
+      setReservations(seedReservations);
+      setAdminTournaments(seedTournaments);
+      setAdminParticipants(seedParticipants);
+      setAdminRewards(seedRewards);
+      setWinnerId(null);
+      showNotice('Donnees locales reinitialisees');
+    }, 'Reinitialiser les donnees');
+  };
+
   if (isLoading) return <div className="min-h-screen bg-black flex items-center justify-center text-gold">Initialisation du Dashboard...</div>;
 
   return (
-    <div className="min-h-screen bg-[#020202] flex text-white font-sans">
-      <aside className="w-64 bg-luxury-gray border-r border-white/5 flex flex-col p-6 fixed h-full z-10">
-        <div className="mb-12">
-          <h1 className="text-xl font-display font-bold gold-text">PRESTIGE</h1>
-          <p className="text-[10px] text-white/30 tracking-[0.2em]">ADMIN CONSOLE</p>
+    <div className="min-h-screen bg-[#020202] text-white font-sans lg:flex">
+      <aside className="bg-luxury-gray border-r border-white/5 p-5 lg:fixed lg:h-full lg:w-64">
+        <div className="mb-8">
+          <div className="relative mb-3 inline-flex items-center">
+            <span className="absolute inset-0 rounded-full bg-gold/20 blur-xl opacity-70" />
+            {logoFailed ? (
+              <span className="relative text-xl font-display font-bold gold-text">Prestige de jeux</span>
+            ) : (
+              <img
+                src={brandLogo.src}
+                width={brandLogo.width}
+                height={brandLogo.height}
+                alt={brandLogo.alt}
+                onError={() => setLogoFailed(true)}
+                className="relative h-14 w-auto object-contain drop-shadow-[0_0_20px_rgba(212,175,55,0.35)]"
+              />
+            )}
+          </div>
+          <p className="text-[10px] text-white/50 tracking-[0.2em]">ADMIN CONSOLE</p>
         </div>
 
-        <nav className="flex-grow space-y-2">
+        <nav className="grid grid-cols-2 gap-2 lg:block lg:space-y-2">
           {[
-            { id: 'stats', label: 'Vue d’ensemble', icon: BarChart3 },
-            { id: 'reservations', label: 'Réservations', icon: Calendar },
+            { id: 'stats', label: 'Vue ensemble', icon: BarChart3 },
+            { id: 'reservations', label: 'Reservations', icon: Calendar },
             { id: 'tournaments', label: t('nav.tournaments'), icon: Trophy },
             { id: 'menu', label: 'Carte & Menu', icon: Utensils },
             { id: 'users', label: 'Clients', icon: Users },
@@ -322,9 +475,9 @@ export default function Dashboard() {
           ].map((item) => (
             <button
               key={item.id}
-              onClick={() => setActiveTab(item.id)}
+              onClick={() => setActiveTab(item.id as AdminTab)}
               className={`w-full flex items-center space-x-3 p-3 rounded-lg transition-all ${
-                activeTab === item.id ? 'bg-gold text-black' : 'text-white/60 hover:bg-white/5 hover:text-gold'
+                activeTab === item.id ? 'bg-gold text-black' : 'text-white/70 hover:bg-white/5 hover:text-gold'
               }`}
             >
               <item.icon className="w-5 h-5 flex-shrink-0" />
@@ -333,47 +486,48 @@ export default function Dashboard() {
           ))}
         </nav>
 
-        <button onClick={handleLogout} className="mt-auto flex items-center space-x-3 p-3 text-red-400 hover:bg-red-500/10 rounded-lg transition-all">
+        <button onClick={handleLogout} className="mt-6 flex w-full items-center space-x-3 p-3 text-red-400 hover:bg-red-500/10 rounded-lg transition-all">
           <LogOut className="w-5 h-5" />
-          <span className="text-sm font-medium">Déconnexion</span>
+          <span className="text-sm font-medium">Deconnexion</span>
         </button>
       </aside>
 
-      <main className="flex-grow ml-64 p-10">
-        <header className="flex justify-between items-center mb-10">
+      <main className="flex-grow p-5 lg:ml-64 lg:p-10">
+        <header className="flex flex-col gap-5 mb-10 xl:flex-row xl:items-center xl:justify-between">
           <div>
             <h2 className="text-3xl font-display font-bold">Dashboard</h2>
-            <p className="text-white/40 text-sm">Gestion de l’établissement en temps réel</p>
+            <p className="text-white/60 text-sm">Gestion de l'etablissement en temps reel</p>
           </div>
-          <div className="flex items-center space-x-4">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+            {adminNotice && <span className="bg-green-500/10 text-green-400 px-4 py-2 text-xs rounded-full">{adminNotice}</span>}
             <div className="relative">
-              <Search className="absolute left-3 top-2.5 w-4 h-4 text-white/30" />
-              <input className="bg-white/5 border border-white/10 rounded-full py-2 pl-10 pr-4 text-sm outline-none focus:border-gold/50" placeholder="Rechercher..." />
+              <Search className="absolute left-3 top-2.5 w-4 h-4 text-white/40" />
+              <input className="w-full bg-white/5 border border-white/10 rounded-full py-2 pl-10 pr-4 text-sm outline-none focus:border-gold/50 sm:w-64" placeholder="Rechercher..." />
             </div>
             <div className="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center text-gold font-bold">A</div>
           </div>
         </header>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-10">
           {[
-            { label: 'Réservations', value: stats.reservations, sub: '+12% ce mois', icon: Calendar, color: 'text-blue-400' },
+            { label: 'Reservations', value: stats.reservations, sub: `${stats.confirmedReservations} confirmees`, icon: Calendar, color: 'text-blue-400' },
             { label: t('nav.tournaments'), value: adminTournaments.length, sub: `${adminParticipants.length} ${t('tournaments.card.players')}`, icon: Trophy, color: 'text-gold' },
-            { label: 'Menu Items', value: stats.menuItems, sub: '5 catégories', icon: Utensils, color: 'text-orange-400' },
-            { label: 'Nouveaux Avis', value: 8, sub: 'Rating 4.9/5', icon: CheckCircle2, color: 'text-green-400' },
+            { label: 'Menu Items', value: stats.menuItems, sub: '3 categories', icon: Utensils, color: 'text-orange-400' },
+            { label: 'Clients', value: stats.clients, sub: 'local', icon: CheckCircle2, color: 'text-green-400' },
           ].map((s) => (
-            <div key={s.label} className="bg-luxury-gray border border-white/5 p-6 rounded-2xl">
+            <button key={s.label} onClick={() => s.label === 'Reservations' ? setActiveTab('reservations') : undefined} className="bg-luxury-gray border border-white/5 p-6 rounded-2xl text-left hover:border-gold/30 transition-colors">
               <div className="flex justify-between mb-4">
                 <s.icon className={`w-8 h-8 ${s.color}`} />
-                <span className="text-[10px] bg-white/5 px-2 py-1 rounded text-white/40 uppercase tracking-widest">Live</span>
+                <span className="text-[10px] bg-white/5 px-2 py-1 rounded text-white/60 uppercase tracking-widest">Live</span>
               </div>
-              <h3 className="text-white/50 text-sm mb-1">{s.label}</h3>
+              <h3 className="text-white/70 text-sm mb-1">{s.label}</h3>
               <div className="text-3xl font-bold mb-1">{s.value}</div>
               <p className="text-[10px] text-green-400">{s.sub}</p>
-            </div>
+            </button>
           ))}
         </div>
 
-        {activeTab === 'tournaments' ? renderTournamentAdmin() : renderReservations()}
+        {renderContent()}
       </main>
     </div>
   );

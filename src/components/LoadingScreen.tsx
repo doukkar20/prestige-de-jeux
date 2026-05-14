@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import { brandLogo } from '../data/brandAssets';
 
 export default function LoadingScreen() {
   const [loading, setLoading] = useState(true);
+  const [logoFailed, setLogoFailed] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 2500);
@@ -17,37 +19,35 @@ export default function LoadingScreen() {
           transition={{ duration: 1, ease: 'easeInOut' }}
           className="fixed inset-0 z-[9999] bg-black flex flex-col items-center justify-center overflow-hidden"
         >
-          {/* Animated 8-Ball */}
+          {/* Brand mark */}
           <motion.div
-            initial={{ scale: 0.5, opacity: 0, rotate: -180 }}
-            animate={{ scale: 1, opacity: 1, rotate: 0 }}
-            transition={{ duration: 1.5, ease: 'easeOut' }}
-            className="relative w-32 h-32 mb-8"
+            initial={{ scale: 0.86, opacity: 0 }}
+            animate={{ scale: [1, 1.04, 1], opacity: 1 }}
+            transition={{
+              opacity: { duration: 0.8, ease: 'easeOut' },
+              scale: { repeat: Infinity, duration: 2.4, ease: 'easeInOut' },
+            }}
+            className="relative mb-8 flex items-center justify-center"
           >
-            <div className="absolute inset-0 bg-black rounded-full shadow-[inset_-10px_-10px_30px_rgba(255,255,255,0.1),0_0_50px_rgba(212,175,55,0.2)] flex items-center justify-center border border-white/5">
-              <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center">
-                <span className="text-black font-bold text-3xl">8</span>
-              </div>
-            </div>
-            {/* Glow Effect */}
+            <span className="absolute inset-0 rounded-full bg-gold/20 blur-3xl" />
+            {logoFailed ? (
+              <span className="relative font-display text-3xl md:text-5xl font-bold gold-text">Prestige de jeux</span>
+            ) : (
+              <img
+                src={brandLogo.src}
+                width={brandLogo.width}
+                height={brandLogo.height}
+                alt={brandLogo.alt}
+                onError={() => setLogoFailed(true)}
+                className="relative h-28 w-auto object-contain drop-shadow-[0_0_35px_rgba(212,175,55,0.4)] md:h-36"
+              />
+            )}
             <motion.div
               animate={{ opacity: [0.3, 0.6, 0.3], scale: [1, 1.2, 1] }}
               transition={{ repeat: Infinity, duration: 2 }}
               className="absolute inset-0 rounded-full bg-gold/20 blur-2xl -z-10"
             />
           </motion.div>
-
-          {/* Text Reveal */}
-          <div className="overflow-hidden">
-            <motion.h1
-              initial={{ y: 50, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.5, duration: 0.8 }}
-              className="text-2xl md:text-4xl font-display font-bold tracking-[0.3em] gold-text uppercase"
-            >
-              Prestige
-            </motion.h1>
-          </div>
           
           <motion.div
             initial={{ width: 0 }}

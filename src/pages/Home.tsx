@@ -1,13 +1,14 @@
 import { motion, useScroll, useTransform } from 'motion/react';
 import { useLanguage } from '../context/LanguageContext';
-import { ChevronRight, Award, Coffee, Utensils, Zap, Play, Star, Trophy } from 'lucide-react';
+import { ChevronRight, Coffee, Utensils, Play, Star, Trophy } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useRef, useEffect, useState } from 'react';
 import Magnetic from '../components/Magnetic';
-import { publicAsset, publicCssUrl } from '../utils/assets';
+import { aboutImage, heroImage, imageAlt, serviceImages } from '../data/galleryImages';
+import { brandLogo } from '../data/brandAssets';
 
 export default function Home() {
-  const { t, isRTL } = useLanguage();
+  const { t, isRTL, lang } = useLanguage();
   const containerRef = useRef(null);
   const { scrollY } = useScroll();
   
@@ -38,11 +39,7 @@ export default function Home() {
           className="absolute inset-0 z-0"
           style={{ x: mousePos.x * -0.2, y: y1.get() * 0.5 }}
         >
-          <div 
-            className="absolute inset-0 bg-cover bg-center opacity-[0.08] filter brightness-[0.4] transition-opacity duration-1000"
-            style={{ backgroundImage: publicCssUrl('images/regenerated_image_1778342660777.jpg') }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-black via-black/90 to-black z-10" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(212,175,55,0.16),transparent_34%),linear-gradient(180deg,#050505_0%,#000_58%,#050505_100%)]" />
         </motion.div>
 
         <div className={`relative z-20 w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[55%_45%] gap-12 lg:gap-20 items-center ${isRTL ? 'rtl-hero' : ''}`}>
@@ -62,26 +59,21 @@ export default function Home() {
               {t('hero.eyebrow')}
             </motion.span>
             
-            <h1 
-              className={`font-display font-bold text-white max-w-[900px] ${isRTL ? 'leading-[1.15] tracking-normal' : 'leading-[0.9] tracking-tighter'}`}
-              style={{
-                fontSize: isRTL ? 'clamp(3rem, 10vw, 7rem)' : "clamp(2.4rem, 12vw, 4.5rem)", // Default mobile
-                // Responsive override will be handled by Tailwind or standard CSS if needed, 
-                // but let's use the explicit desktop clamp in a style tag for precision
-              }}
-            >
+            <h1 className={isRTL ? 'font-arabic text-white max-w-[900px] text-5xl md:text-7xl font-bold leading-[1.15] tracking-normal' : 'hero-title text-white max-w-[900px]'}>
               {isRTL ? (
                 <span className="gold-text block">{t('hero.title')}</span>
               ) : (
                 <>
-                  <span className="block mb-2 md:mb-4">PRESTIGE</span>
-                  <span className="gold-text block" style={{ fontSize: "clamp(2.4rem, 13vw, 8rem)" }}>DE JEUX</span>
+                  <span className="hero-title-line mb-2 text-white md:mb-4">PRESTIGE</span>
+                  <span className="hero-title-gold">DE JEUX</span>
                 </>
               )}
             </h1>
 
             <p className="hidden">
-              L'excellence du billard et du snooker à Meknès. Un sanctuaire de luxe où le jeu rencontre le raffinement absolu.
+              {isRTL
+                ? 'التميز في البلياردو والسنوكر بمكناس. فضاء فاخر يلتقي فيه اللعب بالرقي.'
+                : "L'excellence du billard et du snooker à Meknès. Un sanctuaire de luxe où le jeu rencontre le raffinement absolu."}
             </p>
 
             {!isRTL && (
@@ -134,8 +126,12 @@ export default function Home() {
             
             <div className="relative group w-full max-w-[min(340px,76vw)] md:max-w-[min(520px,42vw)]">
               <motion.img 
-                src={publicAsset('images/regenerated_image_1778347791544.jpg')}
-                className="w-full h-auto object-contain drop-shadow-[0_0_30px_rgba(212,175,55,0.3)] md:drop-shadow-[0_0_50px_rgba(212,175,55,0.4)]"
+                src={brandLogo.src}
+                width={brandLogo.width}
+                height={brandLogo.height}
+                alt={brandLogo.alt}
+                loading="eager"
+                className="w-full aspect-square rounded-full border border-gold/30 bg-black/70 object-contain p-4 shadow-[0_0_35px_rgba(212,175,55,0.22)] md:p-6 md:shadow-[0_0_60px_rgba(212,175,55,0.3)]"
                 animate={{ 
                   y: [0, -15, 0],
                   filter: [
@@ -184,23 +180,31 @@ export default function Home() {
             </div>
             <div className="relative z-10 space-y-8">
               <span className="inline-block px-4 py-1 border border-gold/30 text-gold text-[10px] tracking-widest uppercase">
-                L'âme du Prestige
+                {isRTL ? 'روح بريستيج' : "L'âme du Prestige"}
               </span>
               <h2 className="text-5xl md:text-7xl font-display font-bold leading-tight">
-                Une passion <br />
-                <span className="gold-text">gravée</span> dans l'or
+                {isRTL ? (
+                  <span className="gold-text">شغف محفور في الفخامة</span>
+                ) : (
+                  <>
+                    Une passion <br />
+                    <span className="gold-text">gravée</span> dans l'or
+                  </>
+                )}
               </h2>
               <p className="text-white/60 text-lg leading-relaxed max-w-lg">
-                Prestige de jeux n'est pas seulement un lieu de divertissement. C'est une institution dédiée au raffinement. Ici, le temps s'arrête pour laisser place à la stratégie, à la précision et au plaisir des sens.
+                {isRTL
+                  ? 'بريستيج دو جو ليس مجرد مكان للترفيه. إنه فضاء مخصص للرقي، حيث يتوقف الوقت ليترك المجال للاستراتيجية والدقة ومتعة الحواس.'
+                  : "Prestige de jeux n'est pas seulement un lieu de divertissement. C'est une institution dédiée au raffinement. Ici, le temps s'arrête pour laisser place à la stratégie, à la précision et au plaisir des sens."}
               </p>
               <div className="flex gap-12 pt-8">
                 <div>
                   <h4 className="text-4xl font-display font-bold gold-text">12</h4>
-                  <p className="text-[10px] text-white/40 uppercase tracking-widest mt-1">Tables Importées</p>
+                  <p className="text-[10px] text-white/40 uppercase tracking-widest mt-1">{isRTL ? 'طاولات مستوردة' : 'Tables Importées'}</p>
                 </div>
                 <div>
                   <h4 className="text-4xl font-display font-bold gold-text">20+</h4>
-                  <p className="text-[10px] text-white/40 uppercase tracking-widest mt-1">Grands Crus Café</p>
+                  <p className="text-[10px] text-white/40 uppercase tracking-widest mt-1">{isRTL ? 'اختيارات قهوة فاخرة' : 'Grands Crus Café'}</p>
                 </div>
               </div>
             </div>
@@ -210,37 +214,36 @@ export default function Home() {
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="grid grid-cols-2 gap-6 relative"
+            className="relative overflow-hidden rounded-2xl border border-gold/30 bg-black shadow-[0_0_45px_rgba(212,175,55,0.12)]"
           >
-             <div className="space-y-6 pt-12">
-               <img src={publicAsset('images/regenerated_image_1778342962977.png')} className="w-full h-80 object-cover border border-white/10 hover:border-gold/50 transition-colors" alt="Table de billard Prestige" />
-               <img src={publicAsset('images/regenerated_image_1778346882954.png')} className="w-full h-64 object-cover border border-white/10 hover:border-gold/50 transition-colors" alt="Café lounge et billard" />
-             </div>
-             <div className="space-y-6">
-               <img src={publicAsset('images/regenerated_image_1778342982723.png')} className="w-full h-64 object-cover border border-white/10 hover:border-gold/50 transition-colors" alt="Salon snooker premium" />
-               <img src={publicAsset('images/regenerated_image_1778343001913.png')} className="w-full h-80 object-cover border border-white/10 hover:border-gold/50 transition-colors" alt="Espace VIP Prestige de Jeux" />
-             </div>
-             {/* Decorative element */}
-             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 border border-gold/20 rotate-45 pointer-events-none" />
+             <img
+               src={aboutImage.src}
+               width={aboutImage.width}
+               height={aboutImage.height}
+               loading="lazy"
+               className="h-full min-h-[520px] w-full object-cover transition-transform duration-700 hover:scale-105"
+               alt={imageAlt(aboutImage, lang)}
+             />
+             <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent pointer-events-none" />
           </motion.div>
         </div>
       </section>
 
       {/* Services Showcase - Horizontal Scroll Concept style */}
       <section id="services" className="py-40 bg-luxury-gray relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-20 pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(212,175,55,0.12),transparent_34%),linear-gradient(135deg,rgba(255,255,255,0.04),transparent_42%)] pointer-events-none" />
         
         <div className="max-w-7xl mx-auto px-6 mb-20 text-center">
-           <span className="text-gold tracking-[.4em] uppercase text-xs mb-4 block font-sans">Services</span>
-           <h2 className="text-5xl md:text-8xl font-display font-bold gold-text">L'Excellence du Service</h2>
+           <span className="text-gold tracking-[.4em] uppercase text-xs mb-4 block font-sans">{isRTL ? 'الخدمات' : 'Services'}</span>
+           <h2 className="text-5xl md:text-8xl font-display font-bold gold-text">{isRTL ? 'تميز الخدمة' : "L'Excellence du Service"}</h2>
         </div>
 
         <div className="max-w-[1400px] mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {[
-            { id: '01', title: 'Billard & Snooker', icon: Trophy, desc: 'L\'élite des tables pour une expérience inégalée.' },
-            { id: '02', title: 'La Table Prestige', icon: Utensils, desc: 'Une gastronomie qui défie vos attentes.' },
-            { id: '03', title: 'Le Bar Lounge', icon: Coffee, desc: 'Des élixirs pour accompagner votre succès.' },
-            { id: '04', title: 'Réservations Privées', icon: Star, desc: 'Vos évènements, notre mise en scène.' }
+            { id: '01', title: t('services.billiard.title'), icon: Trophy, image: serviceImages.billiard, desc: isRTL ? 'أفضل الطاولات لتجربة لعب راقية لا تضاهى.' : 'L\'élite des tables pour une expérience inégalée.' },
+            { id: '02', title: t('services.snooker.title'), icon: Star, image: serviceImages.snooker, desc: isRTL ? 'فضاء دقيق مصمم للاعبين الباحثين عن التركيز والاحتراف.' : 'Un espace de précision pensé pour les joueurs exigeants.' },
+            { id: '03', title: isRTL ? 'مقهى ومطعم' : 'Café Restaurant', icon: Coffee, image: serviceImages.cafeRestaurant, desc: isRTL ? 'استراحة لاونج راقية بين اللعب والقهوة والمذاق الرفيع.' : 'Une pause lounge raffinée entre jeu, café et gastronomie.' },
+            { id: '04', title: t('services.events.title'), icon: Utensils, image: serviceImages.events, desc: isRTL ? 'مناسباتكم الخاصة بتنظيم يليق بها.' : 'Vos évènements, notre mise en scène.' }
           ].map((item, i) => (
             <motion.div
               key={i}
@@ -248,8 +251,20 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="glass group p-10 hover:border-gold/50 transition-all duration-500 hover:-translate-y-4"
+              className="glass group overflow-hidden rounded-2xl border-gold/15 hover:border-gold/50 transition-all duration-500 hover:-translate-y-4"
             >
+              <div className="relative aspect-[4/3] overflow-hidden border-b border-gold/20">
+                <img
+                  src={item.image.src}
+                  width={item.image.width}
+                  height={item.image.height}
+                  loading="lazy"
+                  alt={imageAlt(item.image, lang)}
+                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+              </div>
+              <div className="p-8">
               <div className="flex justify-between items-start mb-12">
                 <item.icon className="w-12 h-12 text-gold group-hover:scale-110 group-hover:text-fire transition-all duration-500" />
                 <span className="text-4xl font-display font-bold text-white/5 group-hover:text-gold/20 transition-colors">{item.id}</span>
@@ -257,9 +272,10 @@ export default function Home() {
               <h3 className="text-2xl font-bold mb-6 group-hover:gold-text transition-colors">{item.title}</h3>
               <p className="text-white/50 text-sm leading-relaxed mb-8">{item.desc}</p>
               <Link to="/services" className="text-xs tracking-widest text-gold flex items-center group/link">
-                <span>EN SAVOIR PLUS</span>
+                <span>{isRTL ? 'اعرف المزيد' : 'EN SAVOIR PLUS'}</span>
                 <ChevronRight className="w-4 h-4 transition-transform group-hover/link:translate-x-2" />
               </Link>
+              </div>
             </motion.div>
           ))}
         </div>
@@ -312,8 +328,8 @@ export default function Home() {
       {/* Reviews Section */}
       <section id="reviews" className="py-40 bg-black">
         <div className="max-w-4xl mx-auto px-6 text-center">
-           <span className="text-gold tracking-[.4em] uppercase text-xs mb-4 block font-sans">Témoignages</span>
-           <h2 className="text-4xl md:text-6xl font-display font-bold mb-20 italic">"Une expérience sensorielle sans compromis."</h2>
+           <span className="text-gold tracking-[.4em] uppercase text-xs mb-4 block font-sans">{isRTL ? 'آراء العملاء' : 'Témoignages'}</span>
+           <h2 className="text-4xl md:text-6xl font-display font-bold mb-20 italic">"{isRTL ? 'تجربة حسية بلا تنازل.' : 'Une expérience sensorielle sans compromis.'}"</h2>
            
            <div className="relative min-h-40">
              <motion.div 
@@ -329,15 +345,18 @@ export default function Home() {
       
       {/* Visual CTA */}
       <section className="relative h-[60vh] flex items-center justify-center overflow-hidden grayscale hover:grayscale-0 transition-all duration-1000">
-        <div 
-          className="absolute inset-0 bg-cover bg-fixed bg-center"
-          style={{ backgroundImage: publicCssUrl('images/regenerated_image_1778347445870.png') }}
-        >
-          <div className="absolute inset-0 bg-black/60" />
-        </div>
+        <img
+          src={heroImage.src}
+          width={heroImage.width}
+          height={heroImage.height}
+          loading="lazy"
+          alt={imageAlt(heroImage, lang)}
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+        <div className="absolute inset-0 bg-black/60" />
         <div className="relative z-10 text-center px-6">
-           <h2 className="text-5xl md:text-8xl font-display font-bold mb-12">Prêt à jouer ?</h2>
-           <Link to="/reservation" className="btn-gold">RÉSERVER VOTRE TABLE</Link>
+           <h2 className="text-5xl md:text-8xl font-display font-bold mb-12">{isRTL ? 'جاهز للعب؟' : 'Prêt à jouer ?'}</h2>
+           <Link to="/reservation" className="btn-gold">{isRTL ? 'احجز طاولتك' : 'RÉSERVER VOTRE TABLE'}</Link>
         </div>
       </section>
     </div>

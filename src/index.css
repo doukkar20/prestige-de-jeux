@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Cinzel:wght@500;600;700;800;900&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -36,11 +36,80 @@
 
 html {
   scroll-behavior: smooth;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
   @apply bg-luxury-black text-white selection:bg-gold selection:text-black overflow-x-hidden;
   cursor: none; /* Hide default cursor for custom cursor */
+}
+
+#root {
+  min-width: 0;
+}
+
+a,
+button,
+span,
+p,
+li {
+  overflow-wrap: break-word;
+  min-width: 0;
+}
+
+p,
+li {
+  text-wrap: pretty;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  overflow-wrap: break-word;
+  text-wrap: balance;
+  min-width: 0;
+}
+
+button,
+a {
+  min-width: 0;
+  line-height: 1.25;
+}
+
+input,
+textarea,
+select,
+button {
+  font: inherit;
+}
+
+p[class*="text-white/40"],
+span[class*="text-white/40"],
+a[class*="text-white/40"],
+div[class*="text-white/40"],
+li[class*="text-white/40"] {
+  color: rgba(255, 255, 255, 0.66);
+}
+
+p[class*="text-white/50"],
+span[class*="text-white/50"],
+a[class*="text-white/50"],
+div[class*="text-white/50"],
+li[class*="text-white/50"] {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+label[class*="tracking-widest"],
+span[class*="tracking-widest"],
+a[class*="tracking-widest"],
+button[class*="tracking-widest"],
+[class*="tracking-[0.4em]"],
+[class*="tracking-[.4em]"] {
+  max-width: 100%;
+  letter-spacing: min(0.22em, 3px);
 }
 
 @media (max-width: 1024px), (pointer: coarse) {
@@ -58,13 +127,70 @@ body {
 }
 
 .gold-text {
+  color: #D4AF37;
   background: linear-gradient(135deg, #D4AF37 0%, #F1D279 50%, #A68926 100%);
-  @apply bg-clip-text text-transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-title {
+  font-family: "Cinzel", "Playfair Display", serif;
+  font-size: clamp(3.2rem, 16vw, 4.4rem);
+  line-height: 1.02;
+  letter-spacing: 0;
+  font-weight: 800;
+  text-transform: uppercase;
+  text-wrap: balance;
+  overflow: visible;
+}
+
+.hero-title-line {
+  display: block;
+  line-height: 1;
+}
+
+.hero-title-gold {
+  display: block;
+  color: #D4AF37;
+  background: linear-gradient(90deg, #D4AF37 0%, #FFF1A8 50%, #B8860B 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1.12;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+  overflow: visible;
+}
+
+@media (min-width: 768px) {
+  .hero-title {
+    font-size: clamp(5.4rem, 9vw, 6.8rem);
+    line-height: 1;
+  }
+}
+
+@media (min-width: 1280px) {
+  .hero-title {
+    font-size: 7.6rem;
+  }
 }
 
 .fire-text {
+  color: #FF8C00;
   background: linear-gradient(135deg, #FF4E00 0%, #FF8C00 50%, #FFCC00 100%);
-  @apply bg-clip-text text-transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@supports not ((-webkit-background-clip: text) or (background-clip: text)) {
+  .gold-text,
+  .fire-text,
+  .hero-title-gold {
+    background: none;
+    -webkit-text-fill-color: currentColor;
+  }
 }
 
 .glass {
@@ -73,7 +199,7 @@ body {
 
 .btn-gold {
   background: linear-gradient(135deg, #D4AF37 0%, #F1D279 50%, #A68926 100%);
-  @apply text-black font-bold py-4 px-10 rounded-none transition-all duration-300 relative overflow-hidden;
+  @apply text-black font-bold py-4 px-8 sm:px-10 rounded-none transition-all duration-300 relative overflow-hidden;
   box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
 }
 
@@ -83,7 +209,7 @@ body {
 }
 
 .btn-outline-gold {
-  @apply border border-gold text-gold font-bold py-4 px-10 rounded-none transition-all duration-300;
+  @apply border border-gold text-gold font-bold py-4 px-8 sm:px-10 rounded-none transition-all duration-300;
 }
 
 .btn-outline-gold:hover {

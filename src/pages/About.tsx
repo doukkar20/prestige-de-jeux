@@ -1,10 +1,10 @@
 import { motion } from 'motion/react';
 import { useLanguage } from '../context/LanguageContext';
 import { Trophy, Users, Star, Target, Crown, Sparkles, Award } from 'lucide-react';
-import { publicAsset } from '../utils/assets';
+import { aboutImage, heroImage, imageAlt } from '../data/galleryImages';
 
 export default function About() {
-  const { t } = useLanguage();
+  const { lang, isRTL } = useLanguage();
 
   return (
     <div className="pt-40 pb-20 bg-black min-h-screen">
@@ -16,35 +16,37 @@ export default function About() {
              animate={{ opacity: 1, x: 0 }}
              transition={{ duration: 1 }}
            >
-             <span className="text-gold tracking-[0.4em] uppercase text-xs mb-6 block font-sans">L'Héritage</span>
+             <span className="text-gold tracking-[0.4em] uppercase text-xs mb-6 block font-sans">{isRTL ? 'الإرث' : "L'Héritage"}</span>
              <h1 className="text-6xl md:text-8xl font-display font-bold gold-text leading-tight mb-10">
-               L'Art de <br />
-               Vivre au <br />
-               Sommet
+               {isRTL ? 'فن العيش الراقي' : <>L'Art de <br />Vivre au <br />Sommet</>}
              </h1>
              <p className="text-white/60 text-xl leading-relaxed mb-8 italic font-display">
-               "Le prestige n'est pas une destination, c'est une exigence constante."
+               "{isRTL ? 'الرقي ليس وجهة، بل التزام دائم.' : "Le prestige n'est pas une destination, c'est une exigence constante."}"
              </p>
              <div className="w-20 h-[2px] bg-gold mb-10" />
              <p className="text-white/40 text-lg leading-relaxed mb-12">
-               Né d'une passion inébranlable pour le billard et les sports de précision, <strong>Prestige de jeux</strong> a été fondé avec une vision claire : redéfinir le concept du lounge de luxe à Meknès. Nous avons parcouru le monde pour sélectionner les meilleures tables, les éclairages les plus précis et les matériaux les plus nobles.
+               {isRTL ? (
+                 <>ولد <strong>Prestige de jeux</strong> من شغف راسخ بالبلياردو ورياضات الدقة، برؤية واضحة: إعادة تعريف مفهوم اللاونج الفاخر في مكناس.</>
+               ) : (
+                 <>Né d'une passion inébranlable pour le billard et les sports de précision, <strong>Prestige de jeux</strong> a été fondé avec une vision claire : redéfinir le concept du lounge de luxe à Meknès. Nous avons parcouru le monde pour sélectionner les meilleures tables, les éclairages les plus précis et les matériaux les plus nobles.</>
+               )}
              </p>
              <div className="flex gap-8 items-center">
                <div className="p-6 border border-white/5 hover:border-gold/30 transition-colors">
                   <span className="block text-3xl font-display font-bold gold-text mb-2">2018</span>
-                  <span className="text-[10px] tracking-widest uppercase text-white/40">Fondation</span>
+                  <span className="text-[10px] tracking-widest uppercase text-white/40">{isRTL ? 'التأسيس' : 'Fondation'}</span>
                </div>
                <div className="p-6 border border-white/5 hover:border-gold/30 transition-colors">
                   <span className="block text-3xl font-display font-bold gold-text mb-2">1500㎡</span>
-                  <span className="text-[10px] tracking-widest uppercase text-white/40">D'Excellence</span>
+                  <span className="text-[10px] tracking-widest uppercase text-white/40">{isRTL ? 'من التميز' : "D'Excellence"}</span>
                </div>
-               <motion.img 
+               <motion.div 
                  initial={{ opacity: 0, rotate: -20 }}
                  whileInView={{ opacity: 1, rotate: 0 }}
-                 src={publicAsset('images/regenerated_image_1778342688382.png')}
-                 className="w-24 h-24 object-contain ml-auto opacity-50 hover:opacity-100 transition-opacity" 
-                 alt="Seal of Quality" 
-               />
+                 className="ml-auto hidden h-24 w-24 items-center justify-center rounded-full border border-gold/30 bg-black/60 text-gold shadow-[0_0_30px_rgba(212,175,55,0.12)] md:flex"
+               >
+                 <Crown className="h-10 w-10" />
+               </motion.div>
              </div>
            </motion.div>
 
@@ -56,9 +58,12 @@ export default function About() {
            >
               <div className="aspect-[3/4] overflow-hidden">
                 <img 
-                  src={publicAsset('images/regenerated_image_1778342982723.png')}
-                  className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000" 
-                  alt="Prestige Interior" 
+                  src={aboutImage.src}
+                  width={aboutImage.width}
+                  height={aboutImage.height}
+                  loading="eager"
+                  className="w-full h-full rounded-2xl border border-gold/30 object-cover grayscale hover:grayscale-0 transition-all duration-1000" 
+                  alt={imageAlt(aboutImage, lang)} 
                 />
               </div>
               {/* Floating element */}
@@ -69,8 +74,8 @@ export default function About() {
               >
                  <div className="text-center p-8 border border-gold/40">
                    <Crown className="w-10 h-10 text-gold mx-auto mb-4" />
-                   <p className="text-xs tracking-widest uppercase font-bold text-gold">Membre Élite</p>
-                   <p className="text-[10px] text-white/40 mt-2">Accès exclusif aux tournois VIP</p>
+                   <p className="text-xs tracking-widest uppercase font-bold text-gold">{isRTL ? 'عضو النخبة' : 'Membre Élite'}</p>
+                   <p className="text-[10px] text-white/40 mt-2">{isRTL ? 'ولوج حصري لبطولات VIP' : 'Accès exclusif aux tournois VIP'}</p>
                  </div>
               </motion.div>
            </motion.div>
@@ -82,16 +87,16 @@ export default function About() {
         <div className="absolute inset-0 bg-gold/5 blur-[200px] -z-10" />
         <div className="max-w-7xl mx-auto px-8">
            <div className="text-center mb-24">
-             <h2 className="text-4xl md:text-6xl font-display font-bold mb-6">Nos Piliers</h2>
+             <h2 className="text-4xl md:text-6xl font-display font-bold mb-6">{isRTL ? 'قيمنا الأساسية' : 'Nos Piliers'}</h2>
              <div className="w-24 h-[1px] bg-gold mx-auto" />
            </div>
 
            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
              {[
-               { icon: Target, title: 'Précision', desc: 'Chaque table est nivelée au micron près pour garantir un jeu pur.' },
-               { icon: Sparkles, title: 'Atmosphère', desc: 'Un design sonore et olfactif conçu pour l\'apaisement des sens.' },
-               { icon: Award, title: 'Expertise', desc: 'Nos maîtres de salle sont des passionnés à votre service.' },
-               { icon: Trophy, title: 'Compétition', desc: 'Le théâtre des plus grands duels de billard du pays.' }
+               { icon: Target, title: isRTL ? 'الدقة' : 'Précision', desc: isRTL ? 'كل طاولة مضبوطة بعناية لضمان لعب نقي ومتوازن.' : 'Chaque table est nivelée au micron près pour garantir un jeu pur.' },
+               { icon: Sparkles, title: isRTL ? 'الأجواء' : 'Atmosphère', desc: isRTL ? 'تصميم صوتي وحسي يمنحكم راحة كاملة.' : 'Un design sonore et olfactif conçu pour l\'apaisement des sens.' },
+               { icon: Award, title: isRTL ? 'الخبرة' : 'Expertise', desc: isRTL ? 'فريق شغوف في خدمتكم داخل القاعة.' : 'Nos maîtres de salle sont des passionnés à votre service.' },
+               { icon: Trophy, title: isRTL ? 'المنافسة' : 'Compétition', desc: isRTL ? 'مسرح لأقوى مواجهات البلياردو في المدينة.' : 'Le théâtre des plus grands duels de billard du pays.' }
              ].map((item, i) => (
                <motion.div
                  key={i}
@@ -119,23 +124,32 @@ export default function About() {
              viewport={{ once: true }}
            >
              <div className="aspect-video overflow-hidden border border-white/5">
-                <img src={publicAsset('images/regenerated_image_1778343001913.png')} className="w-full h-full object-cover opacity-60 hover:opacity-100 transition-opacity" alt="Lounge Prestige de Jeux" />
+                <img
+                  src={heroImage.src}
+                  width={heroImage.width}
+                  height={heroImage.height}
+                  loading="lazy"
+                  className="w-full h-full rounded-2xl border border-gold/30 object-cover opacity-70 hover:scale-105 hover:opacity-100 transition-all duration-700"
+                  alt={imageAlt(heroImage, lang)}
+                />
              </div>
            </motion.div>
            <div className="space-y-8">
-             <h2 className="text-4xl font-display font-bold">Votre Satisfaction, <br />Notre Récompense</h2>
+             <h2 className="text-4xl font-display font-bold">{isRTL ? 'رضاكم هو مكافأتنا' : <>Votre Satisfaction, <br />Notre Récompense</>}</h2>
              <p className="text-white/60">
-               Derrière chaque visite mémorable se cache une équipe dévouée. De la cuisine aux tables de jeu, nous travaillons de concert pour vous offrir le meilleur de Meknès.
+               {isRTL
+                 ? 'خلف كل زيارة لا تنسى فريق متفان. من المطبخ إلى طاولات اللعب، نعمل بتناغم لنقدم لكم أفضل تجربة في مكناس.'
+                 : 'Derrière chaque visite mémorable se cache une équipe dévouée. De la cuisine aux tables de jeu, nous travaillons de concert pour vous offrir le meilleur de Meknès.'}
              </p>
              <ul className="space-y-4">
                <li className="flex items-center gap-4 text-sm text-gold">
-                 <div className="w-8 h-[1px] bg-gold" /> Personnel Bilingue
+                 <div className="w-8 h-[1px] bg-gold" /> {isRTL ? 'طاقم متعدد اللغات' : 'Personnel Bilingue'}
                </li>
                <li className="flex items-center gap-4 text-sm text-gold">
-                 <div className="w-8 h-[1px] bg-gold" /> Sécurité 24/7
+                 <div className="w-8 h-[1px] bg-gold" /> {isRTL ? 'أمن على مدار الساعة' : 'Sécurité 24/7'}
                </li>
                <li className="flex items-center gap-4 text-sm text-gold">
-                 <div className="w-8 h-[1px] bg-gold" /> Service voiturier
+                 <div className="w-8 h-[1px] bg-gold" /> {isRTL ? 'خدمة صف السيارات' : 'Service voiturier'}
                </li>
              </ul>
            </div>

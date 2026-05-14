@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
-import { publicAsset } from '../utils/assets';
+import { brandLogo } from '../data/brandAssets';
 
 type SeoConfig = {
   title: string;
@@ -9,7 +9,6 @@ type SeoConfig = {
 };
 
 const siteName = 'Prestige de Jeux';
-const defaultImage = 'og-prestige.jpg';
 
 const routeSeo: Record<string, SeoConfig> = {
   '/': {
@@ -134,7 +133,7 @@ export default function SEO() {
     const rootUrl = new URL(sitePath('/'), origin).toString().replace(/\/$/, '');
     const canonical = new URL(sitePath(path), origin).toString();
     const seo = lang === 'ar' && path === '/' ? arabicHome : routeSeo[path] || routeSeo['/'];
-    const image = new URL(publicAsset(defaultImage), origin).toString();
+    const image = new URL(brandLogo.src, origin).toString();
 
     document.title = seo.title;
     setMeta('meta[name="description"]', 'content', seo.description);
@@ -155,7 +154,7 @@ export default function SEO() {
       alternateName: 'بريستيج دو جو',
       url: rootUrl,
       image,
-      logo: new URL(publicAsset('logo-prestige.jpg'), origin).toString(),
+      logo: image,
       description:
         'Lounge premium de billard et snooker à Meknès avec café, restaurant, galerie et réservation VIP.',
       address: {

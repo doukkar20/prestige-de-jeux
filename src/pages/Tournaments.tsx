@@ -3,7 +3,7 @@ import { motion } from 'motion/react';
 import { Award, CalendarDays, Clock3, Crown, Medal, Trophy, Users } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { participants, rewards, tournaments } from '../data/tournaments';
-import { publicAsset } from '../utils/assets';
+import { imageAlt, tournamentImage } from '../data/galleryImages';
 
 function useCountdown(targetDate: string) {
   const [now, setNow] = useState(() => Date.now());
@@ -25,7 +25,7 @@ function useCountdown(targetDate: string) {
 }
 
 export default function Tournaments() {
-  const { t, isRTL } = useLanguage();
+  const { t, isRTL, lang } = useLanguage();
   const [isSubmitted, setIsSubmitted] = useState(false);
   const nextTournament = tournaments[0];
   const countdown = useCountdown(nextTournament.date);
@@ -43,7 +43,14 @@ export default function Tournaments() {
     <div className="bg-black text-white overflow-hidden">
       <section className="relative min-h-screen flex items-center pt-40 pb-24 px-6">
         <div className="absolute inset-0">
-          <img src={publicAsset('images/regenerated_image_1778342982723.png')} className="w-full h-full object-cover opacity-25" alt="" />
+          <img
+            src={tournamentImage.src}
+            width={tournamentImage.width}
+            height={tournamentImage.height}
+            loading="eager"
+            className="w-full h-full object-cover opacity-25"
+            alt={imageAlt(tournamentImage, lang)}
+          />
           <div className="absolute inset-0 bg-gradient-to-b from-black via-black/80 to-black" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(212,175,55,0.18),transparent_38%)]" />
         </div>
@@ -135,7 +142,7 @@ export default function Tournaments() {
       </section>
 
       <section id="tournament-rewards" className="py-24 px-6 bg-luxury-gray relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(212,175,55,0.12),transparent_36%)]" />
         <div className="max-w-7xl mx-auto relative">
           <h2 className={`text-4xl md:text-6xl font-display font-bold mb-12 gold-text ${isRTL ? 'text-right' : 'text-left'}`}>{t('tournaments.sections.rewards')}</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

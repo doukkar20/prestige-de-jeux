@@ -38,7 +38,7 @@ jobs:
 
       - name: Build static site
         env:
-          VITE_BASE_PATH: /
+          VITE_BASE_PATH: ./
           VITE_SITE_URL: https://prestigedejeux.com/
         run: npm run build
 

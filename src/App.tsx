@@ -4,7 +4,7 @@
  */
 
 import {lazy, Suspense} from 'react';
-import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import {BrowserRouter, Navigate, Routes, Route} from 'react-router-dom';
 import { LanguageProvider } from './context/LanguageContext';
 import Layout from './components/Layout';
 import ScrollToAnchor from './components/ScrollToAnchor';
@@ -33,6 +33,7 @@ export default function App() {
         <SEO />
         <Suspense fallback={<div className="min-h-screen bg-luxury-black" />}>
           <Routes>
+            <Route path="/dist/*" element={<Navigate to="/" replace />} />
             <Route path="/" element={<Layout />}>
               <Route index element={<Home />} />
               <Route path="about" element={<About />} />

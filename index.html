@@ -29,6 +29,18 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://elfsightcdn.com">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Cinzel:wght@500;600;700;800;900&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <script>
+      (function () {
+        var host = window.location.hostname;
+        var isPagesHost = host === 'prestigedejeux.com' || host === 'www.prestigedejeux.com' || host.endsWith('.github.io');
+        if (isPagesHost && window.location.pathname.indexOf('/dist/') === -1) {
+          var basePath = window.location.pathname.endsWith('/')
+            ? window.location.pathname
+            : window.location.pathname.replace(/[^/]*$/, '');
+          window.location.replace(basePath + 'dist/' + window.location.search + window.location.hash);
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

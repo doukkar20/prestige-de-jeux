@@ -38,14 +38,15 @@ jobs:
 
       - name: Build static site
         env:
-          VITE_BASE_PATH: /prestige-de-jeux/
-          VITE_SITE_URL: https://doukkar20.github.io/prestige-de-jeux/
+          VITE_BASE_PATH: /
+          VITE_SITE_URL: https://prestigedejeux.com/
         run: npm run build
 
       - name: Verify GitHub Pages artifact
         run: |
           test -f dist/index.html
           test -f dist/404.html
+          test -f dist/CNAME
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5

@@ -5,8 +5,6 @@ import {
   ChevronLeft,
   ChevronRight,
   Coffee,
-  Croissant,
-  CupSoda,
   EggFried,
   GlassWater,
   Martini,
@@ -20,38 +18,34 @@ import chamalli from '../assets/images/pic food/chamalli.jpg';
 import fassi from '../assets/images/pic food/fassi.jpg';
 import fassi1 from '../assets/images/pic food/fassi1.jpg';
 import fassi2 from '../assets/images/pic food/fassi2.jpg';
-import fransais from '../assets/images/pic food/fransais.jpg';
+import francais from '../assets/images/pic food/francais.jpg';
 import croqueMonsieur from '../assets/images/pic food/croque-monsieur.jpg';
 import croqueMonsieur1 from '../assets/images/pic food/croque-monsieur1.jpg';
-import hollandaise from '../assets/images/pic food/hollandaise.jpg';
-import crepeNutella from '../assets/images/pic food/creppnutella.jpg';
-import crepeNutellaBanane from '../assets/images/pic food/crepnutellabanane.jpg';
-import drinkSignature1 from '../assets/images/pic food/optimized/_DSF9387.optimized.jpg';
-import milkshakeSignature from '../assets/images/pic food/optimized/_DSF9393.optimized.jpg';
-import drinkSignature3 from '../assets/images/pic food/optimized/_DSF9395.optimized.jpg';
-import drinkSignature4 from '../assets/images/pic food/optimized/_DSF9397 1.optimized.jpg';
-import smoothieSignature from '../assets/images/pic food/optimized/_DSF9428.optimized.jpg';
-import hotDrinkSignature from '../assets/images/pic food/optimized/_DSF9440 1.optimized.jpg';
-import crepeBananeChocolat from '../assets/images/pic food/optimized/crepe-banane-chocolat.optimized.jpg';
-import crepeNutellaClassique from '../assets/images/pic food/optimized/crepe-nutella-classique.optimized.jpg';
-import crepeSaleePouletChampignons from '../assets/images/pic food/optimized/crepe-salee-poulet-champignons.optimized.jpg';
 import croqueMadame from '../assets/images/pic food/optimized/croque-madame.optimized.jpg';
-import fassiPremium from '../assets/images/pic food/optimized/petit-dejeuner-fassi-premium.optimized.jpg';
+import omeletteFromage from '../assets/images/pic food/optimized/omelette fromage.optimized.jpg';
+import crepeNutellaClassique from '../assets/images/pic food/optimized/crepe-nutella-classique.optimized.jpg';
+import crepeNutella from '../assets/images/pic food/creppnutella.jpg';
+import crepeBananeChocolat from '../assets/images/pic food/optimized/crepe-banane-chocolat.optimized.jpg';
+import crepeNutellaBanane from '../assets/images/pic food/crepnutellabanane.jpg';
+import crepeSaleePouletChampignons from '../assets/images/pic food/optimized/crepe-salee-poulet-champignons.optimized.jpg';
+import redParadise from '../assets/images/pic food/optimized/paradise.optimized.jpg';
+import jusExtraVitamine from '../assets/images/pic food/optimized/jus extra vitamine.optimized.jpg';
+import mojitoVirgin from '../assets/images/pic food/optimized/mojito vergine.optimized.jpg';
+import boraBora from '../assets/images/pic food/optimized/borabora.optimized.jpg';
+import cappuccinoViennois from '../assets/images/pic food/cappuccino-viennois.jpeg';
+import cafeLatte from '../assets/images/pic food/optimized/caffe lathe.optimized.jpg';
 import './Menu.css';
 
 type Category =
-  | 'Petit-Déjeuner'
-  | 'Brunch'
+  | 'Petits Déjeuners'
   | 'Crêpes Sucrées'
   | 'Crêpes Salées'
-  | 'Jus'
-  | 'Cocktails'
-  | 'Milkshakes'
-  | 'Smoothies'
+  | 'Jus Frais'
+  | 'Cocktails Signature'
   | 'Boissons Chaudes';
 
-type MenuProduct = {
-  id: number;
+type MenuItem = {
+  id: string;
   name: string;
   category: Category;
   price: string;
@@ -59,261 +53,232 @@ type MenuProduct = {
   images?: string[];
 };
 
-type DrinkCategory = {
-  id: string;
-  title: string;
+type MenuSection = {
   category: Category;
+  eyebrow: string;
   description: string;
-  images?: string[];
-  items: Array<Pick<MenuProduct, 'name' | 'price'>>;
+  items: MenuItem[];
 };
 
-const filterOptions = [
-  'Tout',
-  'Petit-Déjeuner',
-  'Brunch',
+const menuOrder: Category[] = [
+  'Petits Déjeuners',
   'Crêpes Sucrées',
   'Crêpes Salées',
-  'Jus',
-  'Cocktails',
-  'Milkshakes',
-  'Smoothies',
+  'Jus Frais',
+  'Cocktails Signature',
   'Boissons Chaudes',
-] as const;
+];
 
+const filterOptions = ['Tout', ...menuOrder] as const;
 type FilterOption = (typeof filterOptions)[number];
 
 const categoryIcons: Record<Category, typeof Coffee> = {
-  'Petit-Déjeuner': EggFried,
-  Brunch: Croissant,
+  'Petits Déjeuners': EggFried,
   'Crêpes Sucrées': Sparkles,
   'Crêpes Salées': Utensils,
-  Jus: GlassWater,
-  Cocktails: Martini,
-  Milkshakes: CupSoda,
-  Smoothies: Sparkles,
+  'Jus Frais': GlassWater,
+  'Cocktails Signature': Martini,
   'Boissons Chaudes': Coffee,
 };
 
-const menuProducts: MenuProduct[] = [
+const menuSections: MenuSection[] = [
   {
-    id: 1,
-    name: 'Petit-Déjeuner Chamali',
-    category: 'Petit-Déjeuner',
-    price: '30 DH',
-    description: "Œufs au choix, charcuterie, fromage rouge, jben, huile d'olive, olives noires, pain.",
-    images: [chamalli],
+    category: 'Petits Déjeuners',
+    eyebrow: 'Breakfast Prestige',
+    description: 'Classiques matinaux, croques gourmands et assiettes premium pour commencer la journée avec élégance.',
+    items: [
+      {
+        id: 'chamalli',
+        name: 'Chamalli',
+        category: 'Petits Déjeuners',
+        price: '30 DH',
+        description: "Œufs au choix, charcuterie, fromage rouge, jben, huile d'olive, olives noires et pain.",
+        images: [chamalli],
+      },
+      {
+        id: 'fassi-premium',
+        name: 'Fassi Premium',
+        category: 'Petits Déjeuners',
+        price: '35 DH',
+        description: "Tagine de khlii, œufs, jben, huile d'olive, olives noires et pain.",
+        images: [fassi, fassi1, fassi2],
+      },
+      {
+        id: 'french-breakfast',
+        name: 'French Breakfast',
+        category: 'Petits Déjeuners',
+        price: '35 DH',
+        description: 'Corbeille de viennoiseries, toast grillé, beurre et confiture.',
+        images: [francais],
+      },
+      {
+        id: 'croque-monsieur',
+        name: 'Croque Monsieur',
+        category: 'Petits Déjeuners',
+        price: '32 DH',
+        description: 'Toast grillé, cheddar, charcuterie et salade fraîche.',
+        images: [croqueMonsieur, croqueMonsieur1],
+      },
+      {
+        id: 'croque-madame',
+        name: 'Croque Madame',
+        category: 'Petits Déjeuners',
+        price: '32 DH',
+        description: 'Toast grillé, œuf, cheddar, charcuterie et salade fraîche.',
+        images: [croqueMadame],
+      },
+      {
+        id: 'oeufs-au-choix',
+        name: 'Œufs au Choix',
+        category: 'Petits Déjeuners',
+        price: '26 DH',
+        description: 'Œufs préparés selon votre envie, dont omelette fromage.',
+        images: [omeletteFromage],
+      },
+      {
+        id: 'prestige-breakfast',
+        name: 'Prestige Breakfast',
+        category: 'Petits Déjeuners',
+        price: '55 DH',
+        description: 'Formule premium généreuse dans l’esprit lounge Prestige de Jeux.',
+      },
+    ],
   },
   {
-    id: 2,
-    name: 'Petit-Déjeuner Fassi',
-    category: 'Petit-Déjeuner',
-    price: '35 DH',
-    description: "Tagine de khlii, œufs, jben, huile d'olive, olives noires, pain.",
-    images: [fassi, fassi1, fassi2, fassiPremium],
+    category: 'Crêpes Sucrées',
+    eyebrow: 'Sweet Corner',
+    description: 'Crêpes fondantes et généreuses, pensées pour une pause sucrée raffinée.',
+    items: [
+      {
+        id: 'crepe-nutella-classique',
+        name: 'Crêpe Nutella Classique',
+        category: 'Crêpes Sucrées',
+        price: '30 DH',
+        description: 'Crêpe moelleuse garnie de Nutella.',
+        images: [crepeNutellaClassique, crepeNutella],
+      },
+      {
+        id: 'crepe-banane-chocolat',
+        name: 'Crêpe Banane Chocolat',
+        category: 'Crêpes Sucrées',
+        price: '30 DH',
+        description: 'Crêpe gourmande à la banane et au chocolat fondant.',
+        images: [crepeBananeChocolat, crepeNutellaBanane],
+      },
+    ],
   },
   {
-    id: 3,
-    name: 'Croque Monsieur',
-    category: 'Petit-Déjeuner',
-    price: '40 DH',
-    description: 'Toast grillé, œufs, cheddar, charcuterie, salade fraîche.',
-    images: [croqueMonsieur, croqueMonsieur1],
-  },
-  {
-    id: 47,
-    name: 'Croque Madame',
-    category: 'Petit-Déjeuner',
-    price: '45 DH',
-    description: 'Toast grillé, œuf, cheddar, charcuterie, salade fraîche.',
-    images: [croqueMadame],
-  },
-  {
-    id: 4,
-    name: 'Petit-Déjeuner Français',
-    category: 'Petit-Déjeuner',
-    price: '35 DH',
-    description: 'Corbeille de viennoiseries, toast grillé, beurre, confiture.',
-    images: [fransais],
-  },
-  {
-    id: 5,
-    name: 'Petit-Déjeuner Prestige Avocat',
-    category: 'Petit-Déjeuner',
-    price: '55 DH',
-    description:
-      'Toast à l’avocat, fromage frais, œufs, salade, fruits frais, yaourt granola, graines de chia, jus d’orange.',
-    images: [hollandaise],
-  },
-  {
-    id: 6,
-    name: 'Omelette Nature ou Fromage',
-    category: 'Petit-Déjeuner',
-    price: '35 DH',
-    description: 'Omelette chaude et généreuse, préparée nature ou avec fromage fondant.',
-  },
-  {
-    id: 7,
-    name: 'Œufs au Plat',
-    category: 'Petit-Déjeuner',
-    price: '30 DH',
-    description: 'Œufs servis minute, simples, savoureux et parfaits pour commencer la journée.',
-  },
-  {
-    id: 8,
-    name: 'Brunch Prestige',
-    category: 'Brunch',
-    price: '120 DH',
-    description:
-      'Œufs, merguez, steak de poulet, charcuterie, fromage, champignons sautés, pommes de terre, sauce maison, pancake Nutella, mini gâteaux, fruits frais, yaourt granola, graines de chia, jus d’orange, thé à la menthe.',
-  },
-  {
-    id: 9,
-    name: 'Crêpe Salée Poulet & Champignons',
     category: 'Crêpes Salées',
-    price: '55 DH',
-    description: 'Poulet, sauce champignons, charcuterie, fromage.',
-    images: [crepeSaleePouletChampignons],
+    eyebrow: 'Savory Crêpes',
+    description: 'Recettes salées chaudes et généreuses pour les pauses gourmandes.',
+    items: [
+      {
+        id: 'crepe-salee-poulet-champignon',
+        name: 'Crêpe Salée Poulet Champignon',
+        category: 'Crêpes Salées',
+        price: '30 DH',
+        description: 'Poulet, sauce champignons, charcuterie et fromage.',
+        images: [crepeSaleePouletChampignons],
+      },
+    ],
   },
   {
-    id: 10,
-    name: 'Crêpe Fromage & Charcuterie',
-    category: 'Crêpes Salées',
-    price: '45 DH',
-    description: 'Crêpe salée fondante au fromage et charcuterie, servie chaude.',
+    category: 'Jus Frais',
+    eyebrow: 'Fresh Juice',
+    description: 'Jus frais et limonade servis bien frais. Les jus sans photo utilisent une finition visuelle sobre.',
+    items: [
+      { id: 'jus-orange', name: "Jus d'Orange", category: 'Jus Frais', price: '20 DH', description: 'Orange fraîche pressée.' },
+      { id: 'jus-banane', name: 'Jus de Banane', category: 'Jus Frais', price: '20 DH', description: 'Banane onctueuse et fraîche.' },
+      { id: 'jus-pomme', name: 'Jus de Pomme', category: 'Jus Frais', price: '20 DH', description: 'Pomme fraîche et légère.' },
+      { id: 'jus-fraise', name: 'Jus de Fraise', category: 'Jus Frais', price: '20 DH', description: 'Fraise fraîche, douce et fruitée.' },
+      { id: 'jus-peche', name: 'Jus de Pêche', category: 'Jus Frais', price: '20 DH', description: 'Pêche parfumée et rafraîchissante.' },
+      { id: 'jus-mangue', name: 'Jus de Mangue', category: 'Jus Frais', price: '25 DH', description: 'Mangue fraîche, dense et tropicale.' },
+      { id: 'jus-avocat', name: "Jus d'Avocat", category: 'Jus Frais', price: '25 DH', description: 'Avocat crémeux et équilibré.' },
+      { id: 'jus-dragon', name: 'Jus Dragon', category: 'Jus Frais', price: '30 DH', description: 'Jus signature aux notes exotiques.' },
+      { id: 'limonade', name: 'Limonade', category: 'Jus Frais', price: '16 DH', description: 'Limonade fraîche et acidulée.' },
+    ],
   },
   {
-    id: 11,
-    name: 'Crêpe Nutella Classique',
-    category: 'Crêpes Sucrées',
-    price: '35 DH',
-    description: 'Crêpe moelleuse garnie de Nutella, simple et irrésistible.',
-    images: [crepeNutellaClassique],
+    category: 'Cocktails Signature',
+    eyebrow: 'Signature Drinks',
+    description: 'Cocktails sans alcool et créations fruitées servies dans une ambiance premium.',
+    items: [
+      {
+        id: 'red-paradise',
+        name: 'Red Paradise',
+        category: 'Cocktails Signature',
+        price: '35 DH',
+        description: 'Cocktail rouge fruité, élégant et rafraîchissant.',
+        images: [redParadise],
+      },
+      {
+        id: 'jus-extra-vitamine',
+        name: 'Jus Extra Vitamine',
+        category: 'Cocktails Signature',
+        price: '35 DH',
+        description: 'Boisson vitaminée aux fruits, fraîche et lumineuse.',
+        images: [jusExtraVitamine],
+      },
+      {
+        id: 'mojito-virgin',
+        name: 'Mojito Virgin',
+        category: 'Cocktails Signature',
+        price: '40 DH',
+        description: 'Menthe, citron et fraîcheur vive, sans alcool.',
+        images: [mojitoVirgin],
+      },
+      {
+        id: 'bora-bora',
+        name: 'Bora Bora',
+        category: 'Cocktails Signature',
+        price: '45 DH',
+        description: 'Cocktail tropical généreux et premium.',
+        images: [boraBora],
+      },
+      {
+        id: 'prestige-cocktail',
+        name: 'Prestige Cocktail',
+        category: 'Cocktails Signature',
+        price: '50 DH',
+        description: 'Création maison Prestige de Jeux, raffinée et fruitée.',
+      },
+    ],
   },
   {
-    id: 48,
-    name: 'Crêpe Banane Chocolat',
-    category: 'Crêpes Sucrées',
-    price: '45 DH',
-    description: 'Crêpe gourmande à la banane et au chocolat fondant.',
-    images: [crepeBananeChocolat],
-  },
-  {
-    id: 12,
-    name: 'Crêpe Nutella Prestige',
-    category: 'Crêpes Sucrées',
-    price: '55 DH',
-    description: 'Nutella, banane, fraises, fruits frais, fruits secs.',
-    images: [crepeNutella],
-  },
-  {
-    id: 13,
-    name: 'Crêpe Nutella Deluxe',
-    category: 'Crêpes Sucrées',
-    price: '65 DH',
-    description:
-      'Nutella, banane enrobée de chocolat, fraises enrobées de chocolat, fruits frais, fruits secs.',
-    images: [crepeNutellaBanane],
-  },
-  {
-    id: 14,
-    name: 'Crêpe Miel & Amandes',
-    category: 'Crêpes Sucrées',
-    price: '40 DH',
-    description: 'Crêpe dorée au miel et aux amandes croquantes.',
-  },
-  {
-    id: 15,
-    name: 'Crêpe Caramel Beurre Salé',
-    category: 'Crêpes Sucrées',
-    price: '40 DH',
-    description: 'Crêpe nappée de caramel beurre salé, gourmande et élégante.',
-  },
-  {
-    id: 16,
-    name: 'Crêpe Fruits Rouges',
-    category: 'Crêpes Sucrées',
-    price: '45 DH',
-    description: 'Crêpe fruitée avec une note acidulée de fruits rouges.',
+    category: 'Boissons Chaudes',
+    eyebrow: 'Hot Lounge',
+    description: 'Cafés, thés, chocolat chaud et spécialités gourmandes pour une pause élégante.',
+    items: [
+      { id: 'espresso', name: 'Espresso', category: 'Boissons Chaudes', price: '13 DH', description: 'Espresso court et intense.' },
+      { id: 'double-espresso', name: 'Double Espresso', category: 'Boissons Chaudes', price: '18 DH', description: 'Double espresso riche et aromatique.' },
+      { id: 'cafe-creme', name: 'Café Crème', category: 'Boissons Chaudes', price: '15 DH', description: 'Café crème doux et équilibré.' },
+      { id: 'chocolat-chaud', name: 'Chocolat Chaud', category: 'Boissons Chaudes', price: '20 DH', description: 'Chocolat chaud dense et réconfortant.' },
+      { id: 'the-marocain', name: 'Thé Marocain', category: 'Boissons Chaudes', price: '13 DH', description: 'Thé marocain parfumé.' },
+      { id: 'the-anglais', name: 'Thé Anglais', category: 'Boissons Chaudes', price: '15 DH', description: 'Thé anglais classique.' },
+      { id: 'the-americain', name: 'Thé Américain', category: 'Boissons Chaudes', price: '15 DH', description: 'Thé américain servi chaud.' },
+      {
+        id: 'cappuccino-viennois',
+        name: 'Cappuccino Viennois',
+        category: 'Boissons Chaudes',
+        price: '25 DH',
+        description: 'Cappuccino gourmand avec une finition viennoise.',
+        images: [cappuccinoViennois],
+      },
+      { id: 'moka', name: 'Moka', category: 'Boissons Chaudes', price: '20 DH', description: 'Moka doux aux notes chocolatées.' },
+      { id: 'monte-cristo', name: 'Monte Cristo', category: 'Boissons Chaudes', price: '32 DH', description: 'Boisson chaude signature et généreuse.' },
+      {
+        id: 'cafe-latte',
+        name: 'Café Latte',
+        category: 'Boissons Chaudes',
+        price: '20 DH',
+        description: 'Café latte onctueux et équilibré.',
+        images: [cafeLatte],
+      },
+    ],
   },
 ];
 
-const drinkCategories: DrinkCategory[] = [
-  {
-    id: 'jus-frais',
-    title: 'Jus Frais',
-    category: 'Jus',
-    description: 'Jus frais servis minute, sans images cocktails pour garder la carte claire.',
-    items: [
-      { name: 'Jus d’Orange Pressé', price: '20 DH' },
-      { name: 'Jus d’Avocat', price: '30 DH' },
-      { name: 'Jus Mangue', price: '30 DH' },
-      { name: 'Jus Fraise', price: '30 DH' },
-      { name: 'Jus Banane', price: '30 DH' },
-      { name: 'Jus Kiwi', price: '30 DH' },
-      { name: 'Jus Ananas', price: '30 DH' },
-      { name: 'Jus Mix Fruits', price: '35 DH' },
-    ],
-  },
-  {
-    id: 'cocktails-signature',
-    title: 'Cocktails Signature',
-    category: 'Cocktails',
-    description: 'Cocktails signature Prestige, visuels exclusifs à cette catégorie.',
-    images: [drinkSignature1, drinkSignature3, drinkSignature4],
-    items: [
-      { name: 'Tropical Sunset', price: '40 DH' },
-      { name: 'Red Paradise', price: '40 DH' },
-      { name: 'Green Fresh', price: '40 DH' },
-      { name: 'Coco Dream', price: '40 DH' },
-    ],
-  },
-  {
-    id: 'milkshakes',
-    title: 'Milkshakes',
-    category: 'Milkshakes',
-    description: 'Milkshakes crémeux et généreux, regroupés dans une seule carte.',
-    images: [milkshakeSignature],
-    items: [
-      { name: 'Milkshake Vanille', price: '35 DH' },
-      { name: 'Milkshake Chocolat', price: '35 DH' },
-      { name: 'Milkshake Fraise', price: '35 DH' },
-      { name: 'Milkshake Oreo', price: '40 DH' },
-      { name: 'Milkshake Caramel', price: '35 DH' },
-    ],
-  },
-  {
-    id: 'smoothies',
-    title: 'Smoothies',
-    category: 'Smoothies',
-    description: 'Smoothies frais, fruités et équilibrés.',
-    images: [smoothieSignature],
-    items: [
-      { name: 'Smoothie Rouge', price: '40 DH' },
-      { name: 'Smoothie Tropical', price: '40 DH' },
-      { name: 'Smoothie Green Detox', price: '40 DH' },
-      { name: 'Smoothie Banana Energy', price: '40 DH' },
-    ],
-  },
-  {
-    id: 'boissons-chaudes',
-    title: 'Boissons Chaudes',
-    category: 'Boissons Chaudes',
-    description: 'Cafés, chocolats chauds, thés et infusions pour une pause lounge.',
-    images: [hotDrinkSignature],
-    items: [
-      { name: 'Espresso', price: '15 DH' },
-      { name: 'Double Espresso', price: '20 DH' },
-      { name: 'Café Crème', price: '20 DH' },
-      { name: 'Cappuccino', price: '25 DH' },
-      { name: 'Latte Macchiato', price: '25 DH' },
-      { name: 'Chocolat Chaud', price: '25 DH' },
-      { name: 'Thé à la Menthe', price: '20 DH' },
-      { name: 'Thé Noir', price: '20 DH' },
-      { name: 'Infusion', price: '20 DH' },
-    ],
-  },
-];
+const allItems = menuSections.flatMap((section) => section.items);
 
 function ImageCarousel({ images, title, category }: { images?: string[]; title: string; category: Category }) {
   const slides = images?.length ? images : [snookerTable];
@@ -322,6 +287,10 @@ function ImageCarousel({ images, title, category }: { images?: string[]; title: 
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const hasMultipleSlides = slides.length > 1;
   const Icon = categoryIcons[category];
+
+  useEffect(() => {
+    setActiveIndex(0);
+  }, [title, slides.length]);
 
   useEffect(() => {
     if (!hasMultipleSlides || isPaused) {
@@ -408,12 +377,8 @@ function ImageCarousel({ images, title, category }: { images?: string[]; title: 
   );
 }
 
-const MenuCard: FC<{ product: MenuProduct; index: number; onOpen: () => void }> = ({
-  product,
-  index,
-  onOpen,
-}) => {
-  const Icon = categoryIcons[product.category];
+const MenuCard: FC<{ item: MenuItem; index: number; onOpen: () => void }> = ({ item, index, onOpen }) => {
+  const Icon = categoryIcons[item.category];
 
   return (
     <motion.article
@@ -421,19 +386,19 @@ const MenuCard: FC<{ product: MenuProduct; index: number; onOpen: () => void }> 
       initial={{ opacity: 0, y: 34 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.16 }}
-      transition={{ duration: 0.52, delay: Math.min(index * 0.035, 0.28) }}
+      transition={{ duration: 0.52, delay: Math.min(index * 0.025, 0.22) }}
     >
-      <ImageCarousel images={product.images} title={product.name} category={product.category} />
+      <ImageCarousel images={item.images} title={item.name} category={item.category} />
       <div className="menu-card__body">
         <div className="menu-card__meta">
           <span>
             <Icon aria-hidden="true" />
-            {product.category}
+            {item.category}
           </span>
-          <strong>{product.price}</strong>
+          <strong>{item.price}</strong>
         </div>
-        <h2>{product.name}</h2>
-        <p>{product.description}</p>
+        <h3>{item.name}</h3>
+        <p>{item.description}</p>
         <button type="button" onClick={onOpen}>
           Voir les détails
         </button>
@@ -442,43 +407,8 @@ const MenuCard: FC<{ product: MenuProduct; index: number; onOpen: () => void }> 
   );
 };
 
-const DrinkCategoryCard: FC<{ drink: DrinkCategory; index: number }> = ({ drink, index }) => {
-  const Icon = categoryIcons[drink.category];
-
-  return (
-    <motion.article
-      className="menu-card drink-category-card"
-      initial={{ opacity: 0, y: 34 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.16 }}
-      transition={{ duration: 0.52, delay: Math.min(index * 0.035, 0.28) }}
-    >
-      <ImageCarousel images={drink.images} title={drink.title} category={drink.category} />
-      <div className="menu-card__body">
-        <div className="menu-card__meta">
-          <span>
-            <Icon aria-hidden="true" />
-            {drink.title}
-          </span>
-          <strong>{drink.items.length}</strong>
-        </div>
-        <h2>{drink.title}</h2>
-        <p>{drink.description}</p>
-        <ul className="drink-category-card__items" aria-label={drink.title}>
-          {drink.items.map((item) => (
-            <li key={item.name}>
-              <span>{item.name}</span>
-              <strong>{item.price}</strong>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </motion.article>
-  );
-};
-
-function MenuModal({ product, onClose }: { product: MenuProduct; onClose: () => void }) {
-  const Icon = categoryIcons[product.category];
+function MenuModal({ item, onClose }: { item: MenuItem; onClose: () => void }) {
+  const Icon = categoryIcons[item.category];
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -518,15 +448,15 @@ function MenuModal({ product, onClose }: { product: MenuProduct; onClose: () => 
         <button type="button" className="menu-modal__close" onClick={onClose} aria-label="Fermer les détails">
           <X aria-hidden="true" />
         </button>
-        <ImageCarousel images={product.images} title={product.name} category={product.category} />
+        <ImageCarousel images={item.images} title={item.name} category={item.category} />
         <div className="menu-modal__content">
           <span className="menu-modal__category">
             <Icon aria-hidden="true" />
-            {product.category}
+            {item.category}
           </span>
-          <h2 id="menu-modal-title">{product.name}</h2>
-          <strong>{product.price}</strong>
-          <p>{product.description}</p>
+          <h2 id="menu-modal-title">{item.name}</h2>
+          <strong>{item.price}</strong>
+          <p>{item.description}</p>
         </div>
       </motion.dialog>
     </motion.div>
@@ -535,22 +465,14 @@ function MenuModal({ product, onClose }: { product: MenuProduct; onClose: () => 
 
 export default function Menu() {
   const [activeFilter, setActiveFilter] = useState<FilterOption>('Tout');
-  const [selectedProduct, setSelectedProduct] = useState<MenuProduct | null>(null);
+  const [selectedItem, setSelectedItem] = useState<MenuItem | null>(null);
 
-  const filteredProducts = useMemo(() => {
+  const visibleSections = useMemo(() => {
     if (activeFilter === 'Tout') {
-      return menuProducts;
+      return menuSections;
     }
 
-    return menuProducts.filter((product) => product.category === activeFilter);
-  }, [activeFilter]);
-
-  const filteredDrinkCategories = useMemo(() => {
-    if (activeFilter === 'Tout') {
-      return drinkCategories;
-    }
-
-    return drinkCategories.filter((drink) => drink.category === activeFilter);
+    return menuSections.filter((section) => section.category === activeFilter);
   }, [activeFilter]);
 
   return (
@@ -570,11 +492,11 @@ export default function Menu() {
           >
             <span className="prestige-menu__eyebrow">
               <span />
-              Prestige Jeux Lounge
+              Prestige de Jeux
               <span />
             </span>
             <h1 id="menu-title">Notre Menu</h1>
-            <p>Petit-déjeuner, Brunch, Crêpes, Jus, Cocktails & Boissons</p>
+            <p>Petits déjeuners, crêpes, jus frais, cocktails signature & boissons chaudes</p>
           </motion.header>
 
           <nav className="menu-filters" aria-label="Filtrer le menu">
@@ -592,31 +514,51 @@ export default function Menu() {
             ))}
           </nav>
 
-          <div className="menu-grid" aria-live="polite">
-            {filteredProducts.map((product, index) => (
-              <MenuCard
-                key={product.id}
-                product={product}
-                index={index}
-                onOpen={() => setSelectedProduct(product)}
-              />
-            ))}
-            {filteredDrinkCategories.map((drink, index) => (
-              <DrinkCategoryCard
-                key={drink.id}
-                drink={drink}
-                index={filteredProducts.length + index}
-              />
-            ))}
+          <div className="menu-sections" aria-live="polite">
+            {visibleSections.map((section) => {
+              const Icon = categoryIcons[section.category];
+
+              return (
+                <section key={section.category} className="menu-section" aria-labelledby={`section-${section.category}`}>
+                  <motion.div
+                    className="menu-section__header"
+                    initial={{ opacity: 0, y: 24 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.3 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    <span>
+                      <Icon aria-hidden="true" />
+                      {section.eyebrow}
+                    </span>
+                    <h2 id={`section-${section.category}`}>{section.category}</h2>
+                    <p>{section.description}</p>
+                  </motion.div>
+
+                  <div className="menu-grid">
+                    {section.items.map((item, index) => (
+                      <MenuCard
+                        key={item.id}
+                        item={item}
+                        index={index}
+                        onOpen={() => setSelectedItem(item)}
+                      />
+                    ))}
+                  </div>
+                </section>
+              );
+            })}
           </div>
         </div>
       </section>
 
       <AnimatePresence>
-        {selectedProduct ? (
-          <MenuModal product={selectedProduct} onClose={() => setSelectedProduct(null)} />
+        {selectedItem ? (
+          <MenuModal item={selectedItem} onClose={() => setSelectedItem(null)} />
         ) : null}
       </AnimatePresence>
     </main>
   );
 }
+
+export { allItems, menuSections };

@@ -29,7 +29,7 @@ import crepeBananeChocolat from '../assets/images/pic food/optimized/crepe-banan
 import crepeNutellaBanane from '../assets/images/pic food/crepnutellabanane.jpg';
 import crepeSaleePouletChampignons from '../assets/images/pic food/optimized/crepe-salee-poulet-champignons.optimized.jpg';
 import redParadise from '../assets/images/pic food/optimized/paradise.optimized.jpg';
-import jusExtraVitamine from '../assets/images/pic food/optimized/jus extra vitamine.optimized.jpg';
+import jusExtraVitamine from '../assets/images/pic food/jus extra vitamine.jpeg';
 import mojitoVirgin from '../assets/images/pic food/optimized/mojito vergine.optimized.jpg';
 import boraBora from '../assets/images/pic food/optimized/borabora.optimized.jpg';
 import cappuccinoViennois from '../assets/images/pic food/cappuccino-viennois.jpeg';
@@ -191,11 +191,20 @@ const menuSections: MenuSection[] = [
       { id: 'jus-banane', name: 'Jus de Banane', category: 'Jus Frais', price: '20 DH', description: 'Banane onctueuse et fraîche.' },
       { id: 'jus-pomme', name: 'Jus de Pomme', category: 'Jus Frais', price: '20 DH', description: 'Pomme fraîche et légère.' },
       { id: 'jus-fraise', name: 'Jus de Fraise', category: 'Jus Frais', price: '20 DH', description: 'Fraise fraîche, douce et fruitée.' },
-      { id: 'jus-peche', name: 'Jus de Pêche', category: 'Jus Frais', price: '20 DH', description: 'Pêche parfumée et rafraîchissante.' },
-      { id: 'jus-mangue', name: 'Jus de Mangue', category: 'Jus Frais', price: '25 DH', description: 'Mangue fraîche, dense et tropicale.' },
+      { id: 'jus-peche-framboise', name: 'Jus de Pêche & Framboise', category: 'Jus Frais', price: '30 DH', description: 'Pêche et framboise, fruitées et rafraîchissantes.' },
+      { id: 'jus-mangue', name: 'Jus de Mangue', category: 'Jus Frais', price: '30 DH', description: 'Mangue fraîche, dense et tropicale.' },
+      { id: 'jus-dragon-ananas', name: 'Jus Dragon & Ananas', category: 'Jus Frais', price: '30 DH', description: 'Dragon et ananas aux notes exotiques.' },
       { id: 'jus-avocat', name: "Jus d'Avocat", category: 'Jus Frais', price: '25 DH', description: 'Avocat crémeux et équilibré.' },
-      { id: 'jus-dragon', name: 'Jus Dragon', category: 'Jus Frais', price: '30 DH', description: 'Jus signature aux notes exotiques.' },
-      { id: 'limonade', name: 'Limonade', category: 'Jus Frais', price: '16 DH', description: 'Limonade fraîche et acidulée.' },
+      { id: 'limonade', name: 'Limonade', category: 'Jus Frais', price: '25 DH', description: 'Limonade fraîche et acidulée.' },
+      { id: 'jus-citron', name: 'Jus de Citron', category: 'Jus Frais', price: '25 DH', description: 'Citron frais, vif et acidulé.' },
+      {
+        id: 'jus-extra-vitamine',
+        name: 'Jus Extra Vitamine',
+        category: 'Jus Frais',
+        price: '35 DH',
+        description: 'Boisson vitaminée aux fruits, fraîche et lumineuse.',
+        images: [jusExtraVitamine],
+      },
     ],
   },
   {
@@ -210,14 +219,6 @@ const menuSections: MenuSection[] = [
         price: '35 DH',
         description: 'Cocktail rouge fruité, élégant et rafraîchissant.',
         images: [redParadise],
-      },
-      {
-        id: 'jus-extra-vitamine',
-        name: 'Jus Extra Vitamine',
-        category: 'Cocktails Signature',
-        price: '35 DH',
-        description: 'Boisson vitaminée aux fruits, fraîche et lumineuse.',
-        images: [jusExtraVitamine],
       },
       {
         id: 'mojito-virgin',

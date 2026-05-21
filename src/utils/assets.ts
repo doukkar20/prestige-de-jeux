@@ -1,6 +1,7 @@
 export function publicAsset(assetPath: string) {
   const cleanPath = assetPath.replace(/^\/+/, '');
-  return `${import.meta.env.BASE_URL}${cleanPath}`;
+  const base = import.meta.env.BASE_URL === './' ? '' : import.meta.env.BASE_URL;
+  return `${base}${cleanPath}`;
 }
 
 export function publicCssUrl(assetPath: string) {

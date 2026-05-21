@@ -61,8 +61,8 @@ function staticSeoFilesPlugin(siteUrl: string) {
 
 export default defineConfig(({mode}) => {
   const env = loadEnv(mode, '.', '');
-  const base = normalizeBasePath(env.VITE_BASE_PATH || githubPagesBasePath());
-  const siteUrl = env.VITE_SITE_URL || `https://doukkar20.github.io${base}`;
+  const base = normalizeBasePath(env.VITE_BASE_PATH || './');
+  const siteUrl = env.VITE_SITE_URL || `https://doukkar20.github.io${githubPagesBasePath()}`;
 
   return {
     base,

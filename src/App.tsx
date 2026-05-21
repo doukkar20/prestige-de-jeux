@@ -4,8 +4,9 @@
  */
 
 import {lazy, Suspense} from 'react';
-import {BrowserRouter, Navigate, Routes, Route} from 'react-router-dom';
+import {BrowserRouter, HashRouter, Navigate, Routes, Route} from 'react-router-dom';
 import { LanguageProvider } from './context/LanguageContext';
+import AppErrorBoundary from './components/AppErrorBoundary';
 import Layout from './components/Layout';
 import ScrollToAnchor from './components/ScrollToAnchor';
 import SEO from './components/SEO';
@@ -24,42 +25,48 @@ const FAQ = lazy(() => import('./pages/FAQ'));
 const Pricing = lazy(() => import('./pages/Pricing'));
 
 export default function App() {
-  const basename = import.meta.env.BASE_URL === '/' ? undefined : import.meta.env.BASE_URL.replace(/\/$/, '');
+  const isFileBuild = window.location.protocol === 'file:';
+  const baseUrl = import.meta.env.BASE_URL;
+  const inferredRepositoryBase = window.location.pathname.startsWith('/prestige-jeux-main') ? '/prestige-jeux-main' : undefined;
+  const basename = baseUrl === '/' || baseUrl === './' ? inferredRepositoryBase : baseUrl.replace(/\/$/, '');
+  const Router = isFileBuild ? HashRouter : BrowserRouter;
 
   return (
-    <LanguageProvider>
-      <BrowserRouter basename={basename}>
-        <ScrollToAnchor />
-        <SEO />
-        <Suspense
-          fallback={
-            <div className="flex min-h-screen items-center justify-center bg-luxury-black px-6 text-center text-gold">
-              <div>
-                <p className="font-display text-3xl font-bold">Prestige de Jeux</p>
-                <p className="mt-3 text-sm font-semibold uppercase tracking-[0.2em] text-white/70">Chargement</p>
+    <AppErrorBoundary>
+      <LanguageProvider>
+        <Router basename={isFileBuild ? undefined : basename}>
+          <ScrollToAnchor />
+          <SEO />
+          <Suspense
+            fallback={
+              <div className="flex min-h-screen items-center justify-center bg-luxury-black px-6 text-center text-gold">
+                <div>
+                  <p className="font-display text-3xl font-bold">Prestige de Jeux</p>
+                  <p className="mt-3 text-sm font-semibold uppercase tracking-[0.2em] text-white/70">Chargement</p>
+                </div>
               </div>
-            </div>
-          }
-        >
-          <Routes>
-            <Route path="/dist/*" element={<Navigate to="/" replace />} />
-            <Route path="/" element={<Layout />}>
-              <Route index element={<Home />} />
-              <Route path="about" element={<About />} />
-              <Route path="services" element={<Services />} />
-              <Route path="menu" element={<Menu />} />
-              <Route path="gallery" element={<Gallery />} />
-              <Route path="tournaments" element={<Tournaments />} />
-              <Route path="reservation" element={<Reservation />} />
-              <Route path="contact" element={<Contact />} />
-              <Route path="faq" element={<FAQ />} />
-              <Route path="pricing" element={<Pricing />} />
-            </Route>
-            <Route path="/admin" element={<AdminLogin />} />
-            <Route path="/admin/dashboard" element={<Dashboard />} />
-          </Routes>
-        </Suspense>
-      </BrowserRouter>
-    </LanguageProvider>
+            }
+          >
+            <Routes>
+              <Route path="/dist/*" element={<Navigate to="/" replace />} />
+              <Route path="/" element={<Layout />}>
+                <Route index element={<Home />} />
+                <Route path="about" element={<About />} />
+                <Route path="services" element={<Services />} />
+                <Route path="menu" element={<Menu />} />
+                <Route path="gallery" element={<Gallery />} />
+                <Route path="tournaments" element={<Tournaments />} />
+                <Route path="reservation" element={<Reservation />} />
+                <Route path="contact" element={<Contact />} />
+                <Route path="faq" element={<FAQ />} />
+                <Route path="pricing" element={<Pricing />} />
+              </Route>
+              <Route path="/admin" element={<AdminLogin />} />
+              <Route path="/admin/dashboard" element={<Dashboard />} />
+            </Routes>
+          </Suspense>
+        </Router>
+      </LanguageProvider>
+    </AppErrorBoundary>
   );
 }

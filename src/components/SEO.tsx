@@ -119,7 +119,7 @@ function setJsonLd(id: string, data: unknown) {
 }
 
 function sitePath(path: string) {
-  const base = import.meta.env.BASE_URL === '/' ? '' : import.meta.env.BASE_URL.replace(/\/$/, '');
+  const base = import.meta.env.BASE_URL === '/' || import.meta.env.BASE_URL === './' ? '' : import.meta.env.BASE_URL.replace(/\/$/, '');
   return `${base}${path === '/' ? '/' : path}`;
 }
 

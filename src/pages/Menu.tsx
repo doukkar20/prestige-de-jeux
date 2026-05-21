@@ -15,10 +15,12 @@ import {
 import snookerTable from '../assets/images/snooker-table.jpg';
 import chamalli from '../assets/images/pic food/chamalli.jpg';
 import fassi from '../assets/images/pic food/fassi.jpg';
+import fassi1 from '../assets/images/pic food/fassi1.jpg';
 import francais from '../assets/images/pic food/francais.jpg';
 import croqueMonsieur from '../assets/images/pic food/croque-monsieur.jpg';
 import croqueMadame from '../assets/images/pic food/optimized/croque-madame.optimized.jpg';
 import omeletteFromage from '../assets/images/pic food/optimized/omelette-fromage.optimized.jpg';
+import hollandaise from '../assets/images/pic food/hollandaise.jpg';
 import crepeNutellaClassique from '../assets/images/pic food/optimized/crepe-nutella-classique.optimized.jpg';
 import crepeBananeChocolat from '../assets/images/pic food/optimized/crepe-banane-chocolat.optimized.jpg';
 import crepeSaleePouletChampignons from '../assets/images/pic food/optimized/crepe-salee-poulet-champignons.optimized.jpg';
@@ -136,6 +138,14 @@ const rawMenuSections: MenuSection[] = [
         image: fassi,
       },
       {
+        id: 'fassi-khlii-dejeuner',
+        name: 'Fassi Khlii Dejeuner',
+        category: 'Petits Déjeuners',
+        price: '30 DH',
+        description: "Petit dejeuner fassi au khlii, genereux et traditionnel.",
+        image: fassi1,
+      },
+      {
         id: 'french-breakfast',
         name: 'French Breakfast',
         category: 'Petits Déjeuners',
@@ -166,6 +176,14 @@ const rawMenuSections: MenuSection[] = [
         price: '35 DH',
         description: 'Oeufs préparés selon votre envie, dont omelette fromage.',
         image: omeletteFromage,
+      },
+      {
+        id: 'hollandaise',
+        name: 'Hollandaise',
+        category: 'Petits Déjeuners',
+        price: '45 DH',
+        description: 'Petit déjeuner hollandaise gourmand et raffiné.',
+        image: hollandaise,
       },
       {
         id: 'prestige-breakfast',

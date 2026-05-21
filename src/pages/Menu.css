@@ -264,7 +264,18 @@
 
 .menu-card--cafe-latte .menu-carousel__image,
 .menu-card--cafe-latte img {
-  object-position: center 36%;
+  object-fit: contain;
+  object-position: center;
+}
+
+.menu-card--cafe-latte .menu-carousel {
+  background:
+    radial-gradient(circle at 50% 44%, rgba(212, 175, 55, 0.12), transparent 52%),
+    linear-gradient(145deg, #050505, #16110a 58%, #050505);
+}
+
+.menu-card--cafe-latte .menu-carousel__shade {
+  background: linear-gradient(180deg, transparent 70%, rgba(11, 11, 11, 0.52));
 }
 
 .menu-card--mojito-virgin .menu-carousel {

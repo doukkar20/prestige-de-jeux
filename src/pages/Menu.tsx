@@ -49,7 +49,7 @@ import generatedMilkshakeAi from '../assets/images/pic food/generated/milkshake-
 import generatedFrappuccinoAi from '../assets/images/pic food/generated/frappuccino-ai.jpg';
 import generatedIceTeaAi from '../assets/images/pic food/generated/ice-tea-ai.jpg';
 import generatedSmoothyAi from '../assets/images/pic food/generated/smoothy-ai.jpg';
-import generatedMojitoVirginAi from '../assets/images/pic food/generated/mojito-virgin-ai.jpg';
+import mojitoVergine from '../assets/images/pic food/mojito-vergine.jpeg';
 import generatedPinaColadaAi from '../assets/images/pic food/generated/pina-colada-ai.jpg';
 import generatedCocoDreamAi from '../assets/images/pic food/generated/coco-dream-ai.jpg';
 import generatedSpanishLatteAi from '../assets/images/pic food/generated/spanish-latte-ai.jpg';
@@ -270,7 +270,7 @@ const rawMenuSections: MenuSection[] = [
       { id: 'smoothy', name: 'Smoothy', category: 'Boissons Froides', price: '30 DH', description: 'Smoothy naturel vitaminé aux fruits frais.', image: generatedSmoothyAi },
       { id: 'pina-colada', name: 'Pina Colada', category: 'Boissons Froides', price: '40 DH', description: "Cocktail tropical crémeux à base d'ananas et noix de coco.", image: generatedPinaColadaAi },
       { id: 'coco-dream', name: 'Coco Dream', category: 'Boissons Froides', price: '40 DH', description: 'Cocktail exotique crémeux à la noix de coco.', image: generatedCocoDreamAi },
-      { id: 'mojito-virgin', name: 'Mojito Virgin', category: 'Boissons Froides', price: '35 DH', description: 'Mocktail frais et tropical aux saveurs au choix.', image: generatedMojitoVirginAi },
+      { id: 'mojito-virgin', name: 'Mojito Virgin', category: 'Boissons Froides', price: '35 DH', description: 'Mocktail frais et tropical aux saveurs au choix.', image: mojitoVergine },
     ],
   },
   {

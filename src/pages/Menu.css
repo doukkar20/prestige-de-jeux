@@ -399,7 +399,7 @@
 
 .menu-card p {
   display: -webkit-box;
-  min-height: 5.6rem;
+  min-height: 4.7rem;
   margin: 1rem 0 1.2rem;
   overflow: hidden;
   color: rgba(255, 255, 255, 0.74);
@@ -407,6 +407,28 @@
   line-height: 1.65;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 4;
+}
+
+.menu-card__details,
+.menu-modal__details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin: 0 0 1.2rem;
+  padding: 0;
+  list-style: none;
+}
+
+.menu-card__details li,
+.menu-modal__details li {
+  border: 1px solid rgba(212, 175, 55, 0.34);
+  border-radius: 999px;
+  background: rgba(212, 175, 55, 0.1);
+  padding: 0.45rem 0.68rem;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 0.75rem;
+  font-weight: 800;
+  line-height: 1.25;
 }
 
 .menu-card button {
@@ -540,6 +562,10 @@
   color: rgba(255, 255, 255, 0.78);
   font-size: 1.05rem;
   line-height: 1.85;
+}
+
+.menu-modal__details {
+  margin-top: 1rem;
 }
 
 @media (max-width: 1279px) {

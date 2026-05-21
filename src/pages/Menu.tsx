@@ -5,6 +5,7 @@ import {
   ChevronLeft,
   ChevronRight,
   Coffee,
+  CupSoda,
   EggFried,
   GlassWater,
   Martini,
@@ -55,6 +56,10 @@ import generatedTheAnglais from '../assets/images/pic food/generated/the-anglais
 import generatedTheAmericain from '../assets/images/pic food/generated/the-americain.png';
 import generatedMoka from '../assets/images/pic food/generated/moka.png';
 import generatedMonteCristo from '../assets/images/pic food/generated/monte-cristo.png';
+import generatedMilkshakeAi from '../assets/images/pic food/generated/milkshake-ai.jpg';
+import generatedFrappuccinoAi from '../assets/images/pic food/generated/frappuccino-ai.jpg';
+import generatedIceTeaAi from '../assets/images/pic food/generated/ice-tea-ai.jpg';
+import generatedSmoothieAi from '../assets/images/pic food/generated/smoothie-ai.jpg';
 import './Menu.css';
 
 type Category =
@@ -62,6 +67,7 @@ type Category =
   | 'Crêpes Sucrées'
   | 'Crêpes Salées'
   | 'Jus Frais'
+  | 'Boissons Froides'
   | 'Cocktails Signature'
   | 'Boissons Chaudes';
 
@@ -72,6 +78,7 @@ type MenuItem = {
   price: string;
   description: string;
   images?: string[];
+  details?: string[];
 };
 
 type MenuSection = {
@@ -86,6 +93,7 @@ const menuOrder: Category[] = [
   'Crêpes Sucrées',
   'Crêpes Salées',
   'Jus Frais',
+  'Boissons Froides',
   'Cocktails Signature',
   'Boissons Chaudes',
 ];
@@ -98,6 +106,7 @@ const categoryIcons: Record<Category, typeof Coffee> = {
   'Crêpes Sucrées': Sparkles,
   'Crêpes Salées': Utensils,
   'Jus Frais': GlassWater,
+  'Boissons Froides': CupSoda,
   'Cocktails Signature': Martini,
   'Boissons Chaudes': Coffee,
 };
@@ -226,6 +235,49 @@ const menuSections: MenuSection[] = [
         price: '35 DH',
         description: 'Boisson vitaminée aux fruits, fraîche et lumineuse.',
         images: [jusExtraVitamine],
+      },
+    ],
+  },
+  {
+    category: 'Boissons Froides',
+    eyebrow: 'Iced Lounge',
+    description: 'Boissons froides gourmandes et rafraîchissantes servies dans un esprit café premium.',
+    items: [
+      {
+        id: 'milk-shake',
+        name: 'Milk Shake',
+        category: 'Boissons Froides',
+        price: '30 DH',
+        description: 'Milk shake gourmand et crémeux au choix.',
+        images: [generatedMilkshakeAi],
+        details: ['Options: Fraise / Caramel / Vanille / Chocolat / Oreo'],
+      },
+      {
+        id: 'frappuccino',
+        name: 'Frappuccino',
+        category: 'Boissons Froides',
+        price: '35 DH',
+        description: 'Frappuccino glacé onctueux et rafraîchissant.',
+        images: [generatedFrappuccinoAi],
+        details: ['Options: Caramel / Vanille / Fraise / Chocolat'],
+      },
+      {
+        id: 'ice-tea',
+        name: 'Ice Tea',
+        category: 'Boissons Froides',
+        price: '30 DH',
+        description: 'Ice tea frais aux saveurs fruitées et rafraîchissantes.',
+        images: [generatedIceTeaAi],
+        details: ['Options: Citron / Fruits Rouges'],
+      },
+      {
+        id: 'smoothie',
+        name: 'Smoothie',
+        category: 'Boissons Froides',
+        price: '30 DH',
+        description: 'Smoothie naturel vitaminé aux fruits frais.',
+        images: [generatedSmoothieAi],
+        details: ['Options: Fraise / Banane / Orange / Au choix'],
       },
     ],
   },
@@ -423,6 +475,13 @@ const MenuCard: FC<{ item: MenuItem; index: number; onOpen: () => void }> = ({ i
         </div>
         <h3>{item.name}</h3>
         <p>{item.description}</p>
+        {item.details?.length ? (
+          <ul className="menu-card__details" aria-label={`Options ${item.name}`}>
+            {item.details.map((detail) => (
+              <li key={detail}>{detail}</li>
+            ))}
+          </ul>
+        ) : null}
         <button type="button" onClick={onOpen}>
           Voir les détails
         </button>
@@ -481,6 +540,13 @@ function MenuModal({ item, onClose }: { item: MenuItem; onClose: () => void }) {
           <h2 id="menu-modal-title">{item.name}</h2>
           <strong>{item.price}</strong>
           <p>{item.description}</p>
+          {item.details?.length ? (
+            <ul className="menu-modal__details" aria-label={`Options ${item.name}`}>
+              {item.details.map((detail) => (
+                <li key={detail}>{detail}</li>
+              ))}
+            </ul>
+          ) : null}
         </div>
       </motion.dialog>
     </motion.div>
@@ -520,7 +586,7 @@ export default function Menu() {
               <span />
             </span>
             <h1 id="menu-title">Notre Menu</h1>
-            <p>Petits déjeuners, crêpes, jus frais, cocktails signature & boissons chaudes</p>
+            <p>Petits déjeuners, crêpes, jus frais, boissons froides, cocktails signature & boissons chaudes</p>
           </motion.header>
 
           <nav className="menu-filters" aria-label="Filtrer le menu">

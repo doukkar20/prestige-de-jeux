@@ -1,0 +1,731 @@
+{
+  "borabora": {
+    "source": "borabora.jpeg",
+    "full": "borabora.webp",
+    "thumb": "borabora-thumb.webp",
+    "sourceWidth": 2141,
+    "sourceHeight": 3800,
+    "fullBytes": 106704,
+    "thumbBytes": 18628
+  },
+  "caffe-lathe": {
+    "source": "caffe-lathe.jpeg",
+    "full": "caffe-lathe.webp",
+    "thumb": "caffe-lathe-thumb.webp",
+    "sourceWidth": 2141,
+    "sourceHeight": 3800,
+    "fullBytes": 60808,
+    "thumbBytes": 14082
+  },
+  "cappuccino-viennois": {
+    "source": "cappuccino-viennois.jpeg",
+    "full": "cappuccino-viennois.webp",
+    "thumb": "cappuccino-viennois-thumb.webp",
+    "sourceWidth": 2488,
+    "sourceHeight": 4416,
+    "fullBytes": 87182,
+    "thumbBytes": 21174
+  },
+  "caputchino-venoise": {
+    "source": "caputchino-venoise.jpeg",
+    "full": "caputchino-venoise.webp",
+    "thumb": "caputchino-venoise-thumb.webp",
+    "sourceWidth": 4416,
+    "sourceHeight": 2488,
+    "fullBytes": 86782,
+    "thumbBytes": 21198
+  },
+  "chamalli": {
+    "source": "chamalli.jpg",
+    "full": "chamalli.webp",
+    "thumb": "chamalli-thumb.webp",
+    "sourceWidth": 1280,
+    "sourceHeight": 960,
+    "fullBytes": 143936,
+    "thumbBytes": 34106
+  },
+  "crepe-banane-chocolat": {
+    "source": "crepe-banane-chocolat.jpg",
+    "full": "crepe-banane-chocolat.webp",
+    "thumb": "crepe-banane-chocolat-thumb.webp",
+    "sourceWidth": 3134,
+    "sourceHeight": 2488,
+    "fullBytes": 94246,
+    "thumbBytes": 21920
+  },
+  "crepe-nutella-classique": {
+    "source": "crepe-nutella-classique.jpg",
+    "full": "crepe-nutella-classique.webp",
+    "thumb": "crepe-nutella-classique-thumb.webp",
+    "sourceWidth": 3028,
+    "sourceHeight": 2135,
+    "fullBytes": 125626,
+    "thumbBytes": 29406
+  },
+  "crepe-salee-poulet-champignons": {
+    "source": "crepe-salee-poulet-champignons.jpg",
+    "full": "crepe-salee-poulet-champignons.webp",
+    "thumb": "crepe-salee-poulet-champignons-thumb.webp",
+    "sourceWidth": 2360,
+    "sourceHeight": 2123,
+    "fullBytes": 222732,
+    "thumbBytes": 41190
+  },
+  "crepnutellabanane": {
+    "source": "crepnutellabanane.jpg",
+    "full": "crepnutellabanane.webp",
+    "thumb": "crepnutellabanane-thumb.webp",
+    "sourceWidth": 1280,
+    "sourceHeight": 960,
+    "fullBytes": 154220,
+    "thumbBytes": 38950
+  },
+  "creppnutella": {
+    "source": "creppnutella.jpg",
+    "full": "creppnutella.webp",
+    "thumb": "creppnutella-thumb.webp",
+    "sourceWidth": 1280,
+    "sourceHeight": 960,
+    "fullBytes": 155094,
+    "thumbBytes": 42136
+  },
+  "croque-madame": {
+    "source": "croque-madame.jpg",
+    "full": "croque-madame.webp",
+    "thumb": "croque-madame-thumb.webp",
+    "sourceWidth": 2065,
+    "sourceHeight": 2096,
+    "fullBytes": 268760,
+    "thumbBytes": 38088
+  },
+  "croque-monsieur": {
+    "source": "croque-monsieur.jpg",
+    "full": "croque-monsieur.webp",
+    "thumb": "croque-monsieur-thumb.webp",
+    "sourceWidth": 1280,
+    "sourceHeight": 960,
+    "fullBytes": 129996,
+    "thumbBytes": 36756
+  },
+  "croque-monsieur1": {
+    "source": "croque-monsieur1.jpg",
+    "full": "croque-monsieur1.webp",
+    "thumb": "croque-monsieur1-thumb.webp",
+    "sourceWidth": 1280,
+    "sourceHeight": 960,
+    "fullBytes": 146478,
+    "thumbBytes": 39078
+  },
+  "dsf9387": {
+    "source": "dsf9387.jpeg",
+    "full": "dsf9387.webp",
+    "thumb": "dsf9387-thumb.webp",
+    "sourceWidth": 2488,
+    "sourceHeight": 4416,
+    "fullBytes": 89180,
+    "thumbBytes": 20216
+  },
+  "dsf9393": {
+    "source": "dsf9393.jpeg",
+    "full": "dsf9393.webp",
+    "thumb": "dsf9393-thumb.webp",
+    "sourceWidth": 2488,
+    "sourceHeight": 4416,
+    "fullBytes": 50054,
+    "thumbBytes": 12288
+  },
+  "dsf9395": {
+    "source": "dsf9395.jpeg",
+    "full": "dsf9395.webp",
+    "thumb": "dsf9395-thumb.webp",
+    "sourceWidth": 2488,
+    "sourceHeight": 4416,
+    "fullBytes": 82228,
+    "thumbBytes": 17656
+  },
+  "dsf9397-1": {
+    "source": "dsf9397-1.jpeg",
+    "full": "dsf9397-1.webp",
+    "thumb": "dsf9397-1-thumb.webp",
+    "sourceWidth": 2141,
+    "sourceHeight": 3800,
+    "fullBytes": 106704,
+    "thumbBytes": 18628
+  },
+  "dsf9428": {
+    "source": "dsf9428.jpeg",
+    "full": "dsf9428.webp",
+    "thumb": "dsf9428-thumb.webp",
+    "sourceWidth": 4416,
+    "sourceHeight": 2488,
+    "fullBytes": 86782,
+    "thumbBytes": 21198
+  },
+  "dsf9440-1": {
+    "source": "dsf9440-1.jpeg",
+    "full": "dsf9440-1.webp",
+    "thumb": "dsf9440-1-thumb.webp",
+    "sourceWidth": 2141,
+    "sourceHeight": 3800,
+    "fullBytes": 60808,
+    "thumbBytes": 14082
+  },
+  "fassi": {
+    "source": "fassi.jpg",
+    "full": "fassi.webp",
+    "thumb": "fassi-thumb.webp",
+    "sourceWidth": 1280,
+    "sourceHeight": 960,
+    "fullBytes": 135322,
+    "thumbBytes": 37000
+  },
+  "fassi1": {
+    "source": "fassi1.jpg",
+    "full": "fassi1.webp",
+    "thumb": "fassi1-thumb.webp",
+    "sourceWidth": 1280,
+    "sourceHeight": 960,
+    "fullBytes": 154288,
+    "thumbBytes": 38864
+  },
+  "fassi2": {
+    "source": "fassi2.jpg",
+    "full": "fassi2.webp",
+    "thumb": "fassi2-thumb.webp",
+    "sourceWidth": 1280,
+    "sourceHeight": 960,
+    "fullBytes": 178232,
+    "thumbBytes": 45708
+  },
+  "francais": {
+    "source": "francais.jpg",
+    "full": "francais.webp",
+    "thumb": "francais-thumb.webp",
+    "sourceWidth": 1280,
+    "sourceHeight": 960,
+    "fullBytes": 136430,
+    "thumbBytes": 33418
+  },
+  "fransais": {
+    "source": "fransais.jpg",
+    "full": "fransais.webp",
+    "thumb": "fransais-thumb.webp",
+    "sourceWidth": 1280,
+    "sourceHeight": 960,
+    "fullBytes": 136430,
+    "thumbBytes": 33418
+  },
+  "cafe-allonge-ai": {
+    "source": "generated/cafe-allonge-ai.jpg",
+    "full": "cafe-allonge-ai.webp",
+    "thumb": "cafe-allonge-ai-thumb.webp",
+    "sourceWidth": 1536,
+    "sourceHeight": 1024,
+    "fullBytes": 78490,
+    "thumbBytes": 20070
+  },
+  "cafe-americain-ai": {
+    "source": "generated/cafe-americain-ai.jpg",
+    "full": "cafe-americain-ai.webp",
+    "thumb": "cafe-americain-ai-thumb.webp",
+    "sourceWidth": 1536,
+    "sourceHeight": 1024,
+    "fullBytes": 64022,
+    "thumbBytes": 19994
+  },
+  "cafe-aromatise-ai": {
+    "source": "generated/cafe-aromatise-ai.jpg",
+    "full": "cafe-aromatise-ai.webp",
+    "thumb": "cafe-aromatise-ai-thumb.webp",
+    "sourceWidth": 1536,
+    "sourceHeight": 1024,
+    "fullBytes": 71624,
+    "thumbBytes": 22858
+  },
+  "cafe-creme": {
+    "source": "generated/cafe-creme.png",
+    "full": "cafe-creme.webp",
+    "thumb": "cafe-creme-thumb.webp",
+    "sourceWidth": 1536,
+    "sourceHeight": 1024,
+    "fullBytes": 81220,
+    "thumbBytes": 22962
+  },
+  "cappuccino-italien-ai": {
+    "source": "generated/cappuccino-italien-ai.jpg",
+    "full": "cappuccino-italien-ai.webp",
+    "thumb": "cappuccino-italien-ai-thumb.webp",
+    "sourceWidth": 1536,
+    "sourceHeight": 1024,
+    "fullBytes": 68826,
+    "thumbBytes": 19582
+  },
+  "chocolat-chaud": {
+    "source": "generated/chocolat-chaud.png",
+    "full": "chocolat-chaud.webp",
+    "thumb": "chocolat-chaud-thumb.webp",
+    "sourceWidth": 1536,
+    "sourceHeight": 1024,
+    "fullBytes": 100720,
+    "thumbBytes": 28390
+  },
+  "chocolat-fondu-ai": {
+    "source": "generated/chocolat-fondu-ai.jpg",
+    "full": "chocolat-fondu-ai.webp",
+    "thumb": "chocolat-fondu-ai-thumb.webp",
+    "sourceWidth": 1536,
+    "sourceHeight": 1024,
+    "fullBytes": 82608,
+    "thumbBytes": 24762
+  },
+  "coco-dream-ai": {
+    "source": "generated/coco-dream-ai.jpg",
+    "full": "coco-dream-ai.webp",
+    "thumb": "coco-dream-ai-thumb.webp",
+    "sourceWidth": 1536,
+    "sourceHeight": 1024,
+    "fullBytes": 99686,
+    "thumbBytes": 29182
+  },
+  "double-espresso-single-ai": {
+    "source": "generated/double-espresso-single-ai.jpg",
+    "full": "double-espresso-single-ai.webp",
+    "thumb": "double-espresso-single-ai-thumb.webp",
+    "sourceWidth": 1536,
+    "sourceHeight": 1024,
+    "fullBytes": 69186,
+    "thumbBytes": 20076
+  },
+  "double-espresso": {
+    "source": "generated/double-espresso.png",
+    "full": "double-espresso.webp",
+    "thumb": "double-espresso-thumb.webp",
+    "sourceWidth": 1536,
+    "sourceHeight": 1024,
+    "fullBytes": 77348,
+    "thumbBytes": 21172
+  },
+  "espresso": {
+    "source": "generated/espresso.png",
+    "full": "espresso.webp",
+    "thumb": "espresso-thumb.webp",
+    "sourceWidth": 1536,
+    "sourceHeight": 1024,
+    "fullBytes": 60896,
+    "thumbBytes": 17192
+  },
+  "frappuccino-ai": {
+    "source": "generated/frappuccino-ai.jpg",
+    "full": "frappuccino-ai.webp",
+    "thumb": "frappuccino-ai-thumb.webp",
+    "sourceWidth": 1535,
+    "sourceHeight": 1024,
+    "fullBytes": 79730,
+    "thumbBytes": 24518
+  },
+  "ice-latte-ai": {
+    "source": "generated/ice-latte-ai.jpg",
+    "full": "ice-latte-ai.webp",
+    "thumb": "ice-latte-ai-thumb.webp",
+    "sourceWidth": 1536,
+    "sourceHeight": 1024,
+    "fullBytes": 73142,
+    "thumbBytes": 22328
+  },
+  "ice-latte-aromatise-ai": {
+    "source": "generated/ice-latte-aromatise-ai.jpg",
+    "full": "ice-latte-aromatise-ai.webp",
+    "thumb": "ice-latte-aromatise-ai-thumb.webp",
+    "sourceWidth": 1536,
+    "sourceHeight": 1024,
+    "fullBytes": 75686,
+    "thumbBytes": 23926
+  },
+  "ice-mokka-ai": {
+    "source": "generated/ice-mokka-ai.jpg",
+    "full": "ice-mokka-ai.webp",
+    "thumb": "ice-mokka-ai-thumb.webp",
+    "sourceWidth": 1536,
+    "sourceHeight": 1024,
+    "fullBytes": 85510,
+    "thumbBytes": 25266
+  },
+  "ice-tea-ai": {
+    "source": "generated/ice-tea-ai.jpg",
+    "full": "ice-tea-ai.webp",
+    "thumb": "ice-tea-ai-thumb.webp",
+    "sourceWidth": 1535,
+    "sourceHeight": 1024,
+    "fullBytes": 109344,
+    "thumbBytes": 29554
+  },
+  "jus-ananas-ai": {
+    "source": "generated/jus-ananas-ai.jpg",
+    "full": "jus-ananas-ai.webp",
+    "thumb": "jus-ananas-ai-thumb.webp",
+    "sourceWidth": 1535,
+    "sourceHeight": 1024,
+    "fullBytes": 81598,
+    "thumbBytes": 24770
+  },
+  "jus-avocat": {
+    "source": "generated/jus-avocat.png",
+    "full": "jus-avocat.webp",
+    "thumb": "jus-avocat-thumb.webp",
+    "sourceWidth": 1536,
+    "sourceHeight": 1024,
+    "fullBytes": 62450,
+    "thumbBytes": 18508
+  },
+  "jus-banane": {
+    "source": "generated/jus-banane.png",
+    "full": "jus-banane.webp",
+    "thumb": "jus-banane-thumb.webp",
+    "sourceWidth": 1536,
+    "sourceHeight": 1024,
+    "fullBytes": 68512,
+    "thumbBytes": 20520
+  },
+  "jus-citron": {
+    "source": "generated/jus-citron.png",
+    "full": "jus-citron.webp",
+    "thumb": "jus-citron-thumb.webp",
+    "sourceWidth": 1536,
+    "sourceHeight": 1024,
+    "fullBytes": 102602,
+    "thumbBytes": 25648
+  },
+  "jus-fraise": {
+    "source": "generated/jus-fraise.png",
+    "full": "jus-fraise.webp",
+    "thumb": "jus-fraise-thumb.webp",
+    "sourceWidth": 1536,
+    "sourceHeight": 1024,
+    "fullBytes": 99472,
+    "thumbBytes": 28744
+  },
+  "jus-framboise-ai": {
+    "source": "generated/jus-framboise-ai.jpg",
+    "full": "jus-framboise-ai.webp",
+    "thumb": "jus-framboise-ai-thumb.webp",
+    "sourceWidth": 1535,
+    "sourceHeight": 1024,
+    "fullBytes": 80462,
+    "thumbBytes": 22994
+  },
+  "jus-mangue": {
+    "source": "generated/jus-mangue.png",
+    "full": "jus-mangue.webp",
+    "thumb": "jus-mangue-thumb.webp",
+    "sourceWidth": 1536,
+    "sourceHeight": 1024,
+    "fullBytes": 102992,
+    "thumbBytes": 27896
+  },
+  "jus-orange": {
+    "source": "generated/jus-orange.png",
+    "full": "jus-orange.webp",
+    "thumb": "jus-orange-thumb.webp",
+    "sourceWidth": 1536,
+    "sourceHeight": 1024,
+    "fullBytes": 69432,
+    "thumbBytes": 17418
+  },
+  "jus-pomme": {
+    "source": "generated/jus-pomme.png",
+    "full": "jus-pomme.webp",
+    "thumb": "jus-pomme-thumb.webp",
+    "sourceWidth": 1536,
+    "sourceHeight": 1024,
+    "fullBytes": 81360,
+    "thumbBytes": 24190
+  },
+  "limonade": {
+    "source": "generated/limonade.png",
+    "full": "limonade.webp",
+    "thumb": "limonade-thumb.webp",
+    "sourceWidth": 1536,
+    "sourceHeight": 1024,
+    "fullBytes": 94636,
+    "thumbBytes": 23232
+  },
+  "luxury-jus-ananas": {
+    "source": "generated/luxury-jus-ananas.png",
+    "full": "luxury-jus-ananas.webp",
+    "thumb": "luxury-jus-ananas-thumb.webp",
+    "sourceWidth": 1024,
+    "sourceHeight": 1536,
+    "fullBytes": 161862,
+    "thumbBytes": 61238
+  },
+  "luxury-jus-avocat": {
+    "source": "generated/luxury-jus-avocat.png",
+    "full": "luxury-jus-avocat.webp",
+    "thumb": "luxury-jus-avocat-thumb.webp",
+    "sourceWidth": 1024,
+    "sourceHeight": 1536,
+    "fullBytes": 137768,
+    "thumbBytes": 46678
+  },
+  "luxury-jus-banane": {
+    "source": "generated/luxury-jus-banane.png",
+    "full": "luxury-jus-banane.webp",
+    "thumb": "luxury-jus-banane-thumb.webp",
+    "sourceWidth": 1024,
+    "sourceHeight": 1536,
+    "fullBytes": 110748,
+    "thumbBytes": 40588
+  },
+  "luxury-jus-citron-big-cup": {
+    "source": "generated/luxury-jus-citron-big-cup.png",
+    "full": "luxury-jus-citron-big-cup.webp",
+    "thumb": "luxury-jus-citron-big-cup-thumb.webp",
+    "sourceWidth": 981,
+    "sourceHeight": 1604,
+    "fullBytes": 201854,
+    "thumbBytes": 77028
+  },
+  "luxury-jus-extra-vitamine": {
+    "source": "generated/luxury-jus-extra-vitamine.png",
+    "full": "luxury-jus-extra-vitamine.webp",
+    "thumb": "luxury-jus-extra-vitamine-thumb.webp",
+    "sourceWidth": 1024,
+    "sourceHeight": 1536,
+    "fullBytes": 136726,
+    "thumbBytes": 54570
+  },
+  "luxury-jus-fraise": {
+    "source": "generated/luxury-jus-fraise.png",
+    "full": "luxury-jus-fraise.webp",
+    "thumb": "luxury-jus-fraise-thumb.webp",
+    "sourceWidth": 864,
+    "sourceHeight": 1821,
+    "fullBytes": 139580,
+    "thumbBytes": 69290
+  },
+  "luxury-jus-framboise": {
+    "source": "generated/luxury-jus-framboise.png",
+    "full": "luxury-jus-framboise.webp",
+    "thumb": "luxury-jus-framboise-thumb.webp",
+    "sourceWidth": 1024,
+    "sourceHeight": 1536,
+    "fullBytes": 209806,
+    "thumbBytes": 69312
+  },
+  "luxury-jus-mangue": {
+    "source": "generated/luxury-jus-mangue.png",
+    "full": "luxury-jus-mangue.webp",
+    "thumb": "luxury-jus-mangue-thumb.webp",
+    "sourceWidth": 1024,
+    "sourceHeight": 1536,
+    "fullBytes": 101718,
+    "thumbBytes": 35950
+  },
+  "luxury-jus-orange": {
+    "source": "generated/luxury-jus-orange.png",
+    "full": "luxury-jus-orange.webp",
+    "thumb": "luxury-jus-orange-thumb.webp",
+    "sourceWidth": 1024,
+    "sourceHeight": 1536,
+    "fullBytes": 131688,
+    "thumbBytes": 46796
+  },
+  "luxury-jus-pomme-big-cup": {
+    "source": "generated/luxury-jus-pomme-big-cup.png",
+    "full": "luxury-jus-pomme-big-cup.webp",
+    "thumb": "luxury-jus-pomme-big-cup-thumb.webp",
+    "sourceWidth": 979,
+    "sourceHeight": 1606,
+    "fullBytes": 210800,
+    "thumbBytes": 78778
+  },
+  "luxury-limonade": {
+    "source": "generated/luxury-limonade.png",
+    "full": "luxury-limonade.webp",
+    "thumb": "luxury-limonade-thumb.webp",
+    "sourceWidth": 1024,
+    "sourceHeight": 1536,
+    "fullBytes": 214850,
+    "thumbBytes": 76836
+  },
+  "milkshake-ai": {
+    "source": "generated/milkshake-ai.jpg",
+    "full": "milkshake-ai.webp",
+    "thumb": "milkshake-ai-thumb.webp",
+    "sourceWidth": 1535,
+    "sourceHeight": 1024,
+    "fullBytes": 101120,
+    "thumbBytes": 31634
+  },
+  "mojito-virgin-ai": {
+    "source": "generated/mojito-virgin-ai.jpg",
+    "full": "mojito-virgin-ai.webp",
+    "thumb": "mojito-virgin-ai-thumb.webp",
+    "sourceWidth": 1536,
+    "sourceHeight": 1024,
+    "fullBytes": 113252,
+    "thumbBytes": 30308
+  },
+  "moka": {
+    "source": "generated/moka.png",
+    "full": "moka.webp",
+    "thumb": "moka-thumb.webp",
+    "sourceWidth": 1536,
+    "sourceHeight": 1024,
+    "fullBytes": 94608,
+    "thumbBytes": 27118
+  },
+  "pina-colada-ai": {
+    "source": "generated/pina-colada-ai.jpg",
+    "full": "pina-colada-ai.webp",
+    "thumb": "pina-colada-ai-thumb.webp",
+    "sourceWidth": 1536,
+    "sourceHeight": 1024,
+    "fullBytes": 88372,
+    "thumbBytes": 26634
+  },
+  "prestige-breakfast": {
+    "source": "generated/prestige-breakfast.png",
+    "full": "prestige-breakfast.webp",
+    "thumb": "prestige-breakfast-thumb.webp",
+    "sourceWidth": 1536,
+    "sourceHeight": 1024,
+    "fullBytes": 170746,
+    "thumbBytes": 47222
+  },
+  "prestige-cocktail": {
+    "source": "generated/prestige-cocktail.png",
+    "full": "prestige-cocktail.webp",
+    "thumb": "prestige-cocktail-thumb.webp",
+    "sourceWidth": 1536,
+    "sourceHeight": 1024,
+    "fullBytes": 114514,
+    "thumbBytes": 29722
+  },
+  "smoothy-ai": {
+    "source": "generated/smoothy-ai.jpg",
+    "full": "smoothy-ai.webp",
+    "thumb": "smoothy-ai-thumb.webp",
+    "sourceWidth": 1535,
+    "sourceHeight": 1024,
+    "fullBytes": 75494,
+    "thumbBytes": 23358
+  },
+  "spanish-ice-latte-ai": {
+    "source": "generated/spanish-ice-latte-ai.jpg",
+    "full": "spanish-ice-latte-ai.webp",
+    "thumb": "spanish-ice-latte-ai-thumb.webp",
+    "sourceWidth": 1536,
+    "sourceHeight": 1024,
+    "fullBytes": 82102,
+    "thumbBytes": 24836
+  },
+  "spanish-latte-ai": {
+    "source": "generated/spanish-latte-ai.jpg",
+    "full": "spanish-latte-ai.webp",
+    "thumb": "spanish-latte-ai-thumb.webp",
+    "sourceWidth": 1536,
+    "sourceHeight": 1024,
+    "fullBytes": 97478,
+    "thumbBytes": 29196
+  },
+  "the-americain": {
+    "source": "generated/the-americain.png",
+    "full": "the-americain.webp",
+    "thumb": "the-americain-thumb.webp",
+    "sourceWidth": 1536,
+    "sourceHeight": 1024,
+    "fullBytes": 101038,
+    "thumbBytes": 28046
+  },
+  "the-anglais-ai": {
+    "source": "generated/the-anglais-ai.jpg",
+    "full": "the-anglais-ai.webp",
+    "thumb": "the-anglais-ai-thumb.webp",
+    "sourceWidth": 1536,
+    "sourceHeight": 1024,
+    "fullBytes": 84250,
+    "thumbBytes": 24626
+  },
+  "the-anglais": {
+    "source": "generated/the-anglais.png",
+    "full": "the-anglais.webp",
+    "thumb": "the-anglais-thumb.webp",
+    "sourceWidth": 1536,
+    "sourceHeight": 1024,
+    "fullBytes": 57080,
+    "thumbBytes": 18124
+  },
+  "the-marocain": {
+    "source": "generated/the-marocain.png",
+    "full": "the-marocain.webp",
+    "thumb": "the-marocain-thumb.webp",
+    "sourceWidth": 1536,
+    "sourceHeight": 1024,
+    "fullBytes": 104380,
+    "thumbBytes": 30342
+  },
+  "hollandaise": {
+    "source": "hollandaise.jpg",
+    "full": "hollandaise.webp",
+    "thumb": "hollandaise-thumb.webp",
+    "sourceWidth": 1280,
+    "sourceHeight": 960,
+    "fullBytes": 135988,
+    "thumbBytes": 38362
+  },
+  "jus-extra-vitamine": {
+    "source": "jus-extra-vitamine.jpeg",
+    "full": "jus-extra-vitamine.webp",
+    "thumb": "jus-extra-vitamine-thumb.webp",
+    "sourceWidth": 2488,
+    "sourceHeight": 4416,
+    "fullBytes": 50054,
+    "thumbBytes": 12288
+  },
+  "mojito-vergine": {
+    "source": "mojito-vergine.jpeg",
+    "full": "mojito-vergine.webp",
+    "thumb": "mojito-vergine-thumb.webp",
+    "sourceWidth": 2488,
+    "sourceHeight": 4416,
+    "fullBytes": 82228,
+    "thumbBytes": 17656
+  },
+  "omelette-fromage": {
+    "source": "omelette-fromage.jpeg",
+    "full": "omelette-fromage.webp",
+    "thumb": "omelette-fromage-thumb.webp",
+    "sourceWidth": 2650,
+    "sourceHeight": 2203,
+    "fullBytes": 186362,
+    "thumbBytes": 36614
+  },
+  "omlette-fromage": {
+    "source": "omlette-fromage.jpeg",
+    "full": "omlette-fromage.webp",
+    "thumb": "omlette-fromage-thumb.webp",
+    "sourceWidth": 2650,
+    "sourceHeight": 2203,
+    "fullBytes": 186362,
+    "thumbBytes": 36614
+  },
+  "paradise": {
+    "source": "paradise.jpeg",
+    "full": "paradise.webp",
+    "thumb": "paradise-thumb.webp",
+    "sourceWidth": 2488,
+    "sourceHeight": 4416,
+    "fullBytes": 89180,
+    "thumbBytes": 20216
+  },
+  "petit-dejeuner-fassi-premium": {
+    "source": "petit-dejeuner-fassi-premium.jpg",
+    "full": "petit-dejeuner-fassi-premium.webp",
+    "thumb": "petit-dejeuner-fassi-premium-thumb.webp",
+    "sourceWidth": 2303,
+    "sourceHeight": 2050,
+    "fullBytes": 145586,
+    "thumbBytes": 36058
+  }
+}

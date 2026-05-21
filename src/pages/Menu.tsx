@@ -48,7 +48,7 @@ import generatedLimonade from '../assets/images/pic food/generated/limonade.png'
 import generatedJusCitron from '../assets/images/pic food/generated/jus-citron.png';
 import generatedPrestigeCocktail from '../assets/images/pic food/generated/prestige-cocktail.png';
 import generatedEspresso from '../assets/images/pic food/generated/espresso.png';
-import generatedDoubleEspressoAi from '../assets/images/pic food/generated/double-espresso-ai.jpg';
+import generatedDoubleEspressoSingleAi from '../assets/images/pic food/generated/double-espresso-single-ai.jpg';
 import generatedCafeCreme from '../assets/images/pic food/generated/cafe-creme.png';
 import generatedChocolatChaud from '../assets/images/pic food/generated/chocolat-chaud.png';
 import generatedTheMarocain from '../assets/images/pic food/generated/the-marocain.png';
@@ -326,7 +326,7 @@ const menuSections: MenuSection[] = [
     description: 'Cafés, thés, chocolat chaud et spécialités gourmandes pour une pause élégante.',
     items: [
       { id: 'espresso', name: 'Espresso', category: 'Boissons Chaudes', price: '13 DH', description: 'Espresso court et intense.', images: [generatedEspresso] },
-      { id: 'double-espresso', name: 'Double Espresso', category: 'Boissons Chaudes', price: '18 DH', description: 'Double espresso riche et aromatique.', images: [generatedDoubleEspressoAi] },
+      { id: 'double-espresso', name: 'Double Espresso', category: 'Boissons Chaudes', price: '18 DH', description: 'Double espresso riche et aromatique.', images: [generatedDoubleEspressoSingleAi] },
       { id: 'cafe-creme', name: 'Café Crème', category: 'Boissons Chaudes', price: '15 DH', description: 'Café crème doux et équilibré.', images: [generatedCafeCreme] },
       { id: 'chocolat-chaud', name: 'Chocolat Chaud', category: 'Boissons Chaudes', price: '20 DH', description: 'Chocolat chaud dense et réconfortant.', images: [generatedChocolatChaud] },
       { id: 'the-marocain', name: 'Thé Marocain', category: 'Boissons Chaudes', price: '13 DH', description: 'Thé marocain parfumé.', images: [generatedTheMarocain] },

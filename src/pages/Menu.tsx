@@ -23,20 +23,20 @@ import crepeNutellaClassique from '../assets/images/pic food/optimized/crepe-nut
 import crepeBananeChocolat from '../assets/images/pic food/optimized/crepe-banane-chocolat.optimized.jpg';
 import crepeSaleePouletChampignons from '../assets/images/pic food/optimized/crepe-salee-poulet-champignons.optimized.jpg';
 import redParadise from '../assets/images/pic food/optimized/paradise.optimized.jpg';
-import jusExtraVitamine from '../assets/images/pic food/jus-extra-vitamine.jpeg';
 import boraBora from '../assets/images/pic food/optimized/borabora.optimized.jpg';
 import cafeLatte from '../assets/images/pic food/optimized/caffe-lathe.optimized.jpg';
 import generatedPrestigeBreakfast from '../assets/images/pic food/generated/prestige-breakfast.png';
-import generatedJusOrange from '../assets/images/pic food/generated/jus-orange.png';
-import generatedJusBanane from '../assets/images/pic food/generated/jus-banane.png';
-import generatedJusPomme from '../assets/images/pic food/generated/jus-pomme.png';
-import generatedJusFraise from '../assets/images/pic food/generated/jus-fraise.png';
-import generatedJusFramboiseAi from '../assets/images/pic food/generated/jus-framboise-ai.jpg';
-import generatedJusMangue from '../assets/images/pic food/generated/jus-mangue.png';
-import generatedJusAnanasAi from '../assets/images/pic food/generated/jus-ananas-ai.jpg';
-import generatedJusAvocat from '../assets/images/pic food/generated/jus-avocat.png';
-import generatedLimonade from '../assets/images/pic food/generated/limonade.png';
-import generatedJusCitron from '../assets/images/pic food/generated/jus-citron.png';
+import luxuryJusOrange from '../assets/images/pic food/generated/luxury-jus-orange.png';
+import luxuryJusBanane from '../assets/images/pic food/generated/luxury-jus-banane.png';
+import luxuryJusPommeBigCup from '../assets/images/pic food/generated/luxury-jus-pomme-big-cup.png';
+import luxuryJusFraise from '../assets/images/pic food/generated/luxury-jus-fraise.png';
+import luxuryJusFramboise from '../assets/images/pic food/generated/luxury-jus-framboise.png';
+import luxuryJusMangue from '../assets/images/pic food/generated/luxury-jus-mangue.png';
+import luxuryJusAnanas from '../assets/images/pic food/generated/luxury-jus-ananas.png';
+import luxuryJusAvocat from '../assets/images/pic food/generated/luxury-jus-avocat.png';
+import luxuryLimonade from '../assets/images/pic food/generated/luxury-limonade.png';
+import luxuryJusCitronBigCup from '../assets/images/pic food/generated/luxury-jus-citron-big-cup.png';
+import jusExtraVitamine from '../assets/images/pic food/jus-extra-vitamine.jpeg';
 import generatedPrestigeCocktail from '../assets/images/pic food/generated/prestige-cocktail.png';
 import generatedEspresso from '../assets/images/pic food/generated/espresso.png';
 import generatedDoubleEspressoSingleAi from '../assets/images/pic food/generated/double-espresso-single-ai.jpg';
@@ -123,7 +123,7 @@ const rawMenuSections: MenuSection[] = [
         id: 'chamalli',
         name: 'Chamalli',
         category: 'Petits Déjeuners',
-        price: '30 DH',
+        price: '33 DH',
         description: "Oeufs au choix, charcuterie, fromage rouge, jben, huile d'olive, olives noires et pain.",
         image: chamalli,
       },
@@ -131,7 +131,7 @@ const rawMenuSections: MenuSection[] = [
         id: 'fassi-premium',
         name: 'Fassi Premium',
         category: 'Petits Déjeuners',
-        price: '35 DH',
+        price: '30 DH',
         description: "Tagine de khlii, oeufs, jben, huile d'olive, olives noires et pain.",
         image: fassi,
       },
@@ -147,7 +147,7 @@ const rawMenuSections: MenuSection[] = [
         id: 'croque-monsieur',
         name: 'Croque Monsieur',
         category: 'Petits Déjeuners',
-        price: '32 DH',
+        price: '42 DH',
         description: 'Toast grillé, cheddar, charcuterie et salade fraîche.',
         image: croqueMonsieur,
       },
@@ -155,7 +155,7 @@ const rawMenuSections: MenuSection[] = [
         id: 'croque-madame',
         name: 'Croque Madame',
         category: 'Petits Déjeuners',
-        price: '32 DH',
+        price: '42 DH',
         description: 'Toast grillé, oeuf, cheddar, charcuterie et salade fraîche.',
         image: croqueMadame,
       },
@@ -163,7 +163,7 @@ const rawMenuSections: MenuSection[] = [
         id: 'oeufs-au-choix',
         name: 'Oeufs au Choix',
         category: 'Petits Déjeuners',
-        price: '26 DH',
+        price: '35 DH',
         description: 'Oeufs préparés selon votre envie, dont omelette fromage.',
         image: omeletteFromage,
       },
@@ -171,7 +171,7 @@ const rawMenuSections: MenuSection[] = [
         id: 'prestige-breakfast',
         name: 'Prestige Breakfast',
         category: 'Petits Déjeuners',
-        price: '55 DH',
+        price: '72 DH',
         description: "Formule premium généreuse dans l'esprit lounge Prestige de Jeux.",
         image: generatedPrestigeBreakfast,
       },
@@ -220,16 +220,16 @@ const rawMenuSections: MenuSection[] = [
     eyebrow: 'Fresh Juice',
     description: 'Jus frais et limonade servis bien frais avec une finition visuelle premium.',
     items: [
-      { id: 'jus-orange', name: "Jus d'Orange", category: 'Jus Frais', price: '20 DH', description: 'Orange fraîche pressée.', image: generatedJusOrange },
-      { id: 'jus-banane', name: 'Jus de Banane', category: 'Jus Frais', price: '20 DH', description: 'Banane onctueuse et fraîche.', image: generatedJusBanane },
-      { id: 'jus-pomme', name: 'Jus de Pomme', category: 'Jus Frais', price: '20 DH', description: 'Pomme fraîche et légère.', image: generatedJusPomme },
-      { id: 'jus-fraise', name: 'Jus de Fraise', category: 'Jus Frais', price: '30 DH', description: 'Fraise fraîche, douce et fruitée.', image: generatedJusFraise },
-      { id: 'jus-framboise', name: 'Jus Framboise', category: 'Jus Frais', price: '30 DH', description: 'Framboise fraîche, douce et rafraîchissante.', image: generatedJusFramboiseAi },
-      { id: 'jus-mangue', name: 'Jus de Mangue', category: 'Jus Frais', price: '30 DH', description: 'Mangue fraîche, dense et tropicale.', image: generatedJusMangue },
-      { id: 'jus-ananas', name: 'Jus Ananas', category: 'Jus Frais', price: '30 DH', description: "Jus d'ananas frais aux notes tropicales.", image: generatedJusAnanasAi },
-      { id: 'jus-avocat', name: "Jus d'Avocat", category: 'Jus Frais', price: '25 DH', description: 'Avocat crémeux et équilibré.', image: generatedJusAvocat },
-      { id: 'limonade', name: 'Limonade', category: 'Jus Frais', price: '25 DH', description: 'Limonade fraîche et acidulée.', image: generatedLimonade },
-      { id: 'jus-citron', name: 'Jus de Citron', category: 'Jus Frais', price: '25 DH', description: 'Citron frais, vif et acidulé.', image: generatedJusCitron },
+      { id: 'jus-orange', name: "Jus d'Orange", category: 'Jus Frais', price: '20 DH', description: 'Orange fraîche pressée.', image: luxuryJusOrange },
+      { id: 'jus-banane', name: 'Jus de Banane', category: 'Jus Frais', price: '20 DH', description: 'Banane onctueuse et fraîche.', image: luxuryJusBanane },
+      { id: 'jus-pomme', name: 'Jus de Pomme', category: 'Jus Frais', price: '20 DH', description: 'Pomme fraîche et légère.', image: luxuryJusPommeBigCup },
+      { id: 'jus-fraise', name: 'Jus de Fraise', category: 'Jus Frais', price: '30 DH', description: 'Fraise fraîche, douce et fruitée.', image: luxuryJusFraise },
+      { id: 'jus-framboise', name: 'Jus Framboise', category: 'Jus Frais', price: '30 DH', description: 'Framboise fraîche, douce et rafraîchissante.', image: luxuryJusFramboise },
+      { id: 'jus-mangue', name: 'Jus de Mangue', category: 'Jus Frais', price: '30 DH', description: 'Mangue fraîche, dense et tropicale.', image: luxuryJusMangue },
+      { id: 'jus-ananas', name: 'Jus Ananas', category: 'Jus Frais', price: '30 DH', description: "Jus d'ananas frais aux notes tropicales.", image: luxuryJusAnanas },
+      { id: 'jus-avocat', name: "Jus d'Avocat", category: 'Jus Frais', price: '25 DH', description: 'Avocat crémeux et équilibré.', image: luxuryJusAvocat },
+      { id: 'limonade', name: 'Limonade', category: 'Jus Frais', price: '25 DH', description: 'Limonade fraîche et acidulée.', image: luxuryLimonade },
+      { id: 'jus-citron', name: 'Jus de Citron', category: 'Jus Frais', price: '25 DH', description: 'Citron frais, vif et acidulé.', image: luxuryJusCitronBigCup },
       { id: 'jus-extra-vitamine', name: 'Jus Extra Vitamine', category: 'Jus Frais', price: '35 DH', description: 'Boisson vitaminée aux fruits, fraîche et lumineuse.', image: jusExtraVitamine },
     ],
   },
@@ -268,9 +268,6 @@ const rawMenuSections: MenuSection[] = [
       { id: 'frappuccino', name: 'Frappuccino', category: 'Boissons Froides', price: '35 DH', description: 'Frappuccino glacé onctueux et rafraîchissant.', image: generatedFrappuccinoAi },
       { id: 'ice-tea', name: 'Ice Tea', category: 'Boissons Froides', price: '30 DH', description: 'Ice tea frais aux saveurs fruitées et rafraîchissantes.', image: generatedIceTeaAi },
       { id: 'smoothy', name: 'Smoothy', category: 'Boissons Froides', price: '30 DH', description: 'Smoothy naturel vitaminé aux fruits frais.', image: generatedSmoothyAi },
-      { id: 'pina-colada', name: 'Pina Colada', category: 'Boissons Froides', price: '40 DH', description: "Cocktail tropical crémeux à base d'ananas et noix de coco.", image: generatedPinaColadaAi },
-      { id: 'coco-dream', name: 'Coco Dream', category: 'Boissons Froides', price: '40 DH', description: 'Cocktail exotique crémeux à la noix de coco.', image: generatedCocoDreamAi },
-      { id: 'mojito-virgin', name: 'Mojito Virgin', category: 'Boissons Froides', price: '35 DH', description: 'Mocktail frais et tropical aux saveurs au choix.', image: mojitoVergine },
     ],
   },
   {
@@ -280,6 +277,9 @@ const rawMenuSections: MenuSection[] = [
     items: [
       { id: 'red-paradise', name: 'Red Paradise', category: 'Cocktails Signature', price: '35 DH', description: 'Cocktail rouge fruité, élégant et rafraîchissant.', image: redParadise },
       { id: 'bora-bora', name: 'Bora Bora', category: 'Cocktails Signature', price: '35 DH', description: 'Cocktail tropical généreux et premium.', image: boraBora },
+      { id: 'pina-colada', name: 'Pina Colada', category: 'Cocktails Signature', price: '40 DH', description: "Cocktail tropical crémeux à base d'ananas et noix de coco.", image: generatedPinaColadaAi },
+      { id: 'coco-dream', name: 'Coco Dream', category: 'Cocktails Signature', price: '40 DH', description: 'Cocktail exotique crémeux à la noix de coco.', image: generatedCocoDreamAi },
+      { id: 'mojito-virgin', name: 'Mojito Virgin', category: 'Cocktails Signature', price: '35 DH', description: 'Mocktail frais et tropical aux saveurs au choix.', image: mojitoVergine },
       { id: 'prestige-cocktail', name: 'Prestige Cocktail', category: 'Cocktails Signature', price: '45 DH', description: 'Création maison Prestige de Jeux, raffinée et fruitée.', image: generatedPrestigeCocktail },
     ],
   },
@@ -368,10 +368,11 @@ function MenuImage({ image, title, category }: { image?: string; title: string; 
 
 const MenuCard: FC<{ item: MenuItem; index: number; onOpen: () => void }> = ({ item, index, onOpen }) => {
   const Icon = categoryIcons[item.category] ?? Coffee;
+  const cardClassName = item.category === 'Jus Frais' ? 'menu-card menu-card--jus-frais' : 'menu-card';
 
   return (
     <motion.article
-      className="menu-card"
+      className={cardClassName}
       initial={{ opacity: 0, y: 34 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.16 }}

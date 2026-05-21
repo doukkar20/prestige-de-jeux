@@ -246,6 +246,22 @@
   transform: none !important;
 }
 
+.menu-card--jus-frais .menu-carousel {
+  background:
+    radial-gradient(circle at 50% 42%, rgba(212, 175, 55, 0.16), transparent 52%),
+    linear-gradient(145deg, #070707, #17120a 58%, #050505);
+}
+
+.menu-card--jus-frais .menu-carousel__image,
+.menu-card--jus-frais img {
+  object-fit: contain;
+  object-position: center;
+}
+
+.menu-card--jus-frais .menu-carousel__shade {
+  background: linear-gradient(180deg, transparent 68%, rgba(11, 11, 11, 0.54));
+}
+
 .menu-modal__panel img {
   object-fit: cover;
   object-position: center;

@@ -31,7 +31,16 @@ export default function App() {
       <BrowserRouter basename={basename}>
         <ScrollToAnchor />
         <SEO />
-        <Suspense fallback={<div className="min-h-screen bg-luxury-black" />}>
+        <Suspense
+          fallback={
+            <div className="flex min-h-screen items-center justify-center bg-luxury-black px-6 text-center text-gold">
+              <div>
+                <p className="font-display text-3xl font-bold">Prestige de Jeux</p>
+                <p className="mt-3 text-sm font-semibold uppercase tracking-[0.2em] text-white/70">Chargement</p>
+              </div>
+            </div>
+          }
+        >
           <Routes>
             <Route path="/dist/*" element={<Navigate to="/" replace />} />
             <Route path="/" element={<Layout />}>

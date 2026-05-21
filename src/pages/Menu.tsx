@@ -194,7 +194,7 @@ const rawMenuSections: MenuSection[] = [
         id: 'crepe-banane-chocolat',
         name: 'Crêpe Banane Chocolat',
         category: 'Crêpes Sucrées',
-        price: '30 DH',
+        price: '35 DH',
         description: 'Crêpe gourmande à la banane et au chocolat fondant.',
         image: crepeBananeChocolat,
       },
@@ -209,7 +209,7 @@ const rawMenuSections: MenuSection[] = [
         id: 'crepe-salee-poulet-champignon',
         name: 'Crêpe Salée Poulet Champignon',
         category: 'Crêpes Salées',
-        price: '30 DH',
+        price: '37 DH',
         description: 'Poulet, sauce champignons, charcuterie et fromage.',
         image: crepeSaleePouletChampignons,
       },
@@ -368,7 +368,14 @@ function MenuImage({ image, title, category }: { image?: string; title: string; 
 
 const MenuCard: FC<{ item: MenuItem; index: number; onOpen: () => void }> = ({ item, index, onOpen }) => {
   const Icon = categoryIcons[item.category] ?? Coffee;
-  const cardClassName = item.category === 'Jus Frais' ? 'menu-card menu-card--jus-frais' : 'menu-card';
+  const cardClassName = [
+    'menu-card',
+    item.category === 'Jus Frais' ? 'menu-card--jus-frais' : '',
+    item.id === 'cafe-latte' ? 'menu-card--cafe-latte' : '',
+    item.id === 'mojito-virgin' ? 'menu-card--mojito-virgin' : '',
+    item.id === 'red-paradise' ? 'menu-card--red-paradise' : '',
+    item.id === 'bora-bora' ? 'menu-card--bora-bora' : '',
+  ].filter(Boolean).join(' ');
 
   return (
     <motion.article

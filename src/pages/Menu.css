@@ -262,6 +262,47 @@
   background: linear-gradient(180deg, transparent 68%, rgba(11, 11, 11, 0.54));
 }
 
+.menu-card--cafe-latte .menu-carousel__image,
+.menu-card--cafe-latte img {
+  object-position: center 36%;
+}
+
+.menu-card--mojito-virgin .menu-carousel {
+  background:
+    radial-gradient(circle at 50% 34%, rgba(212, 175, 55, 0.14), transparent 50%),
+    linear-gradient(145deg, #050505, #16110a 58%, #050505);
+}
+
+.menu-card--mojito-virgin .menu-carousel__image,
+.menu-card--mojito-virgin img {
+  object-fit: contain;
+  object-position: center;
+}
+
+.menu-card--mojito-virgin .menu-carousel__shade {
+  background: linear-gradient(180deg, transparent 72%, rgba(11, 11, 11, 0.48));
+}
+
+.menu-card--red-paradise .menu-carousel,
+.menu-card--bora-bora .menu-carousel {
+  background:
+    radial-gradient(circle at 50% 35%, rgba(212, 175, 55, 0.12), transparent 52%),
+    linear-gradient(145deg, #050505, #15100a 58%, #050505);
+}
+
+.menu-card--red-paradise .menu-carousel__image,
+.menu-card--red-paradise img,
+.menu-card--bora-bora .menu-carousel__image,
+.menu-card--bora-bora img {
+  object-fit: contain;
+  object-position: center;
+}
+
+.menu-card--red-paradise .menu-carousel__shade,
+.menu-card--bora-bora .menu-carousel__shade {
+  background: linear-gradient(180deg, transparent 72%, rgba(11, 11, 11, 0.48));
+}
+
 .menu-modal__panel img {
   object-fit: cover;
   object-position: center;

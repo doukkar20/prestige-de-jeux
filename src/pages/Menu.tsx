@@ -39,15 +39,15 @@ import generatedJusOrange from '../assets/images/pic food/generated/jus-orange.p
 import generatedJusBanane from '../assets/images/pic food/generated/jus-banane.png';
 import generatedJusPomme from '../assets/images/pic food/generated/jus-pomme.png';
 import generatedJusFraise from '../assets/images/pic food/generated/jus-fraise.png';
-import generatedJusPecheFramboise from '../assets/images/pic food/generated/jus-peche-framboise.png';
+import generatedJusFramboiseAi from '../assets/images/pic food/generated/jus-framboise-ai.jpg';
 import generatedJusMangue from '../assets/images/pic food/generated/jus-mangue.png';
-import generatedJusDragonAnanas from '../assets/images/pic food/generated/jus-dragon-ananas.png';
+import generatedJusAnanasAi from '../assets/images/pic food/generated/jus-ananas-ai.jpg';
 import generatedJusAvocat from '../assets/images/pic food/generated/jus-avocat.png';
 import generatedLimonade from '../assets/images/pic food/generated/limonade.png';
 import generatedJusCitron from '../assets/images/pic food/generated/jus-citron.png';
 import generatedPrestigeCocktail from '../assets/images/pic food/generated/prestige-cocktail.png';
 import generatedEspresso from '../assets/images/pic food/generated/espresso.png';
-import generatedDoubleEspresso from '../assets/images/pic food/generated/double-espresso.png';
+import generatedDoubleEspressoAi from '../assets/images/pic food/generated/double-espresso-ai.jpg';
 import generatedCafeCreme from '../assets/images/pic food/generated/cafe-creme.png';
 import generatedChocolatChaud from '../assets/images/pic food/generated/chocolat-chaud.png';
 import generatedTheMarocain from '../assets/images/pic food/generated/the-marocain.png';
@@ -212,10 +212,10 @@ const menuSections: MenuSection[] = [
       { id: 'jus-orange', name: "Jus d'Orange", category: 'Jus Frais', price: '20 DH', description: 'Orange fraîche pressée.', images: [generatedJusOrange] },
       { id: 'jus-banane', name: 'Jus de Banane', category: 'Jus Frais', price: '20 DH', description: 'Banane onctueuse et fraîche.', images: [generatedJusBanane] },
       { id: 'jus-pomme', name: 'Jus de Pomme', category: 'Jus Frais', price: '20 DH', description: 'Pomme fraîche et légère.', images: [generatedJusPomme] },
-      { id: 'jus-fraise', name: 'Jus de Fraise', category: 'Jus Frais', price: '20 DH', description: 'Fraise fraîche, douce et fruitée.', images: [generatedJusFraise] },
-      { id: 'jus-peche-framboise', name: 'Jus de Pêche & Framboise', category: 'Jus Frais', price: '30 DH', description: 'Pêche et framboise, fruitées et rafraîchissantes.', images: [generatedJusPecheFramboise] },
+      { id: 'jus-fraise', name: 'Jus de Fraise', category: 'Jus Frais', price: '30 DH', description: 'Fraise fraîche, douce et fruitée.', images: [generatedJusFraise] },
+      { id: 'jus-framboise', name: 'Jus Framboise', category: 'Jus Frais', price: '30 DH', description: 'Framboise fraîche, douce et rafraîchissante.', images: [generatedJusFramboiseAi] },
       { id: 'jus-mangue', name: 'Jus de Mangue', category: 'Jus Frais', price: '30 DH', description: 'Mangue fraîche, dense et tropicale.', images: [generatedJusMangue] },
-      { id: 'jus-dragon-ananas', name: 'Jus Dragon & Ananas', category: 'Jus Frais', price: '30 DH', description: 'Dragon et ananas aux notes exotiques.', images: [generatedJusDragonAnanas] },
+      { id: 'jus-ananas', name: 'Jus Ananas', category: 'Jus Frais', price: '30 DH', description: 'Jus d’ananas frais aux notes tropicales.', images: [generatedJusAnanasAi] },
       { id: 'jus-avocat', name: "Jus d'Avocat", category: 'Jus Frais', price: '25 DH', description: 'Avocat crémeux et équilibré.', images: [generatedJusAvocat] },
       { id: 'limonade', name: 'Limonade', category: 'Jus Frais', price: '25 DH', description: 'Limonade fraîche et acidulée.', images: [generatedLimonade] },
       { id: 'jus-citron', name: 'Jus de Citron', category: 'Jus Frais', price: '25 DH', description: 'Citron frais, vif et acidulé.', images: [generatedJusCitron] },
@@ -274,7 +274,7 @@ const menuSections: MenuSection[] = [
     description: 'Cafés, thés, chocolat chaud et spécialités gourmandes pour une pause élégante.',
     items: [
       { id: 'espresso', name: 'Espresso', category: 'Boissons Chaudes', price: '13 DH', description: 'Espresso court et intense.', images: [generatedEspresso] },
-      { id: 'double-espresso', name: 'Double Espresso', category: 'Boissons Chaudes', price: '18 DH', description: 'Double espresso riche et aromatique.', images: [generatedDoubleEspresso] },
+      { id: 'double-espresso', name: 'Double Espresso', category: 'Boissons Chaudes', price: '18 DH', description: 'Double espresso riche et aromatique.', images: [generatedDoubleEspressoAi] },
       { id: 'cafe-creme', name: 'Café Crème', category: 'Boissons Chaudes', price: '15 DH', description: 'Café crème doux et équilibré.', images: [generatedCafeCreme] },
       { id: 'chocolat-chaud', name: 'Chocolat Chaud', category: 'Boissons Chaudes', price: '20 DH', description: 'Chocolat chaud dense et réconfortant.', images: [generatedChocolatChaud] },
       { id: 'the-marocain', name: 'Thé Marocain', category: 'Boissons Chaudes', price: '13 DH', description: 'Thé marocain parfumé.', images: [generatedTheMarocain] },

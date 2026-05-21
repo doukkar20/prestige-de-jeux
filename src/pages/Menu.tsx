@@ -31,7 +31,6 @@ import crepeNutellaBanane from '../assets/images/pic food/crepnutellabanane.jpg'
 import crepeSaleePouletChampignons from '../assets/images/pic food/optimized/crepe-salee-poulet-champignons.optimized.jpg';
 import redParadise from '../assets/images/pic food/optimized/paradise.optimized.jpg';
 import jusExtraVitamine from '../assets/images/pic food/jus extra vitamine.jpeg';
-import mojitoVirgin from '../assets/images/pic food/optimized/mojito vergine.optimized.jpg';
 import boraBora from '../assets/images/pic food/optimized/borabora.optimized.jpg';
 import cappuccinoViennois from '../assets/images/pic food/cappuccino-viennois.jpeg';
 import cafeLatte from '../assets/images/pic food/optimized/caffe lathe.optimized.jpg';
@@ -52,14 +51,26 @@ import generatedDoubleEspressoSingleAi from '../assets/images/pic food/generated
 import generatedCafeCreme from '../assets/images/pic food/generated/cafe-creme.png';
 import generatedChocolatChaud from '../assets/images/pic food/generated/chocolat-chaud.png';
 import generatedTheMarocain from '../assets/images/pic food/generated/the-marocain.png';
-import generatedTheAnglais from '../assets/images/pic food/generated/the-anglais.png';
 import generatedTheAmericain from '../assets/images/pic food/generated/the-americain.png';
 import generatedMoka from '../assets/images/pic food/generated/moka.png';
-import generatedMonteCristo from '../assets/images/pic food/generated/monte-cristo.png';
 import generatedMilkshakeAi from '../assets/images/pic food/generated/milkshake-ai.jpg';
 import generatedFrappuccinoAi from '../assets/images/pic food/generated/frappuccino-ai.jpg';
 import generatedIceTeaAi from '../assets/images/pic food/generated/ice-tea-ai.jpg';
 import generatedSmoothieAi from '../assets/images/pic food/generated/smoothie-ai.jpg';
+import generatedMojitoVirginAi from '../assets/images/pic food/generated/mojito-virgin-ai.jpg';
+import generatedPinnaColladaAi from '../assets/images/pic food/generated/pinna-collada-ai.jpg';
+import generatedCocoDreamAi from '../assets/images/pic food/generated/coco-dream-ai.jpg';
+import generatedSpanishLatteAi from '../assets/images/pic food/generated/spanish-latte-ai.jpg';
+import generatedCafeAmericainAi from '../assets/images/pic food/generated/cafe-americain-ai.jpg';
+import generatedCafeAllongeAi from '../assets/images/pic food/generated/cafe-allonge-ai.jpg';
+import generatedCafeAromatiseAi from '../assets/images/pic food/generated/cafe-aromatise-ai.jpg';
+import generatedTheAnglaisAi from '../assets/images/pic food/generated/the-anglais-ai.jpg';
+import generatedChocolatFonduAi from '../assets/images/pic food/generated/chocolat-fondu-ai.jpg';
+import generatedCaputshinoItalianAi from '../assets/images/pic food/generated/caputshino-italian-ai.jpg';
+import generatedSpanishIceLatteAi from '../assets/images/pic food/generated/spanish-ice-latte-ai.jpg';
+import generatedIceLatteAi from '../assets/images/pic food/generated/ice-latte-ai.jpg';
+import generatedIceLatteAromatiseAi from '../assets/images/pic food/generated/ice-latte-aromatise-ai.jpg';
+import generatedIceMookaAi from '../assets/images/pic food/generated/ice-mooka-ai.jpg';
 import './Menu.css';
 
 type Category =
@@ -93,9 +104,9 @@ const menuOrder: Category[] = [
   'Crêpes Sucrées',
   'Crêpes Salées',
   'Jus Frais',
+  'Boissons Chaudes',
   'Boissons Froides',
   'Cocktails Signature',
-  'Boissons Chaudes',
 ];
 
 const filterOptions = ['Tout', ...menuOrder] as const;
@@ -239,10 +250,80 @@ const menuSections: MenuSection[] = [
     ],
   },
   {
+    category: 'Boissons Chaudes',
+    eyebrow: 'Hot Lounge',
+    description: 'Cafés, thés, chocolat chaud et spécialités gourmandes pour une pause élégante.',
+    items: [
+      { id: 'espresso', name: 'Espresso', category: 'Boissons Chaudes', price: '13 DH', description: 'Espresso court et intense.', images: [generatedEspresso] },
+      { id: 'double-espresso', name: 'Double Espresso', category: 'Boissons Chaudes', price: '18 DH', description: 'Double espresso riche et aromatique.', images: [generatedDoubleEspressoSingleAi] },
+      { id: 'cafe-creme', name: 'Café Crème', category: 'Boissons Chaudes', price: '15 DH', description: 'Café crème doux et équilibré.', images: [generatedCafeCreme] },
+      { id: 'spanish-latte', name: 'Spanish Latte', category: 'Boissons Chaudes', price: '25 DH', description: 'Café latte espagnol gourmand et crémeux.', images: [generatedSpanishLatteAi] },
+      { id: 'cafe-americain', name: 'Café Américain', category: 'Boissons Chaudes', price: '15 DH', description: 'Café américain riche et équilibré.', images: [generatedCafeAmericainAi] },
+      { id: 'cafe-allonge', name: 'Café Allongé', category: 'Boissons Chaudes', price: '15 DH', description: 'Café allongé intense et aromatique.', images: [generatedCafeAllongeAi] },
+      { id: 'cafe-aromatise', name: 'Café Aromatisé', category: 'Boissons Chaudes', price: '18 DH', description: 'Café parfumé aux saveurs gourmandes.', images: [generatedCafeAromatiseAi] },
+      { id: 'chocolat-chaud', name: 'Chocolat Chaud', category: 'Boissons Chaudes', price: '20 DH', description: 'Chocolat chaud dense et réconfortant.', images: [generatedChocolatChaud] },
+      { id: 'chocolat-fondu', name: 'Chocolat Fondu', category: 'Boissons Chaudes', price: '25 DH', description: 'Chocolat chaud gourmand noir ou blanc.', images: [generatedChocolatFonduAi], details: ['Options: Noir / Blanc'] },
+      { id: 'the-marocain', name: 'Thé Marocain', category: 'Boissons Chaudes', price: '13 DH', description: 'Thé marocain parfumé.', images: [generatedTheMarocain] },
+      { id: 'the-anglais', name: 'Thé Anglais', category: 'Boissons Chaudes', price: '15 DH', description: 'Thé noir chaud raffiné et élégant.', images: [generatedTheAnglaisAi], details: ['Thé Noir'] },
+      { id: 'the-americain', name: 'Thé Américain', category: 'Boissons Chaudes', price: '15 DH', description: 'Thé américain servi chaud.', images: [generatedTheAmericain] },
+      {
+        id: 'cappuccino-viennois',
+        name: 'Cappuccino Viennois',
+        category: 'Boissons Chaudes',
+        price: '25 DH',
+        description: 'Cappuccino gourmand avec une finition viennoise.',
+        images: [cappuccinoViennois],
+      },
+      { id: 'moka', name: 'Moka', category: 'Boissons Chaudes', price: '20 DH', description: 'Moka doux aux notes chocolatées.', images: [generatedMoka] },
+      { id: 'caputshino-italian', name: 'Caputshino Italian', category: 'Boissons Chaudes', price: '20 DH', description: 'Capuccino italien crémeux et raffiné.', images: [generatedCaputshinoItalianAi] },
+      {
+        id: 'cafe-latte',
+        name: 'Café Latte',
+        category: 'Boissons Chaudes',
+        price: '20 DH',
+        description: 'Café latte onctueux et équilibré.',
+        images: [cafeLatte],
+      },
+    ],
+  },
+  {
     category: 'Boissons Froides',
     eyebrow: 'Iced Lounge',
     description: 'Boissons froides gourmandes et rafraîchissantes servies dans un esprit café premium.',
     items: [
+      {
+        id: 'spanish-ice-latte',
+        name: 'Spanish Ice Latte',
+        category: 'Boissons Froides',
+        price: '30 DH',
+        description: 'Spanish latte glacé riche et crémeux.',
+        images: [generatedSpanishIceLatteAi],
+      },
+      {
+        id: 'ice-latte',
+        name: 'Ice Latte',
+        category: 'Boissons Froides',
+        price: '20 DH',
+        description: 'Ice latte frais et léger.',
+        images: [generatedIceLatteAi],
+      },
+      {
+        id: 'ice-latte-aromatise',
+        name: 'Ice Latte Aromatisé',
+        category: 'Boissons Froides',
+        price: '25 DH',
+        description: 'Ice latte aromatisé gourmand aux saveurs au choix.',
+        images: [generatedIceLatteAromatiseAi],
+        details: ['Options: Chocolat / Caramelle / Noisette / Vanie'],
+      },
+      {
+        id: 'ice-mooka',
+        name: 'Ice Mooka',
+        category: 'Boissons Froides',
+        price: '25 DH',
+        description: 'Boisson glacée moka riche et chocolatée.',
+        images: [generatedIceMookaAi],
+      },
       {
         id: 'milk-shake',
         name: 'Milk Shake',
@@ -299,8 +380,9 @@ const menuSections: MenuSection[] = [
         name: 'Mojito Virgin',
         category: 'Cocktails Signature',
         price: '35 DH',
-        description: 'Menthe, citron et fraîcheur vive, sans alcool.',
-        images: [mojitoVirgin],
+        description: 'Mocktail frais et tropical aux saveurs au choix.',
+        images: [generatedMojitoVirginAi],
+        details: ['Options: Fraise / Framboise / Bleu Curaçao / Noix de Coco'],
       },
       {
         id: 'bora-bora',
@@ -311,44 +393,28 @@ const menuSections: MenuSection[] = [
         images: [boraBora],
       },
       {
+        id: 'pinna-collada',
+        name: 'Pinna Collada',
+        category: 'Cocktails Signature',
+        price: '40 DH',
+        description: 'Cocktail tropical crémeux à base d’ananas et noix de coco.',
+        images: [generatedPinnaColladaAi],
+      },
+      {
+        id: 'coco-dream',
+        name: 'Coco Dream',
+        category: 'Cocktails Signature',
+        price: '40 DH',
+        description: 'Cocktail exotique crémeux à la noix de coco.',
+        images: [generatedCocoDreamAi],
+      },
+      {
         id: 'prestige-cocktail',
         name: 'Prestige Cocktail',
         category: 'Cocktails Signature',
         price: '45 DH',
         description: 'Création maison Prestige de Jeux, raffinée et fruitée.',
         images: [generatedPrestigeCocktail],
-      },
-    ],
-  },
-  {
-    category: 'Boissons Chaudes',
-    eyebrow: 'Hot Lounge',
-    description: 'Cafés, thés, chocolat chaud et spécialités gourmandes pour une pause élégante.',
-    items: [
-      { id: 'espresso', name: 'Espresso', category: 'Boissons Chaudes', price: '13 DH', description: 'Espresso court et intense.', images: [generatedEspresso] },
-      { id: 'double-espresso', name: 'Double Espresso', category: 'Boissons Chaudes', price: '18 DH', description: 'Double espresso riche et aromatique.', images: [generatedDoubleEspressoSingleAi] },
-      { id: 'cafe-creme', name: 'Café Crème', category: 'Boissons Chaudes', price: '15 DH', description: 'Café crème doux et équilibré.', images: [generatedCafeCreme] },
-      { id: 'chocolat-chaud', name: 'Chocolat Chaud', category: 'Boissons Chaudes', price: '20 DH', description: 'Chocolat chaud dense et réconfortant.', images: [generatedChocolatChaud] },
-      { id: 'the-marocain', name: 'Thé Marocain', category: 'Boissons Chaudes', price: '13 DH', description: 'Thé marocain parfumé.', images: [generatedTheMarocain] },
-      { id: 'the-anglais', name: 'Thé Anglais', category: 'Boissons Chaudes', price: '15 DH', description: 'Thé anglais classique.', images: [generatedTheAnglais] },
-      { id: 'the-americain', name: 'Thé Américain', category: 'Boissons Chaudes', price: '15 DH', description: 'Thé américain servi chaud.', images: [generatedTheAmericain] },
-      {
-        id: 'cappuccino-viennois',
-        name: 'Cappuccino Viennois',
-        category: 'Boissons Chaudes',
-        price: '25 DH',
-        description: 'Cappuccino gourmand avec une finition viennoise.',
-        images: [cappuccinoViennois],
-      },
-      { id: 'moka', name: 'Moka', category: 'Boissons Chaudes', price: '20 DH', description: 'Moka doux aux notes chocolatées.', images: [generatedMoka] },
-      { id: 'monte-cristo', name: 'Monte Cristo', category: 'Boissons Chaudes', price: '32 DH', description: 'Boisson chaude signature et généreuse.', images: [generatedMonteCristo] },
-      {
-        id: 'cafe-latte',
-        name: 'Café Latte',
-        category: 'Boissons Chaudes',
-        price: '20 DH',
-        description: 'Café latte onctueux et équilibré.',
-        images: [cafeLatte],
       },
     ],
   },

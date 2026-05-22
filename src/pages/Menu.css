@@ -273,6 +273,27 @@
   background: linear-gradient(180deg, transparent 68%, rgba(11, 11, 11, 0.54));
 }
 
+.menu-card--sodas .menu-carousel {
+  background:
+    radial-gradient(circle at 50% 36%, rgba(212, 175, 55, 0.16), transparent 54%),
+    linear-gradient(145deg, #050505, #17120a 58%, #050505);
+}
+
+.menu-card--sodas .menu-carousel__image,
+.menu-card--sodas img {
+  object-fit: contain;
+  object-position: center;
+}
+
+.menu-card--sodas .menu-carousel__shade {
+  background: linear-gradient(180deg, transparent 72%, rgba(11, 11, 11, 0.5));
+}
+
+.menu-card--sodas:hover,
+.menu-card--sodas:focus-within {
+  box-shadow: 0 28px 88px rgba(0, 0, 0, 0.56), 0 0 32px rgba(212, 175, 55, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
 .menu-card--cafe-latte .menu-carousel__image,
 .menu-card--cafe-latte img {
   object-fit: contain;

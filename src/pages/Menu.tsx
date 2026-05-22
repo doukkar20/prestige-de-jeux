@@ -20,6 +20,7 @@ type Category =
   | 'Crêpes Sucrées'
   | 'Crêpes Salées'
   | 'Jus Frais'
+  | 'Eaux & Boissons Gazeuses'
   | 'Boissons Froides'
   | 'Cocktails Signature'
   | 'Boissons Chaudes';
@@ -47,6 +48,7 @@ const menuOrder: Category[] = [
   'Crêpes Sucrées',
   'Crêpes Salées',
   'Jus Frais',
+  'Eaux & Boissons Gazeuses',
   'Boissons Chaudes',
   'Boissons Froides',
   'Cocktails Signature',
@@ -60,6 +62,7 @@ const categoryIcons: Record<Category, typeof Coffee> = {
   'Crêpes Sucrées': Sparkles,
   'Crêpes Salées': Utensils,
   'Jus Frais': GlassWater,
+  'Eaux & Boissons Gazeuses': CupSoda,
   'Boissons Froides': CupSoda,
   'Cocktails Signature': Martini,
   'Boissons Chaudes': Coffee,
@@ -71,12 +74,20 @@ const optimizedMenuAssets = import.meta.glob('../assets/images/pic food/optimize
   import: 'default',
 }) as Record<string, string>;
 
-function foodImage(slug: string): Pick<MenuItem, 'image' | 'cardImage' | 'modalImage'> {
-  const modalImage = optimizedMenuAssets[`../assets/images/pic food/optimized/${slug}.webp`];
-  const cardImage = optimizedMenuAssets[`../assets/images/pic food/optimized/${slug}-thumb.webp`];
+const generatedMenuAssets = import.meta.glob('../assets/images/pic food/generated/*.webp', {
+  eager: true,
+  query: '?url',
+  import: 'default',
+}) as Record<string, string>;
+
+function foodImage(slug: string, source: 'optimized' | 'generated' = 'optimized'): Pick<MenuItem, 'image' | 'cardImage' | 'modalImage'> {
+  const assets = source === 'generated' ? generatedMenuAssets : optimizedMenuAssets;
+  const assetPath = `../assets/images/pic food/${source}`;
+  const modalImage = assets[`${assetPath}/${slug}.webp`];
+  const cardImage = assets[`${assetPath}/${slug}-thumb.webp`];
 
   if (!modalImage || !cardImage) {
-    console.error(`[Menu] Optimized image missing for "${slug}".`);
+    console.error(`[Menu] ${source} image missing for "${slug}".`);
   }
 
   return {
@@ -220,6 +231,29 @@ const rawMenuSections: MenuSection[] = [
       { id: 'limonade', name: 'Limonade', category: 'Jus Frais', price: '25 DH', description: 'Limonade fraîche et acidulée.', ...foodImage('luxury-limonade') },
       { id: 'jus-citron', name: 'Jus de Citron', category: 'Jus Frais', price: '25 DH', description: 'Citron frais, vif et acidulé.', ...foodImage('luxury-jus-citron-big-cup') },
       { id: 'jus-extra-vitamine', name: 'Jus Extra Vitamine', category: 'Jus Frais', price: '35 DH', description: 'Boisson vitaminée aux fruits, fraîche et lumineuse.', ...foodImage('jus-extra-vitamine') },
+    ],
+  },
+  {
+    category: 'Eaux & Boissons Gazeuses',
+    eyebrow: 'Soda Premium',
+    description: 'Eaux minerales, sodas iconiques et energy drinks servis bien frais dans une signature lounge noire et doree.',
+    items: [
+      { id: 'coca-cola', name: 'COCA-COLA', category: 'Eaux & Boissons Gazeuses', price: '15 DH', description: 'Coca-Cola glace, condensation intense et service premium.', ...foodImage('coca-cola', 'generated') },
+      { id: 'coca-zero', name: 'COCA ZERO', category: 'Eaux & Boissons Gazeuses', price: '15 DH', description: 'Coca-Cola Zero bien frais, elegant et sans sucres.', ...foodImage('coca-zero', 'generated') },
+      { id: 'sprite', name: 'SPRITE', category: 'Eaux & Boissons Gazeuses', price: '15 DH', description: 'Sprite citron-lime, bulles vives et glacons cristallins.', ...foodImage('sprite', 'generated') },
+      { id: 'fanta-orange', name: 'FANTA ORANGE', category: 'Eaux & Boissons Gazeuses', price: '15 DH', description: 'Fanta orange glace, notes citrus et finition lumineuse.', ...foodImage('fanta-orange', 'generated') },
+      { id: 'hawai', name: 'HAWAÏ', category: 'Eaux & Boissons Gazeuses', price: '15 DH', description: 'Soda tropical Hawai, fraicheur fruitee et service lounge.', ...foodImage('hawai', 'generated') },
+      { id: 'schweppes-citron', name: 'SCHWEPPES CITRON', category: 'Eaux & Boissons Gazeuses', price: '15 DH', description: 'Schweppes citron petillant, citron frais et bulles fines.', ...foodImage('schweppes-citron', 'generated') },
+      { id: 'schweppes-tonic', name: 'SCHWEPPES TONIC', category: 'Eaux & Boissons Gazeuses', price: '15 DH', description: 'Tonic Schweppes raffine, bulles nettes et agrumes elegants.', ...foodImage('schweppes-tonic', 'generated') },
+      { id: 'poms', name: 'POMS', category: 'Eaux & Boissons Gazeuses', price: '15 DH', description: 'Poms glace aux notes de pomme, dore et rafraichissant.', ...foodImage('poms', 'generated') },
+      { id: 'mirinda', name: 'MIRINDA', category: 'Eaux & Boissons Gazeuses', price: '15 DH', description: 'Mirinda orange servi tres frais avec glacons premium.', ...foodImage('mirinda', 'generated') },
+      { id: 'seven-up', name: 'SEVEN UP', category: 'Eaux & Boissons Gazeuses', price: '15 DH', description: 'Seven Up citron-lime, frais, petillant et cristallin.', ...foodImage('seven-up', 'generated') },
+      { id: 'red-bull', name: 'RED BULL', category: 'Eaux & Boissons Gazeuses', price: '25 DH', description: 'Red Bull glace, energie premium et reflets metalliques.', ...foodImage('red-bull', 'generated') },
+      { id: 'red-bull-sugar-free', name: 'RED BULL SUGAR FREE', category: 'Eaux & Boissons Gazeuses', price: '25 DH', description: 'Red Bull Sugar Free, frais, leger et elegant.', ...foodImage('red-bull-sugar-free', 'generated') },
+      { id: 'monster-energy', name: 'MONSTER ENERGY', category: 'Eaux & Boissons Gazeuses', price: '30 DH', description: 'Monster Energy glace, intensite nocturne et service premium.', ...foodImage('monster-energy', 'generated') },
+      { id: 'oulmes', name: 'OULMÈS', category: 'Eaux & Boissons Gazeuses', price: '15 DH', description: 'Oulmes gazeuse, bulles fines et verre cristallin.', ...foodImage('oulmes', 'generated') },
+      { id: 'sidi-ali', name: 'SIDI ALI', category: 'Eaux & Boissons Gazeuses', price: '10 DH', description: 'Sidi Ali plate, pure, fraiche et servie avec elegance.', ...foodImage('sidi-ali', 'generated') },
+      { id: 'sidi-ali-gazeuse', name: 'SIDI ALI GAZEUSE', category: 'Eaux & Boissons Gazeuses', price: '15 DH', description: 'Sidi Ali gazeuse, bulles fines et fraicheur minerale.', ...foodImage('sidi-ali-gazeuse', 'generated') },
     ],
   },
   {
@@ -385,6 +419,7 @@ const MenuCard: FC<{ item: MenuItem; index: number; isPriority: boolean; onOpen:
   const cardClassName = [
     'menu-card',
     item.category === 'Jus Frais' ? 'menu-card--jus-frais' : '',
+    item.category === 'Eaux & Boissons Gazeuses' ? 'menu-card--sodas' : '',
     item.id === 'cafe-latte' ? 'menu-card--cafe-latte' : '',
     item.id === 'mojito-virgin' ? 'menu-card--mojito-virgin' : '',
     item.id === 'red-paradise' ? 'menu-card--red-paradise' : '',
@@ -524,7 +559,7 @@ export default function Menu() {
               <span />
             </span>
             <h1 id="menu-title">Notre Menu</h1>
-            <p>Petits déjeuners, crêpes, jus frais, boissons froides, cocktails signature & boissons chaudes</p>
+            <p>Petits déjeuners, crêpes, jus frais, eaux & boissons gazeuses, boissons chaudes, boissons froides et cocktails signature</p>
           </motion.header>
 
           <nav className="menu-filters" aria-label="Filtrer le menu">

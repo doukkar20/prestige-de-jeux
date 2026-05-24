@@ -566,6 +566,15 @@
     "fullBytes": 113252,
     "thumbBytes": 30308
   },
+  "mojito-royale-ai": {
+    "source": "generated/mojito-royale-ai.png",
+    "full": "mojito-royale-ai.webp",
+    "thumb": "mojito-royale-ai-thumb.webp",
+    "sourceWidth": 1536,
+    "sourceHeight": 1024,
+    "fullBytes": 209004,
+    "thumbBytes": 44562
+  },
   "moka": {
     "source": "generated/moka.png",
     "full": "moka.webp",

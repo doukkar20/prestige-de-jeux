@@ -207,9 +207,17 @@ const rawMenuSections: MenuSection[] = [
     items: [
       {
         id: 'crepe-salee-poulet-champignon',
+        name: 'Crêpe Salée charcuterie et fromage.',
+        category: 'Crêpes Salées',
+        price: '35 DH',
+        description: 'Poulet, sauce champignons, charcuterie et fromage.',
+        ...foodImage('crepe-salee-poulet-champignons'),
+      },
+      {
+        id: 'crepe-salee-poulet-champignon-45',
         name: 'Crêpe Salée Poulet Champignon',
         category: 'Crêpes Salées',
-        price: '37 DH',
+        price: '45 DH',
         description: 'Poulet, sauce champignons, charcuterie et fromage.',
         ...foodImage('crepe-salee-poulet-champignons'),
       },
@@ -248,12 +256,12 @@ const rawMenuSections: MenuSection[] = [
       { id: 'poms', name: 'POMS', category: 'Eaux & Boissons Gazeuses', price: '15 DH', description: 'Poms glace aux notes de pomme, dore et rafraichissant.', ...foodImage('poms', 'generated') },
       { id: 'mirinda', name: 'MIRINDA', category: 'Eaux & Boissons Gazeuses', price: '15 DH', description: 'Mirinda orange servi tres frais avec glacons premium.', ...foodImage('mirinda', 'generated') },
       { id: 'seven-up', name: 'SEVEN UP', category: 'Eaux & Boissons Gazeuses', price: '15 DH', description: 'Seven Up citron-lime, frais, petillant et cristallin.', ...foodImage('seven-up', 'generated') },
-      { id: 'red-bull', name: 'RED BULL', category: 'Eaux & Boissons Gazeuses', price: '25 DH', description: 'Red Bull glace, energie premium et reflets metalliques.', ...foodImage('red-bull', 'generated') },
-      { id: 'red-bull-sugar-free', name: 'RED BULL SUGAR FREE', category: 'Eaux & Boissons Gazeuses', price: '25 DH', description: 'Red Bull Sugar Free, frais, leger et elegant.', ...foodImage('red-bull-sugar-free', 'generated') },
-      { id: 'monster-energy', name: 'MONSTER ENERGY', category: 'Eaux & Boissons Gazeuses', price: '30 DH', description: 'Monster Energy glace, intensite nocturne et service premium.', ...foodImage('monster-energy', 'generated') },
+      { id: 'red-bull', name: 'RED BULL', category: 'Eaux & Boissons Gazeuses', price: '35 DH', description: 'Red Bull glace, energie premium et reflets metalliques.', ...foodImage('red-bull', 'generated') },
+      { id: 'red-bull-sugar-free', name: 'RED BULL SUGAR FREE', category: 'Eaux & Boissons Gazeuses', price: '35 DH', description: 'Red Bull Sugar Free, frais, leger et elegant.', ...foodImage('red-bull-sugar-free', 'generated') },
+      { id: 'monster-energy', name: 'MONSTER ENERGY', category: 'Eaux & Boissons Gazeuses', price: '40 DH', description: 'Monster Energy glace, intensite nocturne et service premium.', ...foodImage('monster-energy', 'generated') },
       { id: 'oulmes', name: 'OULMÈS', category: 'Eaux & Boissons Gazeuses', price: '15 DH', description: 'Oulmes gazeuse, bulles fines et verre cristallin.', ...foodImage('oulmes', 'generated') },
       { id: 'sidi-ali', name: 'SIDI ALI', category: 'Eaux & Boissons Gazeuses', price: '10 DH', description: 'Sidi Ali plate, pure, fraiche et servie avec elegance.', ...foodImage('sidi-ali', 'generated') },
-      { id: 'sidi-ali-gazeuse', name: 'SIDI ALI GAZEUSE', category: 'Eaux & Boissons Gazeuses', price: '15 DH', description: 'Sidi Ali gazeuse, bulles fines et fraicheur minerale.', ...foodImage('sidi-ali-gazeuse', 'generated') },
+      { id: 'sidi-ali-gazeuse', name: 'SIDI ALI GAZEUSE', category: 'Eaux & Boissons Gazeuses', price: '30 DH', description: 'Sidi Ali gazeuse, bulles fines et fraicheur minerale.', ...foodImage('sidi-ali-gazeuse', 'generated') },
     ],
   },
   {
@@ -302,6 +310,7 @@ const rawMenuSections: MenuSection[] = [
       { id: 'pina-colada', name: 'Pina Colada', category: 'Cocktails Signature', price: '40 DH', description: "Cocktail tropical crémeux à base d'ananas et noix de coco.", ...foodImage('pina-colada-ai') },
       { id: 'coco-dream', name: 'Coco Dream', category: 'Cocktails Signature', price: '40 DH', description: 'Cocktail exotique crémeux à la noix de coco.', ...foodImage('coco-dream-ai') },
       { id: 'mojito-virgin', name: 'Mojito Virgin', category: 'Cocktails Signature', price: '35 DH', description: 'Mocktail frais et tropical aux saveurs au choix.', ...foodImage('mojito-vergine') },
+      { id: 'mojito-royale', name: 'Mojito royale', category: 'Cocktails Signature', price: '45 DH', description: 'Mojito premium au Red Bull, frais et energisant.', ...foodImage('mojito-royale-ai') },
       { id: 'prestige-cocktail', name: 'Prestige Cocktail', category: 'Cocktails Signature', price: '45 DH', description: 'Création maison Prestige de Jeux, raffinée et fruitée.', ...foodImage('prestige-cocktail') },
     ],
   },
@@ -331,7 +340,7 @@ function isRenderableMenuItem(item: MenuItem | null | undefined, section: Catego
 
 function normalizeMenuSections(sections: MenuSection[]) {
   const usedIds = new Set<string>();
-  const usedNames = new Set<string>();
+  const usedProductVariants = new Set<string>();
 
   return sections.map((section) => ({
     ...section,
@@ -340,14 +349,14 @@ function normalizeMenuSections(sections: MenuSection[]) {
         return false;
       }
 
-      const identity = `${item.category}:${item.name.toLowerCase()}`;
-      if (usedIds.has(item.id) || usedNames.has(identity)) {
+      const identity = `${item.category}:${item.name.toLowerCase()}:${item.price}`;
+      if (usedIds.has(item.id) || usedProductVariants.has(identity)) {
         console.error(`[Menu] Produit dupliqué ignoré: ${item.name}.`, item);
         return false;
       }
 
       usedIds.add(item.id);
-      usedNames.add(identity);
+      usedProductVariants.add(identity);
       return true;
     }),
   }));

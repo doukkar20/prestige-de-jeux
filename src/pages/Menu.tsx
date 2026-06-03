@@ -16,6 +16,8 @@ import snookerTable from '../assets/images/snooker-table.jpg';
 import './Menu.css';
 
 type Category =
+  | 'Burgers'
+  | 'Tacos'
   | 'Petits Déjeuners'
   | 'Crêpes Sucrées'
   | 'Crêpes Salées'
@@ -44,6 +46,8 @@ type MenuSection = {
 };
 
 const menuOrder: Category[] = [
+  'Burgers',
+  'Tacos',
   'Petits Déjeuners',
   'Crêpes Sucrées',
   'Crêpes Salées',
@@ -58,6 +62,8 @@ const filterOptions = ['Tout', ...menuOrder] as const;
 type FilterOption = (typeof filterOptions)[number];
 
 const categoryIcons: Record<Category, typeof Coffee> = {
+  Burgers: Utensils,
+  Tacos: Utensils,
   'Petits Déjeuners': EggFried,
   'Crêpes Sucrées': Sparkles,
   'Crêpes Salées': Utensils,
@@ -80,13 +86,19 @@ const generatedMenuAssets = import.meta.glob('../assets/images/pic food/generate
   import: 'default',
 }) as Record<string, string>;
 
-function foodImage(slug: string, source: 'optimized' | 'generated' = 'optimized'): Pick<MenuItem, 'image' | 'cardImage' | 'modalImage'> {
-  const assets = source === 'generated' ? generatedMenuAssets : optimizedMenuAssets;
-  const assetPath = `../assets/images/pic food/${source}`;
-  const modalImage = assets[`${assetPath}/${slug}.webp`];
-  const cardImage = assets[`${assetPath}/${slug}-thumb.webp`];
+const generatedPngMenuAssets = import.meta.glob('../assets/images/pic food/generated/*.png', {
+  eager: true,
+  query: '?url',
+  import: 'default',
+}) as Record<string, string>;
 
-  if (!modalImage || !cardImage) {
+function foodImage(slug: string, source: 'optimized' | 'generated' = 'optimized', extension: 'webp' | 'png' = 'webp'): Pick<MenuItem, 'image' | 'cardImage' | 'modalImage'> {
+  const assets = source === 'generated' && extension === 'png' ? generatedPngMenuAssets : source === 'generated' ? generatedMenuAssets : optimizedMenuAssets;
+  const assetPath = `../assets/images/pic food/${source}`;
+  const modalImage = assets[`${assetPath}/${slug}.${extension}`];
+  const cardImage = assets[`${assetPath}/${slug}-thumb.${extension}`];
+
+  if (!modalImage) {
     console.error(`[Menu] ${source} image missing for "${slug}".`);
   }
 
@@ -98,6 +110,60 @@ function foodImage(slug: string, source: 'optimized' | 'generated' = 'optimized'
 }
 
 const rawMenuSections: MenuSection[] = [
+  {
+    category: 'Burgers',
+    eyebrow: 'Burger Lounge',
+    description: "Burgers chauds, généreux et servis dans l'esprit premium Prestige de Jeux.",
+    items: [
+      {
+        id: 'chees-burger',
+        name: 'CHEES BURGER',
+        category: 'Burgers',
+        price: '30 DH',
+        description: 'Burger au fromage fondant, garniture fraîche et sauce maison.',
+        ...foodImage('chees-burger-ai', 'generated', 'png'),
+      },
+      {
+        id: 'chekne-burger',
+        name: 'CHEKNE BURGER',
+        category: 'Burgers',
+        price: '30 DH',
+        description: 'Burger au poulet, fromage fondant, garniture fraîche et sauce maison.',
+        ...foodImage('chekne-burger-ai', 'generated', 'png'),
+      },
+    ],
+  },
+  {
+    category: 'Tacos',
+    eyebrow: 'Tacos Lounge',
+    description: 'Tacos façon snack premium, garnis et grillés minute.',
+    items: [
+      {
+        id: 'tacos-poulet',
+        name: 'TACOS POULET',
+        category: 'Tacos',
+        price: '35 DH',
+        description: 'Tacos grillé au poulet, frites, sauce fromagère et herbes.',
+        ...foodImage('tacos-poulet-ai', 'generated', 'png'),
+      },
+      {
+        id: 'tacos-v-h',
+        name: 'TACOS V H',
+        category: 'Tacos',
+        price: '38 DH',
+        description: 'Tacos grillé à la viande hachée, frites et sauce fromagère.',
+        ...foodImage('tacos-v-h-ai', 'generated', 'png'),
+      },
+      {
+        id: 'tacos-mixt',
+        name: 'TACOS MIXT',
+        category: 'Tacos',
+        price: '40 DH',
+        description: 'Tacos mixte au poulet et viande hachée, frites et sauce fromagère.',
+        ...foodImage('tacos-mixt-ai', 'generated', 'png'),
+      },
+    ],
+  },
   {
     category: 'Petits Déjeuners',
     eyebrow: 'Breakfast Prestige',
@@ -115,7 +181,7 @@ const rawMenuSections: MenuSection[] = [
         id: 'fassi-premium',
         name: 'Fassi Premium',
         category: 'Petits Déjeuners',
-        price: '30 DH',
+        price: '35 DH',
         description: "Tagine de khlii, oeufs, jben, huile d'olive, olives noires et pain.",
         ...foodImage('fassi'),
       },
@@ -139,7 +205,7 @@ const rawMenuSections: MenuSection[] = [
         id: 'croque-monsieur',
         name: 'Croque Monsieur',
         category: 'Petits Déjeuners',
-        price: '42 DH',
+        price: '38 DH',
         description: 'Toast grillé, cheddar, charcuterie et salade fraîche.',
         ...foodImage('croque-monsieur'),
       },
@@ -147,15 +213,15 @@ const rawMenuSections: MenuSection[] = [
         id: 'croque-madame',
         name: 'Croque Madame',
         category: 'Petits Déjeuners',
-        price: '42 DH',
+        price: '38 DH',
         description: 'Toast grillé, oeuf, cheddar, charcuterie et salade fraîche.',
         ...foodImage('croque-madame'),
       },
       {
         id: 'oeufs-au-choix',
-        name: 'Oeufs au Choix',
+        name: 'Œufs au Choix',
         category: 'Petits Déjeuners',
-        price: '35 DH',
+        price: '26 DH',
         description: 'Oeufs préparés selon votre envie, dont omelette fromage.',
         ...foodImage('omelette-fromage'),
       },
@@ -171,7 +237,7 @@ const rawMenuSections: MenuSection[] = [
         id: 'prestige-breakfast',
         name: 'Prestige Breakfast',
         category: 'Petits Déjeuners',
-        price: '72 DH',
+        price: '55 DH',
         description: "Formule premium généreuse dans l'esprit lounge Prestige de Jeux.",
         ...foodImage('prestige-breakfast'),
       },
@@ -207,17 +273,9 @@ const rawMenuSections: MenuSection[] = [
     items: [
       {
         id: 'crepe-salee-poulet-champignon',
-        name: 'Crêpe Salée charcuterie et fromage.',
-        category: 'Crêpes Salées',
-        price: '35 DH',
-        description: 'Poulet, sauce champignons, charcuterie et fromage.',
-        ...foodImage('crepe-salee-poulet-champignons'),
-      },
-      {
-        id: 'crepe-salee-poulet-champignon-45',
         name: 'Crêpe Salée Poulet Champignon',
         category: 'Crêpes Salées',
-        price: '45 DH',
+        price: '38 DH',
         description: 'Poulet, sauce champignons, charcuterie et fromage.',
         ...foodImage('crepe-salee-poulet-champignons'),
       },
@@ -259,8 +317,9 @@ const rawMenuSections: MenuSection[] = [
       { id: 'red-bull', name: 'RED BULL', category: 'Eaux & Boissons Gazeuses', price: '35 DH', description: 'Red Bull glace, energie premium et reflets metalliques.', ...foodImage('red-bull', 'generated') },
       { id: 'red-bull-sugar-free', name: 'RED BULL SUGAR FREE', category: 'Eaux & Boissons Gazeuses', price: '35 DH', description: 'Red Bull Sugar Free, frais, leger et elegant.', ...foodImage('red-bull-sugar-free', 'generated') },
       { id: 'monster-energy', name: 'MONSTER ENERGY', category: 'Eaux & Boissons Gazeuses', price: '40 DH', description: 'Monster Energy glace, intensite nocturne et service premium.', ...foodImage('monster-energy', 'generated') },
-      { id: 'oulmes', name: 'OULMÈS', category: 'Eaux & Boissons Gazeuses', price: '15 DH', description: 'Oulmes gazeuse, bulles fines et verre cristallin.', ...foodImage('oulmes', 'generated') },
-      { id: 'sidi-ali', name: 'SIDI ALI', category: 'Eaux & Boissons Gazeuses', price: '10 DH', description: 'Sidi Ali plate, pure, fraiche et servie avec elegance.', ...foodImage('sidi-ali', 'generated') },
+      { id: 'oulmes', name: 'OUALMAS', category: 'Eaux & Boissons Gazeuses', price: '12 DH', description: 'Eau gazeuse, bulles fines et verre cristallin.', ...foodImage('oulmes', 'generated') },
+      { id: 'oualmas-aromatise', name: 'OUALMAS AROMATISE', category: 'Eaux & Boissons Gazeuses', price: '16 DH', description: 'Eau gazeuse aromatisée, fraîche et fruitée.', ...foodImage('oualmas-aromatise-ai', 'generated', 'png') },
+      { id: 'sidi-ali', name: 'EAU 33', category: 'Eaux & Boissons Gazeuses', price: '4 DH', description: 'Eau minérale 33 cl, pure, fraîche et servie avec élégance.', ...foodImage('sidi-ali', 'generated') },
       { id: 'sidi-ali-gazeuse', name: 'SIDI ALI GAZEUSE', category: 'Eaux & Boissons Gazeuses', price: '30 DH', description: 'Sidi Ali gazeuse, bulles fines et fraicheur minerale.', ...foodImage('sidi-ali-gazeuse', 'generated') },
     ],
   },
@@ -271,18 +330,23 @@ const rawMenuSections: MenuSection[] = [
     items: [
       { id: 'espresso', name: 'Espresso', category: 'Boissons Chaudes', price: '13 DH', description: 'Espresso court et intense.', ...foodImage('espresso') },
       { id: 'double-espresso', name: 'Double Espresso', category: 'Boissons Chaudes', price: '18 DH', description: 'Double espresso riche et aromatique.', ...foodImage('double-espresso-single-ai') },
-      { id: 'cappuccino-italien', name: 'Cappuccino Italien', category: 'Boissons Chaudes', price: '20 DH', description: 'Cappuccino italien crémeux et raffiné.', ...foodImage('cappuccino-italien-ai') },
+      { id: 'cappuccino', name: 'Cappuccino', category: 'Boissons Chaudes', price: '18 DH', description: 'Cappuccino crémeux et raffiné.', ...foodImage('cappuccino-italien-ai') },
       { id: 'spanish-latte', name: 'Spanish Latte', category: 'Boissons Chaudes', price: '25 DH', description: 'Café latte espagnol gourmand et crémeux.', ...foodImage('spanish-latte-ai') },
-      { id: 'cafe-americain', name: 'Café Américain', category: 'Boissons Chaudes', price: '15 DH', description: 'Café américain riche et équilibré.', ...foodImage('cafe-americain-ai') },
+      { id: 'cafe-americain', name: 'CAFE AMIRECANE', category: 'Boissons Chaudes', price: '18 DH', description: 'Café américain riche et équilibré.', ...foodImage('cafe-americain-ai') },
       { id: 'cafe-allonge', name: 'Café Allongé', category: 'Boissons Chaudes', price: '15 DH', description: 'Café allongé intense et aromatique.', ...foodImage('cafe-allonge-ai') },
       { id: 'cafe-aromatise', name: 'Café Aromatisé', category: 'Boissons Chaudes', price: '18 DH', description: 'Café parfumé aux saveurs gourmandes.', ...foodImage('cafe-aromatise-ai') },
       { id: 'the-anglais', name: 'Thé Anglais', category: 'Boissons Chaudes', price: '15 DH', description: 'Thé noir chaud raffiné et élégant.', ...foodImage('the-anglais-ai') },
+      { id: 'the-americain', name: 'Thé Américain', category: 'Boissons Chaudes', price: '15 DH', description: 'Thé chaud à l’américaine, doux et raffiné.', ...foodImage('the-americain') },
       { id: 'chocolat-fondu', name: 'Chocolat Fondu', category: 'Boissons Chaudes', price: '25 DH', description: 'Chocolat chaud gourmand noir ou blanc.', ...foodImage('chocolat-fondu-ai') },
       { id: 'cafe-creme', name: 'Café Crème', category: 'Boissons Chaudes', price: '15 DH', description: 'Café crème doux et équilibré.', ...foodImage('cafe-creme') },
       { id: 'chocolat-chaud', name: 'Chocolat Chaud', category: 'Boissons Chaudes', price: '20 DH', description: 'Chocolat chaud dense et réconfortant.', ...foodImage('chocolat-chaud') },
       { id: 'the-marocain', name: 'Thé Marocain', category: 'Boissons Chaudes', price: '13 DH', description: 'Thé marocain parfumé.', ...foodImage('the-marocain') },
+      { id: 'cappuccino-viennois', name: 'Cappuccino Viennois', category: 'Boissons Chaudes', price: '25 DH', description: 'Cappuccino viennois gourmand avec mousse généreuse.', ...foodImage('cappuccino-viennois') },
       { id: 'moka', name: 'Moka', category: 'Boissons Chaudes', price: '20 DH', description: 'Moka doux aux notes chocolatées.', ...foodImage('moka') },
+      { id: 'monte-cristo', name: 'Monte Cristo', category: 'Boissons Chaudes', price: '32 DH', description: 'Boisson chaude gourmande au café et crème.', ...foodImage('monte-cristo-ai', 'generated', 'png') },
       { id: 'cafe-latte', name: 'Café Latte', category: 'Boissons Chaudes', price: '20 DH', description: 'Café latte onctueux et équilibré.', ...foodImage('caffe-lathe') },
+      { id: 'lait-verveine', name: 'LAIT VERVEINE', category: 'Boissons Chaudes', price: '15 DH', description: 'Lait chaud infusé à la verveine, doux et apaisant.', ...foodImage('lait-verveine-ai', 'generated', 'png') },
+      { id: 'the-m3achab', name: 'THE M3ACHAB', category: 'Boissons Chaudes', price: '15 DH', description: 'Thé aux herbes chaud, parfumé et réconfortant.', ...foodImage('the-marocain') },
     ],
   },
   {
@@ -290,14 +354,14 @@ const rawMenuSections: MenuSection[] = [
     eyebrow: 'Iced Lounge',
     description: 'Boissons froides gourmandes et rafraîchissantes servies dans un esprit café premium.',
     items: [
-      { id: 'spanish-ice-latte', name: 'Spanish Ice Latte', category: 'Boissons Froides', price: '30 DH', description: 'Spanish latte glacé riche et crémeux.', ...foodImage('spanish-ice-latte-ai') },
+      { id: 'spanish-ice-latte', name: 'SPANESH ICE LATTE', category: 'Boissons Froides', price: '35 DH', description: 'Spanish latte glacé riche et crémeux.', ...foodImage('spanish-ice-latte-ai') },
       { id: 'ice-latte', name: 'Ice Latte', category: 'Boissons Froides', price: '20 DH', description: 'Ice latte frais et léger.', ...foodImage('ice-latte-ai') },
       { id: 'ice-latte-aromatise', name: 'Ice Latte Aromatisé', category: 'Boissons Froides', price: '25 DH', description: 'Ice latte aromatisé gourmand aux saveurs au choix.', ...foodImage('ice-latte-aromatise-ai') },
       { id: 'ice-mokka', name: 'Ice Mokka', category: 'Boissons Froides', price: '25 DH', description: 'Boisson glacée moka riche et chocolatée.', ...foodImage('ice-mokka-ai') },
       { id: 'milk-shake', name: 'Milk Shake', category: 'Boissons Froides', price: '30 DH', description: 'Milk shake gourmand et crémeux au choix.', ...foodImage('milkshake-ai') },
       { id: 'frappuccino', name: 'Frappuccino', category: 'Boissons Froides', price: '35 DH', description: 'Frappuccino glacé onctueux et rafraîchissant.', ...foodImage('frappuccino-ai') },
       { id: 'ice-tea', name: 'Ice Tea', category: 'Boissons Froides', price: '30 DH', description: 'Ice tea frais aux saveurs fruitées et rafraîchissantes.', ...foodImage('ice-tea-ai') },
-      { id: 'smoothy', name: 'Smoothy', category: 'Boissons Froides', price: '30 DH', description: 'Smoothy naturel vitaminé aux fruits frais.', ...foodImage('smoothy-ai') },
+      { id: 'smoothy', name: 'Smoothie', category: 'Boissons Froides', price: '30 DH', description: 'Smoothie naturel vitaminé aux fruits frais.', ...foodImage('smoothy-ai') },
     ],
   },
   {
@@ -305,9 +369,9 @@ const rawMenuSections: MenuSection[] = [
     eyebrow: 'Signature Drinks',
     description: 'Cocktails sans alcool et créations fruitées servies dans une ambiance premium.',
     items: [
-      { id: 'red-paradise', name: 'Red Paradise', category: 'Cocktails Signature', price: '35 DH', description: 'Cocktail rouge fruité, élégant et rafraîchissant.', ...foodImage('paradise') },
+      { id: 'red-paradise', name: 'Red Paradise', category: 'Cocktails Signature', price: '38 DH', description: 'Cocktail rouge fruité, élégant et rafraîchissant.', ...foodImage('paradise') },
       { id: 'bora-bora', name: 'Bora Bora', category: 'Cocktails Signature', price: '35 DH', description: 'Cocktail tropical généreux et premium.', ...foodImage('borabora') },
-      { id: 'pina-colada', name: 'Pina Colada', category: 'Cocktails Signature', price: '40 DH', description: "Cocktail tropical crémeux à base d'ananas et noix de coco.", ...foodImage('pina-colada-ai') },
+      { id: 'pina-colada', name: 'PINACOLADA', category: 'Cocktails Signature', price: '45 DH', description: "Cocktail tropical crémeux à base d'ananas et noix de coco.", ...foodImage('pina-colada-ai') },
       { id: 'coco-dream', name: 'Coco Dream', category: 'Cocktails Signature', price: '40 DH', description: 'Cocktail exotique crémeux à la noix de coco.', ...foodImage('coco-dream-ai') },
       { id: 'mojito-virgin', name: 'Mojito Virgin', category: 'Cocktails Signature', price: '35 DH', description: 'Mocktail frais et tropical aux saveurs au choix.', ...foodImage('mojito-vergine') },
       { id: 'mojito-royale', name: 'Mojito royale', category: 'Cocktails Signature', price: '45 DH', description: 'Mojito premium au Red Bull, frais et energisant.', ...foodImage('mojito-royale-ai') },

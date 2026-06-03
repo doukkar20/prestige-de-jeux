@@ -162,6 +162,14 @@ const rawMenuSections: MenuSection[] = [
         description: 'Tacos mixte au poulet et viande hachée, frites et sauce fromagère.',
         ...foodImage('tacos-mixt-ai', 'generated', 'png'),
       },
+      {
+        id: 'shawarma',
+        name: 'SHAWARMA',
+        category: 'Tacos',
+        price: '35 DH',
+        description: 'Shawarma grillé au poulet, sauce maison, pickles et herbes fraîches.',
+        ...foodImage('shawarma-ai', 'generated', 'png'),
+      },
     ],
   },
   {

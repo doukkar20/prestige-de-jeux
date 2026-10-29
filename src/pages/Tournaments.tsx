@@ -4,6 +4,7 @@ import { Award, CalendarDays, Clock3, Crown, Medal, Trophy, Users } from 'lucide
 import { useLanguage } from '../context/LanguageContext';
 import { participants, rewards, tournaments } from '../data/tournaments';
 import { imageAlt, tournamentImage } from '../data/galleryImages';
+import { Link } from 'react-router-dom';
 
 function useCountdown(targetDate: string) {
   const [now, setNow] = useState(() => Date.now());
@@ -27,8 +28,13 @@ function useCountdown(targetDate: string) {
 export default function Tournaments() {
   const { t, isRTL, lang } = useLanguage();
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const nextTournament = tournaments[0];
-  const countdown = useCountdown(nextTournament.date);
+  const nextTournament = tournaments.find(tournament => new Date(tournament.date).getTime() > Date.now());
+  const countdown = useCountdown(nextTournament?.date || '2000-01-01T00:00:00Z');
+
+  if (!nextTournament) return <div className="editorial-page" lang="fr" dir="ltr">
+    <header className="editorial-heading"><p className="editorial-eyebrow">Billard & snooker · Rencontres</p><h1>Les tournois chez Prestige de Jeux</h1><p className="editorial-deck">Aucune prochaine date n’est actuellement publiée. Les inscriptions des rencontres passées sont closes. Contactez l’équipe pour connaître les projets de rencontre à Meknès.</p></header>
+    <div className="editorial-prose"><section><h2>Préparer une participation</h2><p>Avant de vous inscrire, vérifiez la discipline, la date, l’heure d’accueil et le format des matchs. Le règlement, le nombre de places, les frais éventuels et les récompenses doivent être précisés dans une annonce actualisée. Une ancienne affiche ou un classement passé ne confirme pas l’ouverture d’une nouvelle inscription.</p><p>Pour une première compétition, indiquez votre niveau et demandez quel matériel peut être utilisé. Attendez une confirmation de votre place avant d’organiser votre déplacement. Si vous souhaitez simplement jouer entre amis, vous pouvez également demander une table sans participer à un tournoi.</p></section><section><h2>Découvrir la compétition et progresser</h2><p>Notre blog propose un guide pour comprendre l’organisation d’un tournoi local, ainsi que des conseils pour travailler le dosage et le placement. Ces lectures permettent de préparer vos questions ; les conditions d’une rencontre restent celles annoncées par son organisateur.</p><p><Link to="/blog/tournois-billard-maroc" className="text-gold underline">Lire le guide des tournois de billard au Maroc</Link></p><p><Link to="/contact" className="text-gold underline">Contacter l’équipe</Link> · <Link to="/reservation" className="text-gold underline">Demander une table</Link></p></section></div>
+  </div>;
 
   const gameLabel = (gameType: string) => t(gameType === 'Snooker' ? 'tournaments.game.snooker' : 'tournaments.game.billard');
   const prizeLabel = (id: string) => t(id === 'snooker-elite' ? 'tournaments.prize.snookerElite' : 'tournaments.prize.prestige8');
@@ -180,7 +186,6 @@ export default function Tournaments() {
                 <tr>
                   <th className="p-5">{t('tournaments.participants.rank')}</th>
                   <th className="p-5">{t('tournaments.participants.name')}</th>
-                  <th className="p-5">{t('tournaments.participants.phone')}</th>
                   <th className="p-5">{t('tournaments.participants.status')}</th>
                   <th className="p-5">{t('tournaments.participants.score')}</th>
                   <th className="p-5">{t('tournaments.participants.wins')}</th>
@@ -198,7 +203,6 @@ export default function Tournaments() {
                   >
                     <td className="p-5 text-gold font-bold">#{index + 1}</td>
                     <td className="p-5 font-bold">{participant.fullName}</td>
-                    <td className="p-5 text-white/55">{participant.phone}</td>
                     <td className="p-5">
                       <span className={`text-[10px] px-3 py-1 rounded-full font-bold ${participant.status === 'confirmed' ? 'bg-green-500/10 text-green-400' : 'bg-yellow-500/10 text-yellow-400'}`}>
                         {t(`tournaments.participants.${participant.status}`)}

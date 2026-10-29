@@ -23,9 +23,10 @@ export default function Header() {
 
   const navLinks = [
     { name: 'nav.home', path: '/' },
-    { name: 'nav.about', path: '/#about' },
+    { name: 'nav.about', path: '/about' },
     { name: 'nav.experiences', path: '/#services' },
     { name: 'nav.gastronomy', path: '/menu' },
+    { name: 'nav.blog', path: '/blog' },
     { name: 'nav.gallery', path: '/gallery' },
     { name: 'nav.tournaments', path: '/tournaments' },
     { name: 'nav.reservation', path: '/reservation' },
@@ -104,7 +105,7 @@ export default function Header() {
             </div>
 
             <nav className="flex min-w-0 items-center justify-end gap-4 xl:gap-6">
-              {navLinks.slice(0, 6).map((link) => (
+              {navLinks.slice(0, 7).map((link) => (
                 <Link
                   key={link.path}
                   to={link.path}
@@ -142,7 +143,8 @@ export default function Header() {
             <button
               className="w-10 h-10 flex flex-col justify-center items-center gap-2 group"
               onClick={() => setIsMenuOpen(true)}
-              aria-label="Open menu"
+              aria-label={isRTL ? 'فتح القائمة' : 'Ouvrir le menu'}
+              aria-expanded={isMenuOpen}
             >
               <div className="w-8 h-[1px] bg-gold group-hover:w-6 transition-all" />
               <div className="w-6 h-[1px] bg-gold group-hover:w-8 transition-all" />
@@ -178,7 +180,7 @@ export default function Header() {
                   />
                 )}
               </Link>
-              <button onClick={() => setIsMenuOpen(false)} className="w-12 h-12 flex items-center justify-center border border-gold/20 rounded-full text-gold">
+              <button aria-label={isRTL ? 'إغلاق القائمة' : 'Fermer le menu'} onClick={() => setIsMenuOpen(false)} className="w-12 h-12 flex items-center justify-center border border-gold/20 rounded-full text-gold">
                 <X className="w-6 h-6" />
               </button>
             </div>

@@ -1,19 +1,15 @@
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
-import { Instagram, Facebook, Share2, MapPin, Phone, Mail, Crown } from 'lucide-react';
-import { motion } from 'motion/react';
+import { MapPin, Phone, Mail, Crown } from 'lucide-react';
 import { useState } from 'react';
+import LocationMap from './LocationMap';
 import { brandLogo } from '../data/brandAssets';
 
 export default function Footer() {
   const { t, isRTL } = useLanguage();
   const [logoFailed, setLogoFailed] = useState(false);
 
-  const socialLinks = [
-    { icon: Instagram, href: '#', label: 'Instagram' },
-    { icon: Facebook, href: '#', label: 'Facebook' },
-    { icon: Share2, href: '#', label: 'TikTok' },
-  ];
+
 
   return (
     <footer className="bg-black pt-32 pb-12 overflow-hidden relative border-t border-gold/10">
@@ -44,18 +40,7 @@ export default function Footer() {
                 ? 'التميز في الترفيه الراقي بمكناس. تجربة غامرة يلتقي فيها شغف اللعب بالفخامة.'
                 : "L'excellence du divertissement haut de gamme à Meknès. Une expérience immersive où la passion du jeu rencontre le luxe absolu."}
             </p>
-            <div className="flex space-x-6 rtl:space-x-reverse">
-              {socialLinks.map((social, i) => (
-                <motion.a
-                  key={i}
-                  href={social.href}
-                  whileHover={{ y: -5 }}
-                  className="w-12 h-12 flex items-center justify-center border border-gold/20 hover:border-gold transition-colors group"
-                >
-                  <social.icon className="w-5 h-5 text-gold/60 group-hover:text-gold transition-colors" />
-                </motion.a>
-              ))}
-            </div>
+
           </div>
 
           <div className="space-y-10">
@@ -63,10 +48,10 @@ export default function Footer() {
               {isRTL ? 'التنقل' : 'Navigation'}
             </h4>
             <ul className="space-y-4">
-              {['home', 'about', 'services', 'gallery', 'reservation'].map((link) => (
+              {['home', 'about', 'blog', 'services', 'gallery', 'reservation', 'contact'].map((link) => (
                 <li key={link}>
                   <Link
-                    to={link === 'home' ? '/' : ['about', 'services'].includes(link) ? `/#${link}` : `/${link}`}
+                    to={link === 'home' ? '/' : link === 'services' ? `/#${link}` : `/${link}`}
                     className="text-sm text-white/40 hover:text-gold transition-colors flex items-center group"
                   >
                     <div className="w-0 group-hover:w-4 h-[1px] bg-gold mr-0 group-hover:mr-3 transition-all duration-300" />
@@ -92,11 +77,11 @@ export default function Footer() {
               </li>
               <li className="flex items-center space-x-4 rtl:space-x-reverse group">
                 <Phone className="w-5 h-5 text-gold/60 group-hover:text-gold" />
-                <span className="text-sm text-white/40 group-hover:text-white transition-colors">0663650333</span>
+                <span className="text-sm text-white/40 group-hover:text-white transition-colors"><a href="tel:+212663650333">0663650333</a></span>
               </li>
               <li className="flex items-center space-x-4 rtl:space-x-reverse group">
                 <Mail className="w-5 h-5 text-gold/60 group-hover:text-gold" />
-                <span className="text-sm text-white/40 group-hover:text-white transition-colors">contact@prestigedejeux.ma</span>
+                <span className="text-sm text-white/40 group-hover:text-white transition-colors"><a className="break-all" href="mailto:contact@prestigedejeux.ma">contact@prestigedejeux.ma</a></span>
               </li>
             </ul>
           </div>
@@ -105,31 +90,19 @@ export default function Footer() {
             <h4 className="text-xs tracking-[0.3em] font-bold text-white uppercase border-b border-gold/20 pb-4">
               {isRTL ? 'الموقع' : 'Localisation'}
             </h4>
-            <div className="relative group overflow-hidden border border-gold/20">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3313.16554698539!2d-5.573677223590826!3d33.85962422787549!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xda05bda0426f649%3A0x5b61857c6384cd3f!2sPrestige%20de%20jeux!5e0!3m2!1sfr!2sma!4v1778345525664!5m2!1sfr!2sma"
-                width="100%"
-                height="350"
-                style={{ border: 0, filter: 'grayscale(1) contrast(1.2) brightness(0.8)' }}
-                className="group-hover:filter-none transition-all duration-700"
-                allowFullScreen={true}
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              />
-              <div className="absolute inset-0 pointer-events-none border-[1px] border-gold/10 group-hover:border-gold/30 transition-colors" />
-            </div>
+            <LocationMap />
           </div>
         </div>
 
         <div className="border-t border-white/5 pt-12 flex flex-col md:flex-row justify-between items-center gap-8">
           <div className="flex items-center gap-2 text-[10px] text-white/20 tracking-widest uppercase">
             <Crown className="w-4 h-4 text-gold/20" />
-            <span>{isRTL ? '© 2024 Prestige de Jeux. جميع الحقوق محفوظة.' : '© 2024 Prestige de Jeux. Tous droits réservés.'}</span>
+            <span>{isRTL ? '© 2026 Prestige de Jeux. جميع الحقوق محفوظة.' : '© 2026 Prestige de Jeux. Tous droits réservés.'}</span>
           </div>
 
-          <div className="flex gap-8 text-[10px] text-white/20 tracking-widest uppercase">
-            <Link to="/terms" className="hover:text-gold transition-colors">{isRTL ? 'الشروط' : 'Conditions'}</Link>
-            <Link to="/privacy" className="hover:text-gold transition-colors">{isRTL ? 'الخصوصية' : 'Confidentialité'}</Link>
+          <div className="flex flex-wrap justify-center gap-5 text-xs text-white/70">
+            <Link to="/terms" className="hover:text-gold transition-colors">{isRTL ? 'الشروط' : 'Conditions d’utilisation'}</Link>
+            <Link to="/privacy-policy" className="hover:text-gold transition-colors">{isRTL ? 'الخصوصية' : 'Politique de confidentialité'}</Link>
             <Link to="/admin" className="hover:text-gold transition-colors">Admin</Link>
           </div>
 

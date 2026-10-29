@@ -7,6 +7,8 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { heroImage, imageAlt } from '../data/galleryImages';
+import { business } from '../data/information';
+import { Link } from 'react-router-dom';
 
 const reservationSchema = z.object({
   name: z.string().min(2, 'Le nom est trop court'),
@@ -22,27 +24,17 @@ type ReservationData = z.infer<typeof reservationSchema>;
 export default function Reservation() {
   const { t, lang, isRTL } = useLanguage();
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [preparedUrl, setPreparedUrl] = useState('');
 
   const { register, handleSubmit, formState: { errors } } = useForm<ReservationData>({
     resolver: zodResolver(reservationSchema),
     defaultValues: { guests: 2 },
   });
 
-  const onSubmit = async (data: ReservationData) => {
-    setIsLoading(true);
-    try {
-      const res = await fetch('/api/reservations', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      });
-      if (res.ok) setIsSubmitted(true);
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setIsLoading(false);
-    }
+  const onSubmit = (data: ReservationData) => {
+    const text = `Demande de réservation Prestige de Jeux\nNom : ${data.name}\nTéléphone : ${data.phone}\nDate : ${data.date}\nHeure : ${data.time}\nPersonnes : ${data.guests}\n${data.message || ''}`;
+    setPreparedUrl(`https://wa.me/${business.whatsapp}?text=${encodeURIComponent(text)}`);
+    setIsSubmitted(true);
   };
 
   return (
@@ -80,12 +72,12 @@ export default function Reservation() {
                 {
                   icon: CheckCircle,
                   title: isRTL ? 'تأكيد سريع' : 'Confirmation Rapide',
-                  body: isRTL ? 'توصلوا برد في أقل من 15 دقيقة.' : 'Recevez une réponse en moins de 15 minutes.',
+                  body: isRTL ? 'يؤكد الفريق التوفر وشروط الحجز.' : 'L’équipe confirme les disponibilités et les conditions.',
                 },
                 {
                   icon: MessageSquare,
                   title: isRTL ? 'مساعدة واتساب' : 'Assistance WhatsApp',
-                  body: isRTL ? 'خدمة العملاء متوفرة على واتساب.' : 'Service client disponible 24/7 sur WhatsApp.',
+                  body: isRTL ? 'راسلوا الفريق لتحضير زيارتكم.' : 'Contactez l’équipe pour préparer votre visite.',
                 },
               ].map((item) => (
                 <div key={item.title} className="flex items-center space-x-4 rtl:space-x-reverse">
@@ -105,11 +97,12 @@ export default function Reservation() {
             {isSubmitted ? (
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center py-20">
                 <CheckCircle className="w-20 h-20 text-gold mx-auto mb-6" />
-                <h2 className="text-3xl font-display font-bold mb-4">{isRTL ? 'تم استلام الحجز!' : 'Réservation Reçue !'}</h2>
+                <h2 className="text-3xl font-display font-bold mb-4">{isRTL ? 'طلبكم جاهز' : 'Votre demande est prête'}</h2>
                 <p className="text-white/60 mb-10">
-                  {isRTL ? 'شكرا لثقتكم. سيتواصل معكم فريقنا في أقرب وقت لتأكيد الطاولة.' : 'Merci pour votre confiance. Notre équipe vous contactera dans les plus brefs délais pour confirmer votre table.'}
+                  {isRTL ? 'افتحوا واتساب وأرسلوا الرسالة. الحجز ساري بعد تأكيد الفريق.' : 'Ouvrez WhatsApp et envoyez le message. La réservation sera effective après confirmation de notre équipe.'}
                 </p>
-                <button onClick={() => setIsSubmitted(false)} className="btn-outline-gold">{isRTL ? 'حجز جديد' : 'Nouvelle Réservation'}</button>
+                <a href={preparedUrl} target="_blank" rel="noreferrer" className="btn-gold inline-block mb-6">{isRTL ? 'فتح واتساب' : 'Ouvrir WhatsApp pour envoyer'}</a>
+                <button onClick={() => setIsSubmitted(false)} className="btn-outline-gold block mx-auto">{isRTL ? 'طلب جديد' : 'Modifier ma demande'}</button>
               </motion.div>
             ) : (
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -143,8 +136,9 @@ export default function Reservation() {
                   />
                 </div>
 
-                <button type="submit" disabled={isLoading} className="w-full btn-gold !py-4 flex items-center justify-center space-x-2">
-                  {isLoading ? (isRTL ? 'جار الإرسال...' : 'Envoi en cours...') : t('hero.cta')}
+                <p className="text-sm text-white/75">{isRTL ? 'جهزوا طلبكم ثم أرسلوه عبر واتساب.' : 'Préparez votre demande puis envoyez-la dans WhatsApp. Aucun envoi automatique.'} <Link to="/privacy-policy" className="text-gold underline">{isRTL ? 'الخصوصية' : 'Confidentialité'}</Link></p>
+                <button type="submit" className="w-full btn-gold !py-4 flex items-center justify-center space-x-2">
+                  {isRTL ? 'تحضير الطلب' : 'Préparer ma demande'}
                 </button>
               </form>
             )}

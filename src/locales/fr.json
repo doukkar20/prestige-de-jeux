@@ -1,6 +1,6 @@
 {
   "nav.home": "Accueil",
-  "nav.about": "L'Histoire",
+  "nav.about": "À propos",
   "nav.experiences": "Expériences",
   "nav.services": "Expériences",
   "nav.gastronomy": "Gastronomie",
@@ -104,5 +104,6 @@
   "tournaments.admin.export": "Exporter la liste",
   "tournaments.admin.winnerMarked": "Gagnant marqué",
   "tournaments.admin.participantAdded": "Participant ajouté",
-  "tournaments.admin.created": "Tournoi créé"
+  "tournaments.admin.created": "Tournoi créé",
+  "nav.blog": "Blog"
 }

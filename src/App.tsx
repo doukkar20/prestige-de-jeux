@@ -12,7 +12,11 @@ import ScrollToAnchor from './components/ScrollToAnchor';
 import SEO from './components/SEO';
 
 const Home = lazy(() => import('./pages/Home'));
-const About = lazy(() => import('./pages/About'));
+const About = lazy(() => import('./pages/Information'));
+const Blog = lazy(() => import('./pages/Blog'));
+const BlogArticle = lazy(() => import('./pages/BlogArticle'));
+const Information = lazy(() => import('./pages/Information'));
+const NotFound = lazy(() => import('./pages/NotFound'));
 const Services = lazy(() => import('./pages/Services'));
 const Menu = lazy(() => import('./pages/Menu'));
 const Gallery = lazy(() => import('./pages/Gallery'));
@@ -52,6 +56,12 @@ export default function App() {
               <Route path="/" element={<Layout />}>
                 <Route index element={<Home />} />
                 <Route path="about" element={<About />} />
+                <Route path="blog" element={<Blog />} />
+                <Route path="blog/:slug" element={<BlogArticle />} />
+                <Route path="privacy-policy" element={<Information />} />
+                <Route path="privacy" element={<Navigate to="/privacy-policy" replace />} />
+                <Route path="terms" element={<Information />} />
+                <Route path="*" element={<NotFound />} />
                 <Route path="services" element={<Services />} />
                 <Route path="menu" element={<Menu />} />
                 <Route path="gallery" element={<Gallery />} />

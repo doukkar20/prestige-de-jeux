@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import { brandLogo } from '../data/brandAssets';
+import { getEditorialSeo, getArticleSchema, siteUrl } from '../data/editorialSeo';
 
 type SeoConfig = {
   title: string;
@@ -128,11 +129,13 @@ export default function SEO() {
   const { lang } = useLanguage();
 
   useEffect(() => {
-    const path = location.pathname;
-    const origin = window.location.origin;
+    const path = location.pathname.replace(/\/$/, '') || '/';
+    const origin = siteUrl;
     const rootUrl = new URL(sitePath('/'), origin).toString().replace(/\/$/, '');
     const canonical = new URL(sitePath(path), origin).toString();
-    const seo = lang === 'ar' && path === '/' ? arabicHome : routeSeo[path] || routeSeo['/'];
+    const editorialSeo = getEditorialSeo(path);
+    const known = !!(editorialSeo || routeSeo[path]);
+    const seo = editorialSeo || (lang === 'ar' && path === '/' ? arabicHome : routeSeo[path]) || { title: 'Page introuvable | Prestige de Jeux', description: 'Retrouvez le blog et les coordonnées de Prestige de Jeux à Meknès.' };
     const image = new URL(brandLogo.src, origin).toString();
 
     document.title = seo.title;
@@ -145,6 +148,11 @@ export default function SEO() {
     setMeta('meta[name="twitter:description"]', 'content', seo.description);
     setMeta('meta[name="twitter:image"]', 'content', image);
     setMeta('link[rel="canonical"]', 'href', canonical);
+    setMeta('meta[name="robots"]', 'content', known ? 'index, follow, max-image-preview:large' : 'noindex, follow');
+    const articleSchema = getArticleSchema(path);
+    setMeta('meta[property="og:type"]', 'content', articleSchema ? 'article' : 'website');
+    if (articleSchema) setJsonLd('prestige-article-schema', articleSchema);
+    else document.getElementById('prestige-article-schema')?.remove();
 
     setJsonLd('prestige-local-business-schema', {
       '@context': 'https://schema.org',

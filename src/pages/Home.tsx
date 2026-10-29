@@ -337,7 +337,7 @@ export default function Home() {
                whileInView={{ opacity: 1 }}
                className="text-white/60"
              >
-                <div className="elfsight-app-20f14f7e-fa9b-4206-9c42-65f46fb7a97d" data-elfsight-app-lazy />
+                <a href="https://www.google.com/maps/search/?api=1&query=Prestige+de+jeux+Meknes" target="_blank" rel="noreferrer" className="text-gold underline">Consulter les avis sur Google Maps ↗</a>
              </motion.div>
            </div>
         </div>

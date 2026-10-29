@@ -3,6 +3,8 @@ import react from '@vitejs/plugin-react';
 import fs from 'fs';
 import path from 'path';
 import {defineConfig, loadEnv} from 'vite';
+import { editorialRoutes } from './src/data/editorialSeo';
+import { writeEditorialPages } from './scripts/static-editorial';
 
 function normalizeBasePath(basePath: string) {
   if (basePath === './' || basePath === '.') return './';
@@ -32,7 +34,7 @@ function spaFallbackPlugin() {
 }
 
 function staticSeoFilesPlugin(siteUrl: string) {
-  const routes = ['/', '/about', '/services', '/menu', '/gallery', '/tournaments', '/reservation', '/contact', '/faq', '/pricing'];
+  const routes = [...new Set(['/', '/about', '/services', '/menu', '/gallery', '/tournaments', '/reservation', '/contact', '/faq', '/pricing', ...editorialRoutes])];
   const rootUrl = siteUrl.replace(/\/?$/, '/');
 
   return {
@@ -53,16 +55,17 @@ function staticSeoFilesPlugin(siteUrl: string) {
 
       fs.writeFileSync(
         path.join(distPath, 'robots.txt'),
-        `User-agent: *\nAllow: /\nSitemap: ${new URL('sitemap.xml', rootUrl).toString()}\n`,
+        `User-agent: *\nAllow: /\nDisallow: /admin\nSitemap: ${new URL('sitemap.xml', rootUrl).toString()}\n`,
       );
+      writeEditorialPages(distPath, rootUrl);
     },
   };
 }
 
 export default defineConfig(({mode}) => {
   const env = loadEnv(mode, '.', '');
-  const base = normalizeBasePath(env.VITE_BASE_PATH || './');
-  const siteUrl = env.VITE_SITE_URL || `https://doukkar20.github.io${githubPagesBasePath()}`;
+  const base = normalizeBasePath(env.VITE_BASE_PATH || '/');
+  const siteUrl = env.VITE_SITE_URL || 'https://prestigedejeux.com/';
 
   return {
     base,

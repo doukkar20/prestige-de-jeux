@@ -14,7 +14,7 @@ export default function Layout() {
 
   return (
     <div className="min-h-screen flex flex-col selection:bg-gold selection:text-black">
-      <LoadingScreen />
+      {location.pathname === '/' && <LoadingScreen />}
       <PoolCueCursor />
       
       <Header />
@@ -35,7 +35,8 @@ export default function Layout() {
 
       {/* Floating WhatsApp Button */}
       <a
-        href="https://wa.me/212500000000"
+        href="https://wa.me/212663650333"
+        aria-label="Contacter Prestige de Jeux sur WhatsApp"
         target="_blank"
         rel="noreferrer"
         className="fixed bottom-6 right-6 z-40 bg-green-500 text-white p-4 rounded-full shadow-2xl transition-transform hover:scale-110 active:scale-95 group"

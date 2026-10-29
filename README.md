@@ -2,6 +2,8 @@
 
 Prestige de jeux is a React + Vite website. It builds to the `dist/` folder and is configured for automatic deployment to GitHub Pages with GitHub Actions.
 
+The French blog and information pages are generated as full HTML during the Vite build. See [AdSense preparation and publishing notes](ADSENSE-READINESS.md) for the content delivered, verification commands, contact behavior, and remaining owner-account setup before enabling ads. Run `npm run check:content` after building to verify the generated pages.
+
 ## Deployment Setup
 
 ### 1. Create a GitHub Repository

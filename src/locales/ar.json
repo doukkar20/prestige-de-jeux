@@ -104,5 +104,6 @@
   "tournaments.admin.export": "تصدير القائمة",
   "tournaments.admin.winnerMarked": "تم تحديد الفائز",
   "tournaments.admin.participantAdded": "تمت إضافة مشارك",
-  "tournaments.admin.created": "تم إنشاء البطولة"
+  "tournaments.admin.created": "تم إنشاء البطولة",
+  "nav.blog": "المدونة"
 }
